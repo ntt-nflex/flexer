@@ -28,4 +28,4 @@ package: clean-package
 
 .PHONY : upload
 upload: 
-	python setup.py upload
+	python setup.py sdist upload
