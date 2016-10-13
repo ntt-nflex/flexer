@@ -57,14 +57,8 @@ def print_modules(modules):
     ))
     trow = ('{id:36}   {name:30.30}   {description:50.50}   '
             '{event_source:15}   {file_type:5}')
-    if len(modules) > 50:
-        click.echo_via_pager("\n".join([
-            trow.format(**module) for module in modules
-        ]))
-
-    else:
-        for module in modules:
-            click.echo(trow.format(**module))
+    for module in modules:
+        click.echo(trow.format(**module))
 
 
 def print_result(result, pretty):
