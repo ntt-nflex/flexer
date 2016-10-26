@@ -99,6 +99,22 @@ class CmpClient(object):
                             headers=self._headers,
                             cookies=self._cookie_jar)
 
+    def delete(self, path, params=None):
+        """Execute a DELETE request.
+
+        Args:
+            path (str): The CMP API endpoint path
+            params (dict): Dict with the DELETE request parameters
+
+        Returns:
+            requests.Response: The response of the request
+        """
+        return requests.delete(self.url(path),
+                            params=params,
+                            auth=self._auth,
+                            headers=self._headers,
+                            cookies=self._cookie_jar)
+
     def patch(self, path, data):
         """Execute a PATCH request.
 
