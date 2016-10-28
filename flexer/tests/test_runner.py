@@ -1,8 +1,13 @@
 import json
-import unittest
 import pytest
+import six
+import sys
+import unittest
 
 from flexer.runner import Flexer
+
+PY33 = six.PY3 and sys.version_info.minor == 3
+PY35 = six.PY3 and sys.version_info.minor == 5
 
 
 class TestFlexer(unittest.TestCase):
@@ -26,6 +31,8 @@ class TestFlexer(unittest.TestCase):
         self.assertEqual(None, actual['value'])
         self.assertDictEqual(expected, actual['error'])
 
+    @pytest.mark.skipif(six.PY34 or PY33,
+                        reason='error message is different on python3')
     def test_run_with_nonexisting_module(self):
         """If run is called with a non-existing module, an exception
         should be raised
@@ -45,6 +52,7 @@ class TestFlexer(unittest.TestCase):
         self.assertEqual(None, actual['value'])
         self.assertDictEqual(expected, actual['error'])
 
+    @pytest.mark.skipif(PY35, reason='error message is different on python3')
     def test_run_with_nonexisting_handler(self):
         """If run is called with a valid module, but non-existing handler,
         an exception should be raised
@@ -89,6 +97,7 @@ class TestFlexer(unittest.TestCase):
         self.assertEqual(None, actual['value'])
         self.assertDictEqual(expected, actual['error'])
 
+    @pytest.mark.skipif(PY35, reason='error message is different on python3')
     def test_run_with_invalid_handler(self):
         """If run is called with an invalid handler, i.e passing only a module
         or a method, an exception should be raised
@@ -109,6 +118,8 @@ class TestFlexer(unittest.TestCase):
         self.assertEqual(None, actual['value'])
         self.assertDictEqual(expected, actual['error'])
 
+    @pytest.mark.skipif(six.PY34 or PY33,
+                        reason='error message is different on python3')
     def test_run_with_import_error(self):
         """Make sure ImportErrors are handled during module imports.
         If there is an ImportError raised, the exception should store the
@@ -158,6 +169,7 @@ class TestFlexer(unittest.TestCase):
         self.assertEqual(expected['exc_type'], error['exc_type'])
         self.assertIn('this is a syntax error', error['stack_trace'])
 
+    @pytest.mark.skipif(six.PY3, reason='error message is different on python3')
     def test_run_with_module_level_exception(self):
         """Make sure all exceptions are handled during module imports.
         If there is an Exception raised, a stack trace should be available
@@ -214,6 +226,7 @@ class TestFlexer(unittest.TestCase):
         actual = json.loads(result)
         self.assertDictEqual(expected, actual)
 
+    @pytest.mark.skipif(PY35, reason='error message is different on python3')
     def test_run_with_handler_exception(self):
         """Run a method that raises an Exception. Store the error details as
         a result from the execution and make sure that the stdout/stderr are
