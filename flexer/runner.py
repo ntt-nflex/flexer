@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 
-import StringIO
 import datetime
 import imp
 import json
 import logging
 import sys
 import traceback
+
+from six.moves import StringIO
 
 from flexer.context import FlexerContext
 
@@ -94,7 +95,7 @@ class Flexer(object):
 
         value, error, stdout = None, None, ''
         headers = {}
-        f = StringIO.StringIO()
+        f = StringIO()
         try:
             with RedirectStdStreams(stdout=f, stderr=f):
                 try:
