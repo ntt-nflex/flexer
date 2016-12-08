@@ -14,6 +14,9 @@ class FlexerContext(object):
     def __init__(self, cmp_client=None):
         """Construct a new FlexerContext object."""
         self.response_headers = {}
+        self.state = {}
+        self.state_updates = {}
+
         if cmp_client is None:
             self.api_url = Config.CMP_URL
             self.api_auth = (Config.CMP_USERNAME, Config.CMP_PASSWORD)
@@ -87,3 +90,11 @@ class FlexerContext(object):
     def set_response_header(self, key, value):
         """Set a response header"""
         self.response_headers[key] = value
+
+    def get_state(self, key):
+        """Read a key value from module state"""
+        return self.state.get(key, None)
+
+    def update_state(self, key, value):
+        """Update a key value in the module state"""
+        self.state[key] = self.state_updates[key] = value

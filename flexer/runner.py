@@ -50,7 +50,7 @@ class FlexerException(Exception):
         }
 
 
-def FlexerResult(value=None, logs='', error=None, headers=None):
+def FlexerResult(value=None, logs='', error=None, headers=None, state=None):
     result = {
         "value": value,
         "logs": logs,
@@ -58,6 +58,8 @@ def FlexerResult(value=None, logs='', error=None, headers=None):
     }
     if headers:
         result['headers'] = headers
+    if state:
+        result['state'] = state
 
     try:
         return json.dumps(result, default=dthandler)
@@ -94,12 +96,14 @@ class Flexer(object):
 
         value, error, stdout = None, None, ''
         headers = {}
+        state = None
         f = StringIO.StringIO()
         try:
             with RedirectStdStreams(stdout=f, stderr=f):
                 try:
                     value = func(event, context)
                     headers = context.response_headers
+                    state = context.state_updates
 
                     # if a cmp object type is returned,
                     # encode result and add header
@@ -123,7 +127,8 @@ class Flexer(object):
         return FlexerResult(value=value,
                             logs=stdout,
                             error=error,
-                            headers=headers)
+                            headers=headers,
+                            state=state)
 
     def _format_exception_info(self, exc_info):
         exc_type, value, tb = exc_info
