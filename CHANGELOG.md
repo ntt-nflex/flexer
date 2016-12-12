@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.0.5](https://github.com/ntt-nflex/flexer/tree/v1.0.5) (Dec 12, 2016)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.4...v1.0.5)
+
+### Improvements:
+- Add state for nFlex modules
+
 ## [v1.0.4](https://github.com/ntt-nflex/flexer/tree/v1.0.4) (Oct 26, 2016)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.3...v1.0.4)
 
