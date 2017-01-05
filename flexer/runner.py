@@ -6,8 +6,9 @@ import imp
 import json
 import logging
 import sys
+import os
 import traceback
-
+from jsonschema import Draft4Validator
 from flexer.context import FlexerContext
 
 logger = logging.getLogger('flexer.runner')
@@ -77,7 +78,7 @@ class Flexer(object):
     def __init__(self):
         self.modules = {}
 
-    def run(self, event, context=None, handler=None):
+    def run(self, event, context=None, handler=None, event_source=None):
         if context is None:
             context = FlexerContext()
 
@@ -123,12 +124,41 @@ class Flexer(object):
 
         if error:
             stdout += error['stack_trace']
+        else:
+                schema = self._get_validation_schema(event_source, handler)
+                if schema:
+                    validator = Draft4Validator(schema)
+                    errors = []
+                    for e in sorted(validator.iter_errors(value), key=str):
+                        errors.append(e.message + ' in ' + str(list(e.path)))
+
+                    if errors:
+                        error = {
+                            'exc_message': json.dumps(errors),
+                            'exc_type': 'ValidationError'
+                        }
+                        stdout += json.dumps(errors)
 
         return FlexerResult(value=value,
                             logs=stdout,
                             error=error,
                             headers=headers,
                             state=state)
+
+    def _get_validation_schema(self, event_source, handler):
+        schema = None
+        if handler == 'main.get_resources':
+            path = os.path.join(
+                os.path.dirname(__file__),
+                'validation/get_resources.json')
+
+            try:
+                with open(path) as schema_file:
+                    schema = json.load(schema_file)
+            except Exception as e:
+                logger.info('Failed loading validation schema "%s"', str(e))
+
+        return schema
 
     def _format_exception_info(self, exc_info):
         exc_type, value, tb = exc_info
