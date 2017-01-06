@@ -12,15 +12,13 @@
                         "type":[
                             "string",
                             "null"
-                        ],
-                        "x-nullable":true
+                        ]
                     },
                     "name":{
                         "type":[
                             "string",
                             "null"
-                        ],
-                        "x-nullable":true
+                        ]
                     },
                     "native_portal_link":{
                         "type":"string"
@@ -31,8 +29,7 @@
                         "type":[
                             "string",
                             "null"
-                        ],
-                        "x-nullable":true
+                        ]
                     },
                     "regions":{
                         "items":{
@@ -44,9 +41,7 @@
                             "required":[
                                 "id"
                             ],
-                            "type":"object",
-                            "x-not-to-trim":[],
-                            "x-set-to-none":[]
+                            "type":"object"
                         },
                         "type":"array"
                     },
@@ -54,13 +49,10 @@
                         "type":[
                             "string",
                             "null"
-                        ],
-                        "x-nullable":true
+                        ]
                     }
                 },
-                "type":"object",
-                "x-not-to-trim":[],
-                "x-set-to-none":[]
+                "type":"object"
             },
             "details":{
                 "properties":{
@@ -73,9 +65,7 @@
                         "required":[
                             "type_id"
                         ],
-                        "type":"object",
-                        "x-not-to-trim":[],
-                        "x-set-to-none":[]
+                        "type":"object"
                     },
                     "compute_pool":{
                         "properties":{
@@ -86,27 +76,22 @@
                                 "type":[
                                     "integer",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             },
                             "memory_mb":{
                                 "type":[
                                     "integer",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             },
                             "storage_mb":{
                                 "type":[
                                     "integer",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             }
                         },
-                        "type":"object",
-                        "x-not-to-trim":[],
-                        "x-set-to-none":[]
+                        "type":"object"
                     },
                     "server":{
                         "properties":{
@@ -114,15 +99,13 @@
                                 "type":[
                                     "integer",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             },
                             "cpu_mhz":{
                                 "type":[
                                     "integer",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             },
                             "image_detail":{
                                 "properties":{
@@ -130,59 +113,49 @@
                                         "type":[
                                             "string",
                                             "null"
-                                        ],
-                                        "x-nullable":true
+                                        ]
                                     },
                                     "distribution":{
                                         "type":[
                                             "string",
                                             "null"
-                                        ],
-                                        "x-nullable":true
+                                        ]
                                     },
                                     "id":{
                                         "type":[
                                             "string",
                                             "null"
-                                        ],
-                                        "x-nullable":true
+                                        ]
                                     },
                                     "name":{
                                         "type":[
                                             "string",
                                             "null"
-                                        ],
-                                        "x-nullable":true
+                                        ]
                                     },
                                     "type":{
                                         "type":[
                                             "string",
                                             "null"
-                                        ],
-                                        "x-nullable":true
+                                        ]
                                     },
                                     "version":{
                                         "type":[
                                             "string",
                                             "null"
-                                        ],
-                                        "x-nullable":true
+                                        ]
                                     }
                                 },
                                 "type":[
                                     "object",
                                     "null"
-                                ],
-                                "x-not-to-trim":[],
-                                "x-nullable":true,
-                                "x-set-to-none":[]
+                                ]
                             },
                             "instance_type":{
                                 "type":[
                                     "string",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             },
                             "ip_addresses":{
                                 "items":{
@@ -210,18 +183,13 @@
                                             "type":[
                                                 "object",
                                                 "null"
-                                            ],
-                                            "x-not-to-trim":[],
-                                            "x-nullable":true,
-                                            "x-set-to-none":[]
+                                            ]
                                         }
                                     },
                                     "required":[
                                         "ip_address"
                                     ],
-                                    "type":"object",
-                                    "x-not-to-trim":[],
-                                    "x-set-to-none":[]
+                                    "type":"object"
                                 },
                                 "type":"array"
                             },
@@ -232,34 +200,28 @@
                                 "type":[
                                     "string",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             },
                             "ram_mb":{
                                 "type":[
                                     "integer",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             },
                             "state":{
                                 "type":[
                                     "string",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             },
                             "volumes_mb":{
                                 "type":[
                                     "integer",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             }
                         },
-                        "type":"object",
-                        "x-not-to-trim":[],
-                        "x-set-to-none":[]
+                        "type":"object"
                     },
                     "volume":{
                         "properties":{
@@ -267,28 +229,22 @@
                                 "type":[
                                     "integer",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             },
                             "size_mb":{
                                 "type":[
                                     "integer",
                                     "null"
-                                ],
-                                "x-nullable":true
+                                ]
                             },
                             "zone_name":{
                                 "type":"string"
                             }
                         },
-                        "type":"object",
-                        "x-not-to-trim":[],
-                        "x-set-to-none":[]
+                        "type":"object"
                     }
                 },
-                "type":"object",
-                "x-not-to-trim":[],
-                "x-set-to-none":[]
+                "type":"object"
             },
             "hash":{
                 "type":"string"
@@ -297,8 +253,7 @@
                 "type":"string"
             },
             "metadata":{
-                "type":"object",
-                "x-validate":false
+                "type":"object"
             },
             "type":{
                 "enum":[
@@ -318,9 +273,7 @@
             "type",
             "base"
         ],
-        "type":"object",
-        "x-not-to-trim":[],
-        "x-set-to-none":[]
+        "type":"object"
     },
     "type":"array"
 }
