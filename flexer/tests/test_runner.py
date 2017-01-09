@@ -1,6 +1,7 @@
 import json
 import unittest
 import pytest
+import mock
 
 from flexer.runner import Flexer
 
@@ -257,3 +258,30 @@ class TestFlexer(unittest.TestCase):
         self.assertEqual(expected['exc_message'], error['exc_message'])
         self.assertEqual(expected['exc_type'], error['exc_type'])
         self.assertIn('MemoryError', error['stack_trace'])
+
+    def test_run_with_validation_error(self):
+        """Run a method that returns data with validation errors and make sure
+        its being caught and stored in the logs
+        """
+        handler = 'module_with_validation_error.test'
+        expected = {
+            'value': {'foo': 10},
+            'error': {
+                'exc_message': '["10 is not of type \'string\' in [\'foo\']"]',
+                'exc_type': 'ValidationError'
+            },
+            'logs': '["10 is not of type \'string\' in [\'foo\']"]',
+        }
+        schema = {
+            'patternProperties': {
+                '.*': {'type': 'string'},
+            }
+        }
+
+        with mock.patch(
+                'flexer.runner.Flexer._get_validation_schema',
+                return_value=schema):
+            result = self.runner.run(event={}, context=None, handler=handler)
+
+        actual = json.loads(result)
+        self.assertDictEqual(expected, actual)
