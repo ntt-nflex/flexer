@@ -67,6 +67,23 @@
                         ],
                         "type":"object"
                     },
+                    "colo_space":{
+                        "properties":{
+                            "power_allocation_w":{
+                                "type":[
+                                    "integer",
+                                    "null"
+                                ]
+                            },
+                            "type_id":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "type":"object"
+                    },
                     "compute_pool":{
                         "properties":{
                             "billing_tag":{
@@ -259,6 +276,7 @@
                 "enum":[
                     "appliance",
                     "compute_pool",
+                    "colo_space",
                     "network",
                     "resource",
                     "server",
