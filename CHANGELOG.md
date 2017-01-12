@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.0.7](https://github.com/ntt-nflex/flexer/tree/v1.0.7) (Jan 12, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.6...v1.0.7)
+
+### Improvements:
+- Add colo to get_resources validation [\#5](https://github.com/ntt-nflex/flexer/pull/5) ([@freewilll](https://github.com/freewilll))
+
+
 ## [v1.0.6](https://github.com/ntt-nflex/flexer/tree/v1.0.6) (Jan 09, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.5...v1.0.6)
 
