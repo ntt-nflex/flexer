@@ -1,11 +1,21 @@
 # Change Log
 
+## [v1.0.8](https://github.com/ntt-nflex/flexer/tree/v1.0.8) (Jan 12, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.7...v1.0.8)
+
+### Changes:
+- Update the list of supported event sources
+- Update the module list view to display the owner and the language of the modules
+- Rename the cmp_username and cmp_password keys in the config file to cmp_api_key and cmp_api_secret respectively (Breaking change! You will have to modify the keys in the ~/.flexer.json config file or re-run the config command)
+
+### Fixes:
+- Fix the list command to show all modules using the nFlex API pagination
+
 ## [v1.0.7](https://github.com/ntt-nflex/flexer/tree/v1.0.7) (Jan 12, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.6...v1.0.7)
 
 ### Improvements:
 - Add colo to get_resources validation [\#5](https://github.com/ntt-nflex/flexer/pull/5) ([@freewilll](https://github.com/freewilll))
-
 
 ## [v1.0.6](https://github.com/ntt-nflex/flexer/tree/v1.0.6) (Jan 09, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.5...v1.0.6)
