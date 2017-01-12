@@ -8,16 +8,16 @@ from flexer.runner import Flexer
 
 def config():
     url_prompt = 'CMP URL (default is "%s"): ' % DEFAULT_CMP_URL
-    user_prompt = 'CMP Username: '
-    pass_prompt = 'CMP Password: '
+    user_prompt = 'CMP API Key: '
+    pass_prompt = 'CMP API Secret: '
 
     url = raw_input(url_prompt)
-    username = raw_input(user_prompt)
-    passw = getpass.getpass(pass_prompt)
+    key = raw_input(user_prompt)
+    secret = getpass.getpass(pass_prompt)
     config = {
         'cmp_url': url or DEFAULT_CMP_URL,
-        'cmp_username': username,
-        'cmp_password': passw,
+        'cmp_api_key': key,
+        'cmp_api_secret': secret,
     }
     with open(CONFIG_FILE, 'w') as f:
         json.dump(config, f, indent=4)

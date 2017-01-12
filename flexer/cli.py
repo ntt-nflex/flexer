@@ -36,8 +36,8 @@ class Context(object):
     def __init__(self):
         self.credentials = load_config(CONFIG_FILE)
         self.cmp = CmpClient(url=self.credentials['cmp_url'],
-                             auth=(self.credentials['cmp_username'],
-                                   self.credentials['cmp_password']))
+                             auth=(self.credentials['cmp_api_key'],
+                                   self.credentials['cmp_api_secret']))
         self.nflex = NflexClient(self.cmp)
 
 

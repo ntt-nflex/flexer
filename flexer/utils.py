@@ -6,8 +6,8 @@ def load_config(cfg_file):
     try:
         cfg = read_json_file(cfg_file)
         cfg["cmp_url"]
-        cfg["cmp_username"]
-        cfg["cmp_password"]
+        cfg["cmp_api_key"]
+        cfg["cmp_api_secret"]
         return cfg
 
     except KeyError as err:
