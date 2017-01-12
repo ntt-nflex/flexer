@@ -51,7 +51,7 @@ def read_json_file(file_name):
 
 # aux
 def print_modules(modules):
-    trow = ('{id:36}   {name:30.30}   {user_name:30.30}   '
+    trow = (u'{id:36}   {name:30.30}   {user_name:30.30}   '
             '{event_source:35}   {file_type:9}   {language:10}')
     click.echo(trow.format(**{
         'id': 'ID',

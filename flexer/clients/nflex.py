@@ -49,10 +49,21 @@ class NflexClient(object):
                 return self._upload_zipfile(module_id, zf)
 
     def list(self):
-        return self._get('/modules')
+        params = {}
+        response = self._get('/modules', params=params)
+        modules = response.json()
+        read = len(modules)
+        total = int(response.headers.get('x-total-count', 0))
+        while read < total:
+            params['page'] = int(response.headers['x-page']) + 1
+            response = self._get('/modules', params=params)
+            modules += response.json()
+            read = len(modules)
+
+        return modules
 
     def download(self, module_id):
-        module = self._get('/modules/%s' % module_id)
+        module = self._get('/modules/%s' % module_id).json()
         file_type = module['file_type']
         if file_type in ('zip', 'github'):
             self._download_zipfile(module)
@@ -67,7 +78,7 @@ class NflexClient(object):
 
     def _download_zipfile(self, module):
         f = tempfile.NamedTemporaryFile(mode='wb', suffix='.zip')
-        payload = self._get('/modules/%s/zipfile' % module['id'])
+        payload = self._get('/modules/%s/zipfile' % module['id']).json()
         f.write(base64.b64decode(payload['file']))
         f.flush()
         with zipfile.ZipFile(f.name, 'r') as zf:
@@ -92,7 +103,7 @@ class NflexClient(object):
 
         response = self.cmp_client.get(path, params=params)
         response.raise_for_status()
-        return response.json()
+        return response
 
     def _post(self, path, data):
         response = self.cmp_client.post(path, data)
