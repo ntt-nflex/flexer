@@ -51,12 +51,16 @@ def read_json_file(file_name):
 
 # aux
 def print_modules(modules):
-    thead = '{:36}   {:30.30}   {:50.50}   {:15}   {:5}'
-    click.echo(thead.format(
-        'ID', 'NAME', 'DESCRIPTION', 'EVENT_SOURCE', 'FILE_TYPE'
-    ))
-    trow = ('{id:36}   {name:30.30}   {description:50.50}   '
-            '{event_source:15}   {file_type:5}')
+    trow = ('{id:36}   {name:30.30}   {user_name:30.30}   '
+            '{event_source:35}   {file_type:9}   {language:10}')
+    click.echo(trow.format(**{
+        'id': 'ID',
+        'name': 'NAME',
+        'user_name': 'OWNER',
+        'event_source': 'EVENT_SOURCE',
+        'file_type': 'FILE_TYPE',
+        'language': 'LANGUAGE',
+    }))
     for module in modules:
         click.echo(trow.format(**module))
 
