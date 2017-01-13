@@ -147,10 +147,12 @@ class Flexer(object):
 
     def _get_validation_schema(self, event_source, handler):
         schema = None
-        if handler == 'main.get_resources':
+        schema_file = self._get_validation_schema_file(event_source, handler)
+        if schema_file is not None:
             path = os.path.join(
                 os.path.dirname(__file__),
-                'validation/get_resources.json')
+                'validation/',
+                schema_file)
 
             try:
                 with open(path) as schema_file:
@@ -159,6 +161,19 @@ class Flexer(object):
                 logger.info('Failed loading validation schema "%s"', str(e))
 
         return schema
+
+    def _get_validation_schema_file(event, handler):
+        schema_file = None
+        if handler == 'main.get_resources':
+            schema_file = "get_resources.json"
+        elif event_source == 'cmp-connector.metrics':
+            schema_file = "metrics.json"
+        elif handler == 'cmp-connector.logs':
+            schema_file = "logs.json"
+        elif event_source == 'monitor':
+            schema_file = "monitors.json"
+
+        return schema_file
 
     def _format_exception_info(self, exc_info):
         exc_type, value, tb = exc_info

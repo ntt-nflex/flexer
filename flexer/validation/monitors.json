@@ -1,0 +1,32 @@
+{
+    "type": "object",
+    "properties": {
+        "metrics": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "metric": {
+                        "type": "string"
+                    },
+                    "value": {
+                        "type": "number"
+                    },
+                    "unit": {
+                        "type": "string"
+                    },
+                    "time":{
+                        "type": "string",
+                        "format": "datetime",
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{6})?Z?$"
+                    }
+                },
+                "required":[
+                    "metric",
+                    "value",
+                    "time"
+                ]
+            }
+        }
+    }
+}
