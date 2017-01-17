@@ -14,6 +14,7 @@ class FlexerContext(object):
     def __init__(self, cmp_client=None):
         """Construct a new FlexerContext object."""
         self.response_headers = {}
+        self.confg = {}  # not available in local executions
         self.state = {}
         self.state_updates = {}
 
