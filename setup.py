@@ -16,7 +16,7 @@ del os.link
 
 setup(
     name="flexer",
-    version="1.0.8",
+    version="1.0.9",
     description=description,
     long_description=long_description,
     url='http://www.ntt.com',

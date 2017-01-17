@@ -1,5 +1,14 @@
 # Change Log
 
+## [v1.0.9](https://github.com/ntt-nflex/flexer/tree/v1.0.9) (Jan 17, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.8...v1.0.9)
+
+### Changes:
+- Add validation for data returned from metrics connectors and monitors
+
+### Fixes:
+- Add a config field to the flexer context so local executions don't fail
+
 ## [v1.0.8](https://github.com/ntt-nflex/flexer/tree/v1.0.8) (Jan 12, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.7...v1.0.8)
 
