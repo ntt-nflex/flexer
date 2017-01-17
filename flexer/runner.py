@@ -162,7 +162,7 @@ class Flexer(object):
 
         return schema
 
-    def _get_validation_schema_file(event, handler):
+    def _get_validation_schema_file(self, event_source, handler):
         schema_file = None
         if handler == 'main.get_resources':
             schema_file = "get_resources.json"
