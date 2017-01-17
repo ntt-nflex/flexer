@@ -167,9 +167,9 @@ class Flexer(object):
         if handler == 'main.get_resources':
             schema_file = "get_resources.json"
         elif event_source == 'cmp-connector.metrics':
-            schema_file = "metrics.json"
-        elif handler == 'cmp-connector.logs':
-            schema_file = "logs.json"
+            schema_file = "get_metrics.json"
+        elif event_source == 'cmp-connector.logs':
+            schema_file = "get_logs.json"
         elif event_source == 'monitor':
             schema_file = "monitors.json"
 
