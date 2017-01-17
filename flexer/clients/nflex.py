@@ -30,7 +30,7 @@ class NflexClient(object):
             return self._post('/modules', data=data)
 
         elif file_type == 'zip':
-            module = self._post('/modules', data=data).json()
+            module = self._post('/modules', data=data)
             with open(zip_file, 'rb') as zf:
                 self._upload_zipfile(module['id'], zf)
 
