@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.0.10](https://github.com/ntt-nflex/flexer/tree/v1.0.10) (Jan 17, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.9...v1.0.10)
+
+### Fixes:
+- Fix the module upload command
+
 ## [v1.0.9](https://github.com/ntt-nflex/flexer/tree/v1.0.9) (Jan 17, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.8...v1.0.9)
 
