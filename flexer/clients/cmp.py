@@ -8,7 +8,7 @@ class CmpClient(object):
     def __init__(self, url, auth):
         self._url = url
         self._auth = auth
-        self._headers = {'User-Agent': 'nflex-client'}
+        self._headers = {'User-Agent': 'nflex-client','content-type': 'application/json'}
         self._cookie_jar = requests.cookies.RequestsCookieJar()
 
     def use_access_token(self, access_token=None):
