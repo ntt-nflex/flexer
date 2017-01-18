@@ -12,7 +12,7 @@ with open('README.md') as f:
 
 # workaround for hard links breaking virtualbox build on ubuntu
 # http://bugs.python.org/issue8876#msg208792
-del os.link
+# del os.link
 
 setup(
     name="flexer",
