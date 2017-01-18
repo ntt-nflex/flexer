@@ -1,7 +1,6 @@
 from pip.req import parse_requirements
 from setuptools import setup, find_packages
 import uuid
-import os
 
 requirements = parse_requirements('requirements.txt', session=uuid.uuid1())
 install_requires = [str(r.req) for r in requirements]
@@ -16,7 +15,7 @@ with open('README.md') as f:
 
 setup(
     name="flexer",
-    version="1.0.10",
+    version="1.0.11",
     description=description,
     long_description=long_description,
     url='http://www.ntt.com',
