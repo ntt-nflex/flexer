@@ -8,8 +8,19 @@ class CmpClient(object):
     def __init__(self, url, auth):
         self._url = url
         self._auth = auth
-        self._headers = {'User-Agent': 'nflex-client'}
+        self._headers = {
+            'User-Agent': 'nflex-client',
+            'Content-Type': 'application/json'
+        }
         self._cookie_jar = requests.cookies.RequestsCookieJar()
+
+    @property
+    def headers(self):
+        return self._headers
+
+    @headers.setter
+    def headers(self, value):
+        self._headers.update(value)
 
     def use_access_token(self, access_token=None):
         """Use an access token when sending requests to CMP."""
@@ -80,7 +91,6 @@ class CmpClient(object):
         return requests.post(self.url(path),
                              files=files,
                              auth=self._auth,
-                             headers=self._headers,
                              cookies=self._cookie_jar)
 
     def put(self, path, data):
@@ -110,10 +120,10 @@ class CmpClient(object):
             requests.Response: The response of the request
         """
         return requests.delete(self.url(path),
-                            params=params,
-                            auth=self._auth,
-                            headers=self._headers,
-                            cookies=self._cookie_jar)
+                               params=params,
+                               auth=self._auth,
+                               headers=self._headers,
+                               cookies=self._cookie_jar)
 
     def patch(self, path, data):
         """Execute a PATCH request.
