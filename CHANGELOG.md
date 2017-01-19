@@ -1,6 +1,12 @@
 # Change Log
 
-## [v1.0.10](https://github.com/ntt-nflex/flexer/tree/v1.0.11) (Jan 18, 2017)
+## [v1.0.12](https://github.com/ntt-nflex/flexer/tree/v1.0.12) (Jan 19, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.11...v1.0.12)
+
+### Fixes:
+- Add "application/json" Content-Type to the CMP client
+
+## [v1.0.11](https://github.com/ntt-nflex/flexer/tree/v1.0.11) (Jan 18, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.10...v1.0.11)
 
 ### Fixes:
