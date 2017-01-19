@@ -72,6 +72,20 @@ def list(ctx):
         )
 
 
+@cli.command(name='new')
+@click.option('--type', default='test')
+@pass_context
+def new_module(ctx):
+    """
+    Create a new nFlex module.
+    """
+
+    module_type = ctx.params['type']
+    print 'Create a new {} module '.format(module_type)
+
+    # TODO: Run Jinja2 template
+
+
 @cli.command()
 @click.argument('module_id')
 @pass_context
