@@ -1,3 +1,4 @@
+import click
 import jinja2
 import os
 import shutil
@@ -34,7 +35,9 @@ class ModuleTemplate(object):
         :param target_dir: The directory in which the module will be created.
         """
 
-        print "Creating nFlex module in '{}'...".format(target_dir)
+        click.echo(
+            "Generating nFlex module in '{}'...".format(target_dir)
+        )
 
         for template_file in os.listdir(self.template_dir):
             if template_file.endswith('.j2'):

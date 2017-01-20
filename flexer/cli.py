@@ -81,7 +81,9 @@ def new_module(ctx, modtype, name):
     Create a new nFlex module.
     """
 
-    print 'Creating a new {} module...'.format(modtype)
+    click.echo(
+        'Creating a new {} module...'.format(modtype)
+    )
 
     templates_dir = os.path.join(
         os.path.dirname(__file__),
