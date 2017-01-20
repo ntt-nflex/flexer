@@ -4,6 +4,10 @@ import shutil
 
 from os import path
 
+MODTYPE_MAP = {
+    "resource_connector": "cmp-connector.resources"
+}
+
 
 class ModuleTemplate(object):
     """
@@ -30,7 +34,7 @@ class ModuleTemplate(object):
         :param target_dir: The directory in which the module will be created.
         """
 
-        print "Creating nFlex module in '{}'...".format(self.template_dir, target_dir)
+        print "Creating nFlex module in '{}'...".format(target_dir)
 
         for template_file in os.listdir(self.template_dir):
             if template_file.endswith('.j2'):
@@ -82,6 +86,25 @@ class ModuleTemplate(object):
             'provider_name': account['provider']['name']
         })
 
+    @staticmethod
+    def add_metrics_connector_template_params(template_params, client):
+        """
+        Get additional template parameters for a resource connector template
+
+        :param template_params: The existing template parameters.
+        :param client: The CMP API client.
+        """
+
+        customer = client.get('/customers').json()['objects'][0]
+        account = client.get('/accounts').json()[0]
+        template_params.update({
+            'account_id': account['id'],
+            'account_name': account['name'],
+            'provider_id': account['provider']['id'],
+            'provider_name': account['provider']['name'],
+            'customer_id': customer['id']
+        })
+
     def _add_parameters(self, template_params, client):
         """
         Add template-type-specific parameters (if any) for the current template type.
@@ -94,7 +117,5 @@ class ModuleTemplate(object):
             'add_{}_template_params'.format(self.template_type)
         )
         if additional_parameters:
-            if additional_parameters is staticmethod:
-                additional_parameters.__func__(template_params, client)
-            else:
-                additional_parameters(template_params, client)
+            additional_parameters.__func__(template_params, client)
+

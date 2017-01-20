@@ -81,7 +81,7 @@ def new_module(ctx, modtype, name):
     Create a new nFlex module.
     """
 
-    print 'Create a new {} module '.format(modtype)
+    print 'Creating a new {} module...'.format(modtype)
 
     templates_dir = os.path.join(
         os.path.dirname(__file__),
@@ -90,7 +90,10 @@ def new_module(ctx, modtype, name):
 
     template_dir = os.path.join(templates_dir, modtype)
     import module_template
-    template = module_template.ModuleTemplate(modtype, template_dir)
+    template = module_template.ModuleTemplate(
+        modtype,
+        template_dir
+    )
     template.create_module(
         ctx.cmp,
         name,
