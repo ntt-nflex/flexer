@@ -73,17 +73,29 @@ def list(ctx):
 
 
 @cli.command(name='new')
-@click.option('--type', default='test')
+@click.option('--modtype', default='test')
+@click.option('--name', default='test')
 @pass_context
-def new_module(ctx):
+def new_module(ctx, modtype, name):
     """
     Create a new nFlex module.
     """
 
-    module_type = ctx.params['type']
-    print 'Create a new {} module '.format(module_type)
+    print 'Create a new {} module '.format(modtype)
 
-    # TODO: Run Jinja2 template
+    templates_dir = os.path.join(
+        os.path.dirname(__file__),
+        "templates"
+    )
+
+    template_dir = os.path.join(templates_dir, modtype)
+    import module_template
+    template = module_template.ModuleTemplate(modtype, template_dir)
+    template.create_module(
+        ctx.cmp,
+        name,
+        os.getcwd()
+    )
 
 
 @cli.command()

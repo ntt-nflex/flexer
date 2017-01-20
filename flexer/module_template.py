@@ -37,7 +37,7 @@ class ModuleTemplate(object):
                 with open(path.join(self.template_dir, template_file)) as j2_file:
                     template = jinja2.Template(j2_file.read())
 
-                with open(path.join(target_dir, template_file[:-3])) as target_file:
+                with open(path.join(target_dir, template_file[:-3]), mode="w") as target_file:
                     target_file.write(template.render(
                         **self.get_template_params(client, name)
                     ))
