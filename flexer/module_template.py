@@ -5,8 +5,18 @@ import shutil
 
 from os import path
 
-MODTYPE_MAP = {
-    "resource_connector": "cmp-connector.resources"
+_EVENT_SOURCE_MODTYPE_MAP = {
+    "api-hook": "api_hook",
+    "cmp-connector": "connector",
+    "cmp-connector.logs": "log_connector",
+    "cmp-connector.metrics": "metric_connector",
+    "cmp-connector.resources": "resource_connector",
+    "cmp-connector.spend": "spend_connector",
+    "cmp-connector.tickets": "ticket_connector",
+    "cmp-connector.validate_credentials": "credential_connector",
+    "cmp-resource-notification": "resource_notification",
+    "monitor": "resource_monitor",
+    "service-catalog": "service_catalog"
 }
 
 
@@ -15,20 +25,21 @@ class ModuleTemplate(object):
     Creates a new nFlex module from a set of Jinja2 templates.
     """
 
-    def __init__(self, template_type, template_dir):
+    def __init__(self, template_dir, event_source):
         """
         Create a new `ModuleTemplate` from the specified template directory.
 
-        :param template_type: The type of module created by the template.
         :param template_dir: The directory containing the template files.
+        :param event_source: The event source that triggers the module.
         """
 
-        self.template_type = template_type
         self.template_dir = template_dir
+        self.event_source = event_source
+        self.module_type = ModuleTemplate.get_module_type(self.event_source)
 
-    def create_module(self, client, name, target_dir):
+    def apply(self, client, name, target_dir):
         """
-        Create a new nFlex module.
+        Apply the template to create a new nFlex module.
 
         :param client: The CMP API client.
         :param name: The name for the new template
@@ -39,15 +50,16 @@ class ModuleTemplate(object):
             "Generating nFlex module in '{}'...".format(target_dir)
         )
 
+        template_parameters = self.get_template_params(client, name)
         for template_file in os.listdir(self.template_dir):
             if template_file.endswith('.j2'):
                 with open(path.join(self.template_dir, template_file)) as j2_file:
                     template = jinja2.Template(j2_file.read())
 
                 with open(path.join(target_dir, template_file[:-3]), mode="w") as target_file:
-                    target_file.write(template.render(
-                        **self.get_template_params(client, name)
-                    ))
+                    target_file.write(
+                        template.render(**template_parameters)
+                    )
             else:
                 shutil.copyfile(
                     path.join(self.template_dir, template_file),
@@ -117,8 +129,21 @@ class ModuleTemplate(object):
         """
 
         additional_parameters = self.__class__.__dict__.get(
-            'add_{}_template_params'.format(self.template_type)
+            'add_{}_template_params'.format(self.module_type)
         )
         if additional_parameters:
             additional_parameters.__func__(template_params, client)
 
+    @staticmethod
+    def get_module_type(event_source):
+        """
+        Get the nFlex module type corresponding to the specified CMP event source.
+
+        :param event_source: The event source (e.g. "cmp-connector.resources").
+        :return: The module type (e.g. "resource_connector").
+        """
+
+        if event_source not in _EVENT_SOURCE_MODTYPE_MAP:
+            return event_source
+
+        return _EVENT_SOURCE_MODTYPE_MAP[event_source]
