@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.0.13](https://github.com/ntt-nflex/flexer/tree/v1.0.13) (Jan 25, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.12...v1.0.13)
+
+### Fixes:
+- Add client for new nFlex state API, falling back to a local dictionary if not running via nFlex
+
 ## [v1.0.12](https://github.com/ntt-nflex/flexer/tree/v1.0.12) (Jan 19, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.11...v1.0.12)
 
