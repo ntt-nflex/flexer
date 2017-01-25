@@ -9,7 +9,7 @@ class Config(object):
     CMP_USERNAME = os.getenv('CMP_USERNAME', 'user')
     CMP_PASSWORD = os.getenv('CMP_PASSWORD', 'pass')
     NFLEX_CODEDIR = os.getenv('NFLEX_CODEDIR', '/sandbox')
-
+    MODULE_ID = os.getenv('NFLEX_MODULE_ID')
 
 class TestingConfig(Config):
     NFLEX_CODEDIR = '/tmp'
