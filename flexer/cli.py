@@ -5,6 +5,7 @@ import os
 
 from flexer import CmpClient, NflexClient
 from flexer.config import CONFIG_FILE
+from flexer.module_template import ModuleTemplate
 from flexer.utils import load_config, print_modules, print_result
 import flexer.commands
 
@@ -70,6 +71,48 @@ def list(ctx):
         raise click.ClickException(
             "Failed to fetch nFlex modules: %s" % e
         )
+
+
+@cli.command(name='new')
+@click.option('--name',
+              required=True,
+              help="A name for the new module")
+@click.option('--event-source',
+              required=True,
+              type=click.Choice(EVENT_SOURCES),
+              help="The event source for the module")
+@pass_context
+def new_module(ctx, name, event_source):
+    """
+    Create a new nFlex module.
+    """
+
+    module_type = ModuleTemplate.get_module_type(event_source)
+    click.echo(
+        'Creating a new {} module...'.format(module_type)
+    )
+
+    template_dir = os.path.join(
+        os.path.dirname(__file__),
+        "templates",
+        module_type
+    )
+    try:
+        os.stat(template_dir)
+    except OSError as error:
+        if error.errno == 2:  # No such file or directory
+            click.echo('Cannot find template directory "%s".' % template_dir)
+
+            return
+
+        raise
+
+    template = ModuleTemplate(template_dir, event_source)
+    template.apply(
+        ctx.cmp,
+        name,
+        os.getcwd()
+    )
 
 
 @cli.command()

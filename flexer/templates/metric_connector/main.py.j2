@@ -1,0 +1,31 @@
+# Metrics connector ({{ name }})
+
+import json
+from datetime import datetime
+
+def get_metrics(event, context):
+    try:
+        ts = datetime.utcnow().isoformat() + "Z"
+
+        metrics = [
+            create_metric("cpu-usage", 99, "percent", ts),
+        ]
+
+        data = {
+            "metrics": metrics,
+            "last_update": ts,
+        }
+
+        print "metrics: %s" % metrics
+        return data
+
+    except Exception as e:
+        print "error!: %s" % e
+
+def create_metric(metric, value, unit, ts):
+    return {
+        "metric": metric,
+        "value": value,
+        "time": ts,
+        "unit": unit,
+    }
