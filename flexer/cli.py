@@ -92,12 +92,22 @@ def new_module(ctx, name, event_source):
         'Creating a new {} module...'.format(module_type)
     )
 
-    templates_dir = os.path.join(
+    template_dir = os.path.join(
         os.path.dirname(__file__),
         "templates",
         module_type
     )
-    template = ModuleTemplate(templates_dir, event_source)
+    try:
+        os.stat(template_dir)
+    except OSError as error:
+        if error.errno == 2:  # No such file or directory
+            click.echo('Cannot find template directory "%s".' % template_dir)
+
+            return
+
+        raise
+
+    template = ModuleTemplate(template_dir, event_source)
     template.apply(
         ctx.cmp,
         name,

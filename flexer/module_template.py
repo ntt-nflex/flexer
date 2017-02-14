@@ -53,10 +53,17 @@ class ModuleTemplate(object):
         template_parameters = self.get_template_params(client, name)
         for template_file in os.listdir(self.template_dir):
             if template_file.endswith('.j2'):
-                with open(path.join(self.template_dir, template_file)) as j2_file:
+                j2_file = open(
+                    path.join(self.template_dir, template_file)
+                )
+                with j2_file:
                     template = jinja2.Template(j2_file.read())
 
-                with open(path.join(target_dir, template_file[:-3]), mode="w") as target_file:
+                target_file = open(
+                    path.join(target_dir, template_file[:-3]),
+                    mode="w"
+                )
+                with target_file:
                     target_file.write(
                         template.render(**template_parameters)
                     )
@@ -93,7 +100,7 @@ class ModuleTemplate(object):
         :param client: The CMP API client.
         """
 
-        account = client.get("/accounts")[0]
+        account = client.get("/accounts").json()[0]
         template_params.update({
             'account_id': account['id'],
             'account_name': account['name'],
@@ -122,7 +129,8 @@ class ModuleTemplate(object):
 
     def _add_parameters(self, template_params, client):
         """
-        Add template-type-specific parameters (if any) for the current template type.
+        Add template-type-specific parameters (if any)
+        for the current template type.
 
         :param template_params: The existing template parameters.
         :param client: The CMP API client.
@@ -137,7 +145,8 @@ class ModuleTemplate(object):
     @staticmethod
     def get_module_type(event_source):
         """
-        Get the nFlex module type corresponding to the specified CMP event source.
+        Get the nFlex module type corresponding
+        to the specified CMP event source.
 
         :param event_source: The event source (e.g. "cmp-connector.resources").
         :return: The module type (e.g. "resource_connector").

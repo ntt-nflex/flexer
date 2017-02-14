@@ -110,10 +110,10 @@ class CmpClient(object):
             requests.Response: The response of the request
         """
         return requests.delete(self.url(path),
-                            params=params,
-                            auth=self._auth,
-                            headers=self._headers,
-                            cookies=self._cookie_jar)
+                               params=params,
+                               auth=self._auth,
+                               headers=self._headers,
+                               cookies=self._cookie_jar)
 
     def patch(self, path, data):
         """Execute a PATCH request.
