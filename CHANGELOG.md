@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.1.0](https://github.com/ntt-nflex/flexer/tree/v1.1.0) (Feb 15, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.13...v1.1.0)
+
+### Changes:
+- Add feature: "flexer new" command to create working examples of modules [\#7](https://github.com/ntt-nflex/flexer/pull/7) ([@tintoy](https://github.com/tintoy))
+
 ## [v1.0.13](https://github.com/ntt-nflex/flexer/tree/v1.0.13) (Jan 25, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.12...v1.0.13)
 
