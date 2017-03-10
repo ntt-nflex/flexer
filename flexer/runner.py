@@ -9,7 +9,7 @@ import sys
 import os
 import traceback
 from jsonschema import Draft4Validator
-from flexer.context import FlexerContext
+from flexer.context import FlexerContext, FlexerLocalState
 
 logger = logging.getLogger('flexer.runner')
 
@@ -51,7 +51,7 @@ class FlexerException(Exception):
         }
 
 
-def FlexerResult(value=None, logs='', error=None, headers=None, state=None):
+def FlexerResult(value=None, logs='', error=None, headers=None):
     result = {
         "value": value,
         "logs": logs,
@@ -59,8 +59,6 @@ def FlexerResult(value=None, logs='', error=None, headers=None, state=None):
     }
     if headers:
         result['headers'] = headers
-    if state:
-        result['state'] = state
 
     try:
         return json.dumps(result, default=dthandler)
@@ -81,6 +79,8 @@ class Flexer(object):
     def run(self, event, context=None, handler=None, event_source=None):
         if context is None:
             context = FlexerContext()
+        if context.state is None:
+            context.state = FlexerLocalState()
 
         logger.info('Running handler "%s"', handler)
         try:
@@ -97,14 +97,12 @@ class Flexer(object):
 
         value, error, stdout = None, None, ''
         headers = {}
-        state = None
         f = StringIO.StringIO()
         try:
             with RedirectStdStreams(stdout=f, stderr=f):
                 try:
                     value = func(event, context)
                     headers = context.response_headers
-                    state = context.state_updates
 
                     # if a cmp object type is returned,
                     # encode result and add header
@@ -142,15 +140,16 @@ class Flexer(object):
         return FlexerResult(value=value,
                             logs=stdout,
                             error=error,
-                            headers=headers,
-                            state=state)
+                            headers=headers)
 
     def _get_validation_schema(self, event_source, handler):
         schema = None
-        if handler == 'main.get_resources':
+        schema_file = self._get_validation_schema_file(event_source, handler)
+        if schema_file is not None:
             path = os.path.join(
                 os.path.dirname(__file__),
-                'validation/get_resources.json')
+                'validation/',
+                schema_file)
 
             try:
                 with open(path) as schema_file:
@@ -159,6 +158,19 @@ class Flexer(object):
                 logger.info('Failed loading validation schema "%s"', str(e))
 
         return schema
+
+    def _get_validation_schema_file(self, event_source, handler):
+        schema_file = None
+        if handler == 'main.get_resources':
+            schema_file = "get_resources.json"
+        elif event_source == 'cmp-connector.metrics':
+            schema_file = "get_metrics.json"
+        elif event_source == 'cmp-connector.logs':
+            schema_file = "get_logs.json"
+        elif event_source == 'monitor':
+            schema_file = "monitors.json"
+
+        return schema_file
 
     def _format_exception_info(self, exc_info):
         exc_type, value, tb = exc_info

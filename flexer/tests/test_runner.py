@@ -285,3 +285,82 @@ class TestFlexer(unittest.TestCase):
 
         actual = json.loads(result)
         self.assertDictEqual(expected, actual)
+
+    def test_validate_metrics_ok(self):
+        """Run a method that returns metric data and check validation is ok
+        """
+        handler = 'module_with_metrics.test_ok'
+        expected = {
+            u'value': {u'metrics': [{
+                u'metric': u'cpu-usage',
+                u'value': 99,
+                u'unit': u'percent',
+                u'time': u'2017-01-12T18:30:42.034751Z'}
+                ]},
+            u'error': None,
+            u'logs': u'Running test script\n',
+        }
+
+        with mock.patch(
+                'flexer.runner.Flexer._get_validation_schema_file',
+                return_value='get_metrics.json'):
+            result = self.runner.run(event={}, context=None, handler=handler)
+
+        actual = json.loads(result)
+        self.assertDictEqual(expected, actual)
+
+    def test_validate_metrics_error(self):
+        """Run a method that returns metric data and check validation is ok
+        """
+        handler = 'module_with_metrics.test_invalid'
+
+        with mock.patch(
+                'flexer.runner.Flexer._get_validation_schema_file',
+                return_value='get_metrics.json'):
+            result = self.runner.run(event={}, context=None, handler=handler)
+
+        actual = json.loads(result)
+        self.assertTrue('error' in actual)
+        self.assertTrue('value' in actual)
+        self.assertTrue('metrics' in actual['value'])
+        self.assertEqual(1, len(actual['value']['metrics']))
+        self.assertTrue('exc_type' in actual['error'])
+        self.assertTrue('exc_message' in actual['error'])
+        self.assertEqual(u'ValidationError', actual['error']['exc_type'])
+        self.assertTrue("\'time\' is a required property"
+                        in actual['error']['exc_message'])
+
+    def test_validate_logs_ok(self):
+        """Run a method that returns log data and check validation is ok
+        """
+        handler = 'module_with_logs.test_ok'
+
+        with mock.patch(
+                'flexer.runner.Flexer._get_validation_schema_file',
+                return_value='get_logs.json'):
+            result = self.runner.run(event={}, context=None, handler=handler)
+
+        actual = json.loads(result)
+        self.assertTrue('error' in actual)
+        self.assertTrue('value' in actual)
+        self.assertTrue('logs' in actual['value'])
+        self.assertEqual(1, len(actual['value']['logs']))
+        self.assertEqual(None, actual['error'])
+
+    def test_validate_logs_error(self):
+        """Run a method that returns log data and check validation is ok
+        """
+        handler = 'module_with_logs.test_invalid'
+
+        with mock.patch(
+                'flexer.runner.Flexer._get_validation_schema_file',
+                return_value='get_logs.json'):
+            result = self.runner.run(event={}, context=None, handler=handler)
+
+        actual = json.loads(result)
+        self.assertTrue('error' in actual)
+        self.assertTrue('exc_type' in actual['error'])
+        self.assertTrue('exc_message' in actual['error'])
+        self.assertEqual(u'ValidationError', actual['error']['exc_type'])
+        self.assertTrue("\'time\' is a required property"
+                        in actual['error']['exc_message'])

@@ -1,0 +1,41 @@
+{
+    "type": "object",
+    "properties": {
+        "logs": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "service": {
+                        "type": "string"
+                    },
+                    "severity": {
+                        "type": "string"
+                    },
+                    "source_host": {
+                        "type": "string"
+                    },
+                    "time": {
+                        "type":"string",
+                        "format": "datetime",
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{6})?Z?$"
+                    }
+                },
+                "required":[
+                    "message",
+                    "severity",
+                    "time"
+                ]
+            }
+        },
+        "last_update": {
+            "type": "string",
+            "format": "datetime",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{6})?Z?$"
+        }
+    },
+    "required": ["logs"]
+}
