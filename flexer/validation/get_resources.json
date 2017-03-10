@@ -69,6 +69,30 @@
                     },
                     "colo_space":{
                         "properties":{
+                            "colo_space_location":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "combination":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "customer_description":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "customer_label":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
                             "power_allocation_w":{
                                 "type":[
                                     "integer",
@@ -89,21 +113,21 @@
                             "billing_tag":{
                                 "type":"string"
                             },
-                            "cpu_mhz":{
+                            "cpu_hz":{
                                 "type":[
-                                    "integer",
+                                    "number",
                                     "null"
                                 ]
                             },
-                            "memory_mb":{
+                            "memory_b":{
                                 "type":[
-                                    "integer",
+                                    "number",
                                     "null"
                                 ]
                             },
-                            "storage_mb":{
+                            "storage_b":{
                                 "type":[
-                                    "integer",
+                                    "number",
                                     "null"
                                 ]
                             }
@@ -118,9 +142,9 @@
                                     "null"
                                 ]
                             },
-                            "cpu_mhz":{
+                            "cpu_hz":{
                                 "type":[
-                                    "integer",
+                                    "number",
                                     "null"
                                 ]
                             },
@@ -219,9 +243,9 @@
                                     "null"
                                 ]
                             },
-                            "ram_mb":{
+                            "ram_b":{
                                 "type":[
-                                    "integer",
+                                    "number",
                                     "null"
                                 ]
                             },
@@ -231,9 +255,9 @@
                                     "null"
                                 ]
                             },
-                            "volumes_mb":{
+                            "volumes_b":{
                                 "type":[
-                                    "integer",
+                                    "number",
                                     "null"
                                 ]
                             }
@@ -248,9 +272,9 @@
                                     "null"
                                 ]
                             },
-                            "size_mb":{
+                            "size_b":{
                                 "type":[
-                                    "integer",
+                                    "number",
                                     "null"
                                 ]
                             },
@@ -281,7 +305,8 @@
                     "resource",
                     "server",
                     "volume",
-                    "service_offering"
+                    "service_offering",
+                    "saas_user"
                 ],
                 "type":"string"
             }
