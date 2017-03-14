@@ -134,6 +134,17 @@
                         },
                         "type":"object"
                     },
+                    "saas_user":{
+                        "properties":{
+                            "avatar_url":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "type":"object"
+                    },
                     "server":{
                         "properties":{
                             "cpu_cores":{
