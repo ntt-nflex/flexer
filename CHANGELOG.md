@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.1.2](https://github.com/ntt-nflex/flexer/tree/v1.1.2) (Mar 16, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.1...v1.1.2)
+
+### Changes:
+- Update the validation for data returned from the get_resources handler of cmp-connectors [\#13](https://github.com/ntt-nflex/flexer/pull/13) ([@prav-ab](https://github.com/prav-ab))
+
 ## [v1.1.1](https://github.com/ntt-nflex/flexer/tree/v1.1.1) (Mar 16, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.0...v1.1.1)
 
