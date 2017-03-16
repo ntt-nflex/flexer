@@ -5,32 +5,45 @@ requests.packages.urllib3.disable_warnings()
 
 
 class CmpClient(object):
-    def __init__(self, url, auth):
+    def __init__(self, url, auth=None, access_token=None):
+        self._session = requests.Session()
         self._url = url
         self._auth = auth
-        self._headers = {
+        self._access_token = access_token
+        self._session.headers = {
             'User-Agent': 'nflex-client',
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         }
-        self._cookie_jar = requests.cookies.RequestsCookieJar()
+        if auth and len(auth) == 2 and auth[0] and auth[1]:
+            self._session.auth = auth
+
+        elif access_token:
+            self._session.headers['Cookie'] = access_token
+
+    @property
+    def api_url(self):
+        return self._url
+
+    @property
+    def api_auth(self):
+        return self._auth
+
+    @property
+    def api_token(self):
+        return self._access_token
+
+    @api_token.setter
+    def api_token(self, value):
+        self._access_token = value
+        self._session.headers['Cookie'] = value
 
     @property
     def headers(self):
-        return self._headers
+        return self._session.headers
 
     @headers.setter
     def headers(self, value):
-        self._headers.update(value)
-
-    def use_access_token(self, access_token=None):
-        """Use an access token when sending requests to CMP."""
-        if not access_token:
-            self._cookie_jar.clear()
-            return
-
-        self._cookie_jar.set('x-cmp-op',
-                             access_token.get("value"),
-                             path=access_token.get("path"))
+        self._session.headers.update(value)
 
     def url(self, path):
         """Construct an endpoint path using the CMP base URL.
@@ -53,11 +66,7 @@ class CmpClient(object):
         Returns:
             requests.Response: The response of the request
         """
-        return requests.get(self.url(path),
-                            params=params,
-                            auth=self._auth,
-                            headers=self._headers,
-                            cookies=self._cookie_jar)
+        return self._session.get(self.url(path), params=params)
 
     def post(self, path, data):
         """Execute a POST request.
@@ -69,29 +78,33 @@ class CmpClient(object):
         Returns:
             requests.Response: The response of the request
         """
-        return requests.post(self.url(path),
-                             json=data,
-                             auth=self._auth,
-                             headers=self._headers,
-                             cookies=self._cookie_jar)
+        return self._session.post(self.url(path), json=data)
 
-    def post_file(self, path, zip_file):
-        """Execute a POST request.
+    def post_file(self, path, zip_file, file_name):
+        """Execute a POST request to upload a zip file.
+
+        Since the request library must automatically determine the Content-Type
+        header when uploading a file, we have to pop it from the session
+        headers and put it back in after the request has finished
 
         Args:
             path (str): The CMP API endpoint path
             zip_file (file): A zipfile to upload
+            file_name (str): The name of the zip file to upload
 
         Returns:
             requests.Response: The response of the request
         """
         files = {
-            'file': ('temp_module.zip', zip_file)
+            'file': (file_name, zip_file)
         }
-        return requests.post(self.url(path),
-                             files=files,
-                             auth=self._auth,
-                             cookies=self._cookie_jar)
+        cth = self._session.headers.pop("Content-Type", None)
+        try:
+            result = self._session.post(self.url(path), files=files)
+        finally:
+            self._session.headers["Content-Type"] = cth
+
+        return result
 
     def put(self, path, data):
         """Execute a PUT request.
@@ -103,11 +116,7 @@ class CmpClient(object):
         Returns:
             requests.Response: The response of the request
         """
-        return requests.put(url=self.url(path),
-                            data=json.dumps(data),
-                            auth=self._auth,
-                            headers=self._headers,
-                            cookies=self._cookie_jar)
+        return self._session.put(url=self.url(path), data=json.dumps(data))
 
     def delete(self, path, params=None):
         """Execute a DELETE request.
@@ -119,11 +128,7 @@ class CmpClient(object):
         Returns:
             requests.Response: The response of the request
         """
-        return requests.delete(self.url(path),
-                               params=params,
-                               auth=self._auth,
-                               headers=self._headers,
-                               cookies=self._cookie_jar)
+        return self._session.delete(self.url(path), params=params)
 
     def patch(self, path, data):
         """Execute a PATCH request.
@@ -135,8 +140,4 @@ class CmpClient(object):
         Returns:
             requests.Response: The response of the request
         """
-        return requests.patch(self.url(path),
-                              data=json.dumps(data),
-                              auth=self._auth,
-                              headers=self._headers,
-                              cookies=self._cookie_jar)
+        return self._session.patch(self.url(path), data=json.dumps(data))

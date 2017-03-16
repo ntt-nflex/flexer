@@ -1,4 +1,5 @@
 import base64
+import os
 import tempfile
 import zipfile
 
@@ -31,8 +32,9 @@ class NflexClient(object):
 
         elif file_type == 'zip':
             module = self._post('/modules', data=data)
+            fname = os.path.basename(zip_file)
             with open(zip_file, 'rb') as zf:
-                self._upload_zipfile(module['id'], zf)
+                self._upload_zipfile(module['id'], zf, fname)
 
             return module
 
@@ -45,8 +47,9 @@ class NflexClient(object):
 
         elif file_type == 'zip':
             self._patch('/modules/%s' % module_id, data=data)
+            fname = os.path.basename(zip_file)
             with open(zip_file, 'rb') as zf:
-                return self._upload_zipfile(module_id, zf)
+                return self._upload_zipfile(module_id, zf, fname)
 
     def list(self):
         params = {}
@@ -93,9 +96,10 @@ class NflexClient(object):
             zipinfo.filename = '/'.join(zipinfo.filename.split('/')[1:])
             yield zipinfo
 
-    def _upload_zipfile(self, module_id, zf):
+    def _upload_zipfile(self, module_id, zf, file_name):
         return self._post_file('/modules/%s/zipfile' % module_id,
-                               zip_file=zf)
+                               zip_file=zf,
+                               file_name=file_name)
 
     def _get(self, path, params=None):
         if params is None:
@@ -110,8 +114,8 @@ class NflexClient(object):
         response.raise_for_status()
         return response.json()
 
-    def _post_file(self, path, zip_file):
-        response = self.cmp_client.post_file(path, zip_file)
+    def _post_file(self, path, zip_file, file_name):
+        response = self.cmp_client.post_file(path, zip_file, file_name)
         response.raise_for_status()
         return response.json()
 

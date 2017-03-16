@@ -15,17 +15,20 @@ class FlexerContext(object):
     def __init__(self, cmp_client=None):
         """Construct a new FlexerContext object."""
         self.response_headers = {}
-        self.config = {}  # not available in local executions
+        self.config = {}
         self.state = None
 
         if cmp_client is None:
-            self.api_url = Config.CMP_URL
-            self.api_auth = (Config.CMP_USERNAME, Config.CMP_PASSWORD)
-            self.api = CmpClient(self.api_url, self.api_auth)
+            auth = (Config.CMP_USERNAME, Config.CMP_PASSWORD)
+            self.api = CmpClient(url=Config.CMP_URL,
+                                 auth=auth,
+                                 access_token=Config.CMP_ACCESS_TOKEN)
         else:
-            self.api_url = cmp_client._url
-            self.api_auth = cmp_client._auth
             self.api = cmp_client
+
+        self.api_url = self.api.api_url
+        self.api_auth = self.api.api_auth
+        self.api_token = self.api.api_token
 
     def log(self, message, severity="info"):
         """Log a message to CMP."""
@@ -92,6 +95,7 @@ class FlexerContext(object):
         """Set a response header"""
         self.response_headers[key] = value
 
+
 class FlexerLocalState:
     def __init__(self):
         self.state = {}
@@ -107,6 +111,7 @@ class FlexerLocalState:
 
     def set_multi(self, updates):
         self.state.update(updates)
+
 
 class FlexerRemoteState:
     def __init__(self, context):
