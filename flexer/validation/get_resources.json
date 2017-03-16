@@ -141,6 +141,18 @@
                                     "string",
                                     "null"
                                 ]
+                            },
+                            "size_b":{
+                                "type":[
+                                    "number",
+                                    "null"
+                                ]
+                            },
+                            "used_b":{
+                                "type":[
+                                    "number",
+                                    "null"
+                                ]
                             }
                         },
                         "type":"object"
@@ -269,6 +281,17 @@
                             "volumes_b":{
                                 "type":[
                                     "number",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "type":"object"
+                    },
+                    "service_offering":{
+                        "properties":{
+                            "type_id":{
+                                "type":[
+                                    "string",
                                     "null"
                                 ]
                             }
