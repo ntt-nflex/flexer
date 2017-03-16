@@ -23,9 +23,12 @@ def config():
         json.dump(config, f, indent=4)
 
 
-def run(handler, event, cmp_client):
+def run(handler, event, config, cmp_client):
     event = json.loads(event)
     handler = "main.%s" % handler
     context = FlexerContext(cmp_client=cmp_client)
+    if config is not None:
+        context.config = json.loads(config)
+
     runner = Flexer()
     return runner.run(event=event, context=context, handler=handler)

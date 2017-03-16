@@ -201,12 +201,15 @@ def upload(ctx,
               default=False,
               is_flag=True,
               help='Pretty print the execution result')
+@click.option('--config',
+              required=False,
+              help="The config to run the module with")
 @click.option('--event',
               required=True,
               help="The event to run the module with")
 @click.argument('handler')
 @pass_context
-def run(ctx, handler, event, pretty):
+def run(ctx, handler, event, config, pretty):
     """Run an nFlex module locally."""
-    result = flexer.commands.run(handler, event, ctx.cmp)
+    result = flexer.commands.run(handler, event, config, ctx.cmp)
     print_result(result, pretty)
