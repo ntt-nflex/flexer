@@ -15,14 +15,16 @@ CONTEXT_SETTINGS = {
     "help_option_names": ["-h", "--help"],
 }
 EVENT_SOURCES = [
+    "alert-notification",
     "api-hook",
     "cmp-connector",
+    "cmp-connector.alerts",
+    "cmp-connector.credentials",
     "cmp-connector.logs",
     "cmp-connector.metrics",
     "cmp-connector.resources",
     "cmp-connector.spend",
     "cmp-connector.tickets",
-    "cmp-connector.validate_credentials",
     "cmp-resource-notification",
     "monitor",
     "service-catalog",
