@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.1.1](https://github.com/ntt-nflex/flexer/tree/v1.1.1) (Mar 16, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.0...v1.1.1)
+
+### Changes:
+- Add feature: --config parameter to "flexer run"
+- Update the list of supported event sources
+
 ## [v1.1.0](https://github.com/ntt-nflex/flexer/tree/v1.1.0) (Feb 15, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.0.13...v1.1.0)
 

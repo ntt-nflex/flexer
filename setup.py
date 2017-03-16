@@ -15,7 +15,7 @@ with open('README.md') as f:
 
 setup(
     name="flexer",
-    version="1.1.0",
+    version="1.1.1",
     description=description,
     long_description=long_description,
     url='http://www.ntt.com',
