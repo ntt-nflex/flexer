@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.1.3](https://github.com/ntt-nflex/flexer/tree/v1.1.3) (Mar 20, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.2...v1.1.3)
+
+### Changes:
+- Add support for CMP access tokens to the CMP client
+
 ## [v1.1.2](https://github.com/ntt-nflex/flexer/tree/v1.1.2) (Mar 16, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.1...v1.1.2)
 
