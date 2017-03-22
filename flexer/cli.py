@@ -5,6 +5,7 @@ import os
 
 from flexer import CmpClient, NflexClient
 from flexer.config import CONFIG_FILE
+from flexer.module_template import ModuleTemplate
 from flexer.utils import load_config, print_modules, print_result
 import flexer.commands
 
@@ -14,12 +15,21 @@ CONTEXT_SETTINGS = {
     "help_option_names": ["-h", "--help"],
 }
 EVENT_SOURCES = [
-    "cmp-connector",
-    "cmp-resource-notification",
+    "alert-notification",
     "api-hook",
-    "timer",
-    "test",
+    "cmp-connector",
+    "cmp-connector.alerts",
+    "cmp-connector.credentials",
+    "cmp-connector.logs",
+    "cmp-connector.metrics",
+    "cmp-connector.resources",
+    "cmp-connector.spend",
+    "cmp-connector.tickets",
+    "cmp-resource-notification",
+    "monitor",
     "service-catalog",
+    "test",
+    "timer",
 ]
 
 
@@ -29,8 +39,8 @@ class Context(object):
     def __init__(self):
         self.credentials = load_config(CONFIG_FILE)
         self.cmp = CmpClient(url=self.credentials['cmp_url'],
-                             auth=(self.credentials['cmp_username'],
-                                   self.credentials['cmp_password']))
+                             auth=(self.credentials['cmp_api_key'],
+                                   self.credentials['cmp_api_secret']))
         self.nflex = NflexClient(self.cmp)
 
 
@@ -63,6 +73,48 @@ def list(ctx):
         raise click.ClickException(
             "Failed to fetch nFlex modules: %s" % e
         )
+
+
+@cli.command(name='new')
+@click.option('--name',
+              required=True,
+              help="A name for the new module")
+@click.option('--event-source',
+              required=True,
+              type=click.Choice(EVENT_SOURCES),
+              help="The event source for the module")
+@pass_context
+def new_module(ctx, name, event_source):
+    """
+    Create a new nFlex module.
+    """
+
+    module_type = ModuleTemplate.get_module_type(event_source)
+    click.echo(
+        'Creating a new {} module...'.format(module_type)
+    )
+
+    template_dir = os.path.join(
+        os.path.dirname(__file__),
+        "templates",
+        module_type
+    )
+    try:
+        os.stat(template_dir)
+    except OSError as error:
+        if error.errno == 2:  # No such file or directory
+            click.echo('Cannot find template directory "%s".' % template_dir)
+
+            return
+
+        raise
+
+    template = ModuleTemplate(template_dir, event_source)
+    template.apply(
+        ctx.cmp,
+        name,
+        os.getcwd()
+    )
 
 
 @cli.command()
@@ -149,12 +201,15 @@ def upload(ctx,
               default=False,
               is_flag=True,
               help='Pretty print the execution result')
+@click.option('--config',
+              required=False,
+              help="The config to run the module with")
 @click.option('--event',
               required=True,
               help="The event to run the module with")
 @click.argument('handler')
 @pass_context
-def run(ctx, handler, event, pretty):
+def run(ctx, handler, event, config, pretty):
     """Run an nFlex module locally."""
-    result = flexer.commands.run(handler, event, ctx.cmp)
+    result = flexer.commands.run(handler, event, config, ctx.cmp)
     print_result(result, pretty)

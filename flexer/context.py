@@ -1,5 +1,6 @@
 from datetime import datetime
 import logging
+import copy
 
 from flexer import CmpClient
 from flexer.config import Config
@@ -14,17 +15,20 @@ class FlexerContext(object):
     def __init__(self, cmp_client=None):
         """Construct a new FlexerContext object."""
         self.response_headers = {}
-        self.state = {}
-        self.state_updates = {}
+        self.config = {}
+        self.state = None
 
         if cmp_client is None:
-            self.api_url = Config.CMP_URL
-            self.api_auth = (Config.CMP_USERNAME, Config.CMP_PASSWORD)
-            self.api = CmpClient(self.api_url, self.api_auth)
+            auth = (Config.CMP_USERNAME, Config.CMP_PASSWORD)
+            self.api = CmpClient(url=Config.CMP_URL,
+                                 auth=auth,
+                                 access_token=Config.CMP_ACCESS_TOKEN)
         else:
-            self.api_url = cmp_client._url
-            self.api_auth = cmp_client._auth
             self.api = cmp_client
+
+        self.api_url = self.api.api_url
+        self.api_auth = self.api.api_auth
+        self.api_token = self.api.api_token
 
     def log(self, message, severity="info"):
         """Log a message to CMP."""
@@ -91,10 +95,45 @@ class FlexerContext(object):
         """Set a response header"""
         self.response_headers[key] = value
 
-    def get_state(self, key):
-        """Read a key value from module state"""
-        return self.state.get(key, None)
 
-    def update_state(self, key, value):
-        """Update a key value in the module state"""
-        self.state[key] = self.state_updates[key] = value
+class FlexerLocalState:
+    def __init__(self):
+        self.state = {}
+
+    def get(self, key):
+        return self.state.get(key)
+
+    def set(self, key, value):
+        self.state[key] = value
+
+    def get_all(self):
+        return copy.copy(self.state)
+
+    def set_multi(self, updates):
+        self.state.update(updates)
+
+
+class FlexerRemoteState:
+    def __init__(self, context):
+        self.api = context.api
+        self.module_id = Config.MODULE_ID
+
+    def get(self, key):
+        return self.get_all().get(key)
+
+    def get_all(self):
+        r = self.api.get("/modules/%s/state" % self.module_id)
+        result = r.json()
+        if r.status_code == 200:
+            return result
+        else:
+            raise Exception("Failed to read state: %s" % result["message"])
+
+    def set(self, key, value):
+        self.set_multi({key: value})
+
+    def set_multi(self, updates):
+        r = self.api.patch("/modules/%s/state" % self.module_id, updates)
+        if r.status_code != 200:
+            result = r.json()
+            raise Exception("Failed to update state: %s" % result["message"])

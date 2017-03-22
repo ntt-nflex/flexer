@@ -23,6 +23,7 @@ The main dependencies are:
 * [requests]: HTTP for Humans
 * [click]: for creating beautiful command line interfaces
 * [jsonschema]: an implementation of JSON Schema for Python
+* [jinja2]: modern and designer-friendly templating language for Python
 
 The testing dependencies are:
 * [pytest]: helps you write better programs
@@ -73,6 +74,7 @@ License
    [requests]: <http://docs.python-requests.org>
    [click]: <http://click.pocoo.org>
    [jsonschema]: <https://python-jsonschema.readthedocs.io/en/latest/>
+   [jinja2]: <http://jinja.pocoo.org>
    [mock]: <https://pypi.python.org/pypi/mock>
    [pytest]: <http://doc.pytest.org>
    [tox]: <https://tox.readthedocs.io/>

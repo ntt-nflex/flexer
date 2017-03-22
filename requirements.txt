@@ -1,3 +1,4 @@
 requests
 click
 jsonschema==2.4.0
+jinja2>=2.9.4
