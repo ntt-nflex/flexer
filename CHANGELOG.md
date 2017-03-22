@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.1.4](https://github.com/ntt-nflex/flexer/tree/v1.1.4) (Mar 22, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.3...v1.1.4)
+
+### Changes:
+- Add locations to get_resources validation [\#15](https://github.com/ntt-nflex/flexer/pull/15) ([@freewilll](https://github.com/freewilll))
+
 ## [v1.1.3](https://github.com/ntt-nflex/flexer/tree/v1.1.3) (Mar 20, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.2...v1.1.3)
 
