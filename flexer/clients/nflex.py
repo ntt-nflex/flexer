@@ -81,8 +81,8 @@ class NflexClient(object):
 
     def _download_zipfile(self, module):
         f = tempfile.NamedTemporaryFile(mode='wb', suffix='.zip')
-        payload = self._get('/modules/%s/zipfile' % module['id']).json()
-        f.write(base64.b64decode(payload['file']))
+        payload = self._get('/modules/%s/zipfile' % module['id'])
+        f.write(base64.b64decode(payload.text))
         f.flush()
         with zipfile.ZipFile(f.name, 'r') as zf:
             args = {'path': '.'}
