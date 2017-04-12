@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.1.5](https://github.com/ntt-nflex/flexer/tree/v1.1.5) (Apr 12, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.4...v1.1.5)
+
+### Changes:
+- Add resource_id to the context.log request payload so logs would appear in the module details page
+- Add context.api.put_file method and rename the context.api.post_file method parameters
+
 ## [v1.1.4](https://github.com/ntt-nflex/flexer/tree/v1.1.4) (Mar 22, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.3...v1.1.4)
 
