@@ -17,6 +17,7 @@ class FlexerContext(object):
         self.response_headers = {}
         self.config = {}
         self.state = None
+        self.module_id = Config.MODULE_ID
 
         if cmp_client is None:
             auth = (Config.CMP_USERNAME, Config.CMP_PASSWORD)
@@ -33,22 +34,24 @@ class FlexerContext(object):
     def log(self, message, severity="info"):
         """Log a message to CMP."""
         try:
-            r = self.api.post("/logs", [
-                {
-                    "message": message,
-                    "severity": severity.upper(),
-                    "service": "nflex.runner",
-                    "timestamp": datetime.utcnow().strftime(
-                        '%Y-%m-%dT%H:%M:%S.%fZ'
-                    ),
-                }
-            ])
+            payload = {
+                "message": message,
+                "severity": severity.upper(),
+                "service": "nflex.flexer",
+                "timestamp": datetime.utcnow().strftime(
+                    '%Y-%m-%dT%H:%M:%S.%fZ'
+                ),
+            }
+            if self.module_id:
+                payload["resource_id"] = "nflex-module-%s" % self.module_id
+
+            r = self.api.post("/logs", [payload])
 
         except Exception as err:
-            logger.error("Error sending logs to CMP: %s", err)
+            print "Error sending logs to CMP: %s" % err
 
         if r.status_code != 200:
-            logger.error("Error sending logs to CMP: %s", r.text)
+            print "Error sending logs to CMP: %s" % r.text
 
     def mail(self,
              user=None,
