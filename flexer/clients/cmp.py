@@ -80,8 +80,8 @@ class CmpClient(object):
         """
         return self._session.post(self.url(path), json=data)
 
-    def post_file(self, path, zip_file, file_name):
-        """Execute a POST request to upload a zip file.
+    def post_file(self, path, file, file_name):
+        """Execute a POST request to upload a file.
 
         Since the request library must automatically determine the Content-Type
         header when uploading a file, we have to pop it from the session
@@ -89,14 +89,14 @@ class CmpClient(object):
 
         Args:
             path (str): The CMP API endpoint path
-            zip_file (file): A zipfile to upload
+            file (file): A file to upload
             file_name (str): The name of the zip file to upload
 
         Returns:
             requests.Response: The response of the request
         """
         files = {
-            'file': (file_name, zip_file)
+            'file': (file_name, file)
         }
         cth = self._session.headers.pop("Content-Type", None)
         try:
@@ -117,6 +117,24 @@ class CmpClient(object):
             requests.Response: The response of the request
         """
         return self._session.put(url=self.url(path), data=json.dumps(data))
+
+    def put_file(self, path, data):
+        """Execute a PUT request to upload a file.
+
+        Args:
+            path (str): The CMP API endpoint path
+            data: The data to upload
+
+        Returns:
+            requests.Response: The response of the request
+        """
+        cth = self._session.headers.pop("Content-Type", None)
+        try:
+            result = self._session.put(url=self.url(path), data=data)
+        finally:
+            self._session.headers["Content-Type"] = cth
+
+        return result
 
     def delete(self, path, params=None):
         """Execute a DELETE request.
