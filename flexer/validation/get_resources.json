@@ -294,21 +294,54 @@
                     },
                     "saas_user":{
                         "properties":{
+                            "address":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
                             "avatar_url":{
                                 "type":[
                                     "string",
                                     "null"
                                 ]
                             },
-                            "size_b":{
+                            "country":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "disk_quota_b":{
                                 "type":[
                                     "number",
                                     "null"
                                 ]
                             },
-                            "used_b":{
+                            "disk_used_b":{
                                 "type":[
                                     "number",
+                                    "null"
+                                ]
+                            },
+                            "email":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "is_active":{
+                                "type":"boolean"
+                            },
+                            "language":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "phone":{
+                                "type":[
+                                    "string",
                                     "null"
                                 ]
                             }
