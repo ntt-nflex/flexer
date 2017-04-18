@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.1.6](https://github.com/ntt-nflex/flexer/tree/v1.1.6) (Apr 18, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.5...v1.1.6)
+
+### Changes:
+- Add an optional resource_id to the get_metrics validation schema [\#16](https://github.com/ntt-nflex/flexer/pull/16) ([@ukinau](https://github.com/ukinau))
+- Update the get_resources validation
+
 ## [v1.1.5](https://github.com/ntt-nflex/flexer/tree/v1.1.5) (Apr 12, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.4...v1.1.5)
 
