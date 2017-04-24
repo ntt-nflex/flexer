@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.1.7](https://github.com/ntt-nflex/flexer/tree/v1.1.7) (Apr 24, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.6...v1.1.7)
+
+### Changes:
+- Fix the nFlex client _post_file method to properly handle zip file uploads
+
 ## [v1.1.6](https://github.com/ntt-nflex/flexer/tree/v1.1.6) (Apr 18, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.5...v1.1.6)
 
