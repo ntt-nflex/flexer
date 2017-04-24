@@ -98,7 +98,7 @@ class NflexClient(object):
 
     def _upload_zipfile(self, module_id, zf, file_name):
         return self._post_file('/modules/%s/zipfile' % module_id,
-                               file=zf,
+                               zip_file=zf,
                                file_name=file_name)
 
     def _get(self, path, params=None):
