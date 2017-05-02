@@ -12,6 +12,7 @@ class FlexerContext(object):
     """The FlexerContext object provides context to the nflex module
     during it's execution.
     """
+
     def __init__(self, cmp_client=None):
         """Construct a new FlexerContext object."""
         self.response_headers = {}
@@ -88,11 +89,11 @@ class FlexerContext(object):
                 'params': params,
             })
 
+            if r.status_code != 200:
+                logger.error("Error sending logs to CMP: %s", r.text)
+
         except Exception as err:
             logger.error("Error sending logs to CMP: %s", err)
-
-        if r.status_code != 200:
-            logger.error("Error sending logs to CMP: %s", r.text)
 
     def set_response_header(self, key, value):
         """Set a response header"""
@@ -100,6 +101,7 @@ class FlexerContext(object):
 
 
 class FlexerLocalState:
+
     def __init__(self):
         self.state = {}
 
@@ -117,6 +119,7 @@ class FlexerLocalState:
 
 
 class FlexerRemoteState:
+
     def __init__(self, context):
         self.api = context.api
         self.module_id = Config.MODULE_ID
