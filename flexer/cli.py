@@ -68,10 +68,8 @@ def list(ctx):
         print_modules(modules)
 
     except requests.exceptions.RequestException as err:
-        e = "request failed [code %d] - %s" % (err.response.status_code,
-                                               err.response.text)
         raise click.ClickException(
-            "Failed to fetch nFlex modules: %s" % e
+            "Failed to fetch nFlex modules: %s" % err
         )
 
 
@@ -127,10 +125,8 @@ def download(ctx, module_id):
         click.echo('Module %s downloaded in the current directory' % module_id)
 
     except requests.exceptions.RequestException as err:
-        e = "request failed [code %d] - %s" % (err.response.status_code,
-                                               err.response.text)
         raise click.ClickException(
-            "Failed to download nFlex module: %s" % e
+            "Failed to download nFlex module: %s" % err
         )
 
 
@@ -147,10 +143,8 @@ def update(ctx, module_id, zip):
         click.echo("Module %s successfuly updated" % module_id)
 
     except requests.exceptions.RequestException as err:
-        e = "request failed [code %d] - %s" % (err.response.status_code,
-                                               err.response.text)
         raise click.ClickException(
-            "Failed to update nFlex module: %s" % e
+            "Failed to update nFlex module: %s" % err
         )
 
 
@@ -189,10 +183,8 @@ def upload(ctx,
         click.echo("Module created with ID %s" % module['id'])
 
     except requests.exceptions.RequestException as err:
-        e = "request failed [code %d] - %s" % (err.response.status_code,
-                                               err.response.text)
         raise click.ClickException(
-            "Failed to upload nFlex module: %s" % e
+            "Failed to upload nFlex module: %s" % err
         )
 
 
