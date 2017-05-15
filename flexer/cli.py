@@ -205,3 +205,32 @@ def run(ctx, handler, event, config, pretty):
     """Run an nFlex module locally."""
     result = flexer.commands.run(handler, event, config, ctx.cmp)
     print_result(result, pretty)
+
+
+@cli.command()
+@click.option('--pretty',
+              default=False,
+              is_flag=True,
+              help='Pretty print the execution result')
+@click.option('--async',
+              default=False,
+              is_flag=True,
+              help="Whether to run the module asynchronously or not")
+@click.option('--event',
+              required=True,
+              help="The event to run the module with")
+@click.option('--handler',
+              required=True,
+              help="The handler to execute inside the module")
+@click.argument('module_id')
+@pass_context
+def execute(ctx, module_id, handler, event, async, pretty):
+    """Run an nFlex module remotely."""
+    try:
+        result = ctx.nflex.execute(module_id, handler, async, event)
+    except requests.exceptions.RequestException as err:
+        raise click.ClickException(
+            "Failed to execute nFlex module: %s" % err
+        )
+
+    print_result(result, pretty)

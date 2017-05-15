@@ -67,7 +67,9 @@ def print_modules(modules):
 
 def print_result(result, pretty):
     if pretty:
-        # pprint is overrated
-        result = json.dumps(json.loads(result), indent=4)
+        if isinstance(result, basestring):
+            result = json.loads(result)
+
+        result = json.dumps(result, indent=4)
 
     click.echo(result)

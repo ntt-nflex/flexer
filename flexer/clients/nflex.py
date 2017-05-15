@@ -1,4 +1,5 @@
 import base64
+import json
 import os
 import tempfile
 import zipfile
@@ -9,6 +10,14 @@ from flexer.utils import read_module
 class NflexClient(object):
     def __init__(self, cmp_client):
         self.cmp_client = cmp_client
+
+    def execute(self, module_id, handler, async, event):
+        data = {
+            'async': async,
+            'handler': "main.%s" % handler,
+            'event': json.loads(event),
+        }
+        return self._post('/modules/%s/execute' % module_id, data=data)
 
     def upload(self,
                name,
