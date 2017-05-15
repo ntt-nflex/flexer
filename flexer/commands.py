@@ -1,9 +1,20 @@
+import click
 import getpass
+import glob
 import json
+import os
+import pip
+import zipfile
 
 from flexer.config import CONFIG_FILE, DEFAULT_CMP_URL
 from flexer.context import FlexerContext
 from flexer.runner import Flexer
+
+BUILD_EXCLUDE_DIRS = [
+    ".git",
+    ".cache",
+    "__pycache__",
+]
 
 
 def config():
@@ -32,3 +43,47 @@ def run(handler, event, config, cmp_client):
 
     runner = Flexer()
     return runner.run(event=event, context=context, handler=handler)
+
+
+def install_deps(source):
+    lib_dir = os.path.join(source, "lib")
+    for f in glob.glob(os.path.join(source, "requirements*.txt")):
+        click.echo('Found "%s". Installing...' % f)
+        pip.main(["install", "-t", lib_dir, "-r", f])
+
+
+def build_zip(source, target, exclude=BUILD_EXCLUDE_DIRS):
+    with zipfile.ZipFile(target, "w") as zf:
+        for dirname, subdirs, files in os.walk(source, topdown=True):
+            subdirs[:] = [d for d in subdirs if d not in exclude]
+            prefix = strip_dir_path(source, dirname)
+            if prefix:
+                zf.write(dirname, prefix)
+
+            for filename in files:
+                if filename.endswith(".pyc"):
+                    continue
+
+                actual_file_path = os.path.join(dirname, filename)
+                zipped_file_path = os.path.join(prefix, filename)
+                zf.write(actual_file_path, zipped_file_path)
+
+
+def strip_dir_path(source, dirname):
+    """Keep the folder structure after the path folder by
+    a) appending a '/' at the end of directory names
+    b) removing the first character from a directory name if it is a '/'
+    The result should look like this:
+    file1.txt
+    folder1/
+    folder1/folder2/
+    folder1/folder2/file2.txt
+    """
+    prefix = ""
+    prefix = dirname.replace(source, "")
+    if prefix != "":
+        prefix += "/"
+        if prefix.startswith("/"):
+            prefix = prefix[1:]
+
+    return prefix

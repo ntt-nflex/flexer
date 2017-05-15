@@ -10,6 +10,7 @@ from flexer.utils import load_config, print_modules, print_result
 import flexer.commands
 
 sys.path.append(os.getcwd())
+sys.path.append(os.path.join(os.getcwd(), "lib"))
 
 CONTEXT_SETTINGS = {
     "help_option_names": ["-h", "--help"],
@@ -234,3 +235,23 @@ def execute(ctx, module_id, handler, event, async, pretty):
         )
 
     print_result(result, pretty)
+
+
+@cli.command()
+@click.option('-z', '--zip',
+              default="connector.zip",
+              type=click.Path(resolve_path=True),
+              help="Output zip file name")
+@click.argument(
+    'd',
+    default=".",
+    type=click.Path(exists=True, resolve_path=True, file_okay=False)
+)
+@pass_context
+def build(ctx, d, zip):
+    """Build an nFlex module from the content of a directory."""
+    click.echo("Building module from %s ..." % d)
+    click.echo("Installing dependencies...")
+    flexer.commands.install_deps(d)
+    click.echo("Archiving everything under %s as %s" % (d, zip))
+    flexer.commands.build_zip(d, zip)
