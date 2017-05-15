@@ -65,6 +65,9 @@ def build_zip(source, target, exclude=BUILD_EXCLUDE_DIRS):
                     continue
 
                 actual_file_path = os.path.join(dirname, filename)
+                if actual_file_path == target:
+                    continue
+
                 zipped_file_path = os.path.join(prefix, filename)
                 zf.write(actual_file_path, zipped_file_path)
 
