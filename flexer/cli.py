@@ -29,8 +29,10 @@ EVENT_SOURCES = [
     "cmp-resource-notification",
     "monitor",
     "service-catalog",
+    "storage-notification",
     "test",
     "timer",
+    "workflow",
 ]
 
 
