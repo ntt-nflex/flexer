@@ -257,3 +257,14 @@ def build(ctx, d, zip):
     flexer.commands.install_deps(d)
     click.echo("Archiving everything under %s as %s" % (d, zip))
     flexer.commands.build_zip(d, zip)
+
+
+@cli.command()
+@click.option('-v', '--verbose',
+              default=False,
+              is_flag=True,
+              help='Display verbose output from the test execution')
+@pass_context
+def test(ctx, verbose):
+    """Run the flexer base tests against a module"""
+    flexer.commands.test(verbose=verbose)
