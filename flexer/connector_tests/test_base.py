@@ -3,8 +3,11 @@ import os
 import unittest
 import yaml
 
+from flexer import CmpClient
+from flexer.config import CONFIG_FILE
 from flexer.context import FlexerContext
 from flexer.runner import Flexer
+from flexer.utils import load_config
 
 
 DEFAULT_ACCOUNT_YAML = os.path.join(os.getcwd(), "account.yaml")
@@ -24,17 +27,21 @@ class BaseConnectorTest(unittest.TestCase):
                 cls.account["credentials"][key] = os.getenv(key.upper())
 
         cls.runner = Flexer()
+        cfg = load_config(cfg_file=CONFIG_FILE)
+        client = CmpClient(url=cfg["cmp_url"],
+                           auth=(cfg['cmp_api_key'], cfg['cmp_api_secret']))
+        cls.context = FlexerContext(cmp_client=client)
 
     def setUp(self):
         # TODO: See if we need extra parameters in the event
-        self.retries = self.account.get("test_retries", 1)
         self.event = {
             "credentials": self.account["credentials"],
         }
 
     def test_get_resources(self):
         result = self.runner.run(handler="main.get_resources",
-                                    event=self.event)
+                                 event=self.event,
+                                 context=self.context)
         result = json.loads(result)
 
         self.assertIsNone(result["error"])
@@ -48,10 +55,10 @@ class BaseConnectorTest(unittest.TestCase):
             self.assertGreater(count, 0,
                                'No resources of type "%s" found' % rtype)
 
-
     def test_validate_credentials(self):
         result = self.runner.run(handler="main.validate_credentials",
-                                 event=self.event)
+                                 event=self.event,
+                                 context=self.context)
         result = json.loads(result)
 
         self.assertIsNone(result["error"])
@@ -63,7 +70,8 @@ class BaseConnectorTest(unittest.TestCase):
         self.event["credentials"] = {}
 
         result = self.runner.run(handler="main.validate_credentials",
-                                 event=self.event)
+                                 event=self.event,
+                                 context=self.context)
         result = json.loads(result)
 
         self.assertIsNone(result["error"])
@@ -73,7 +81,8 @@ class BaseConnectorTest(unittest.TestCase):
 
     def test_get_metrics(self):
         result = self.runner.run(handler="main.get_metrics",
-                                    event=self.event)
+                                 event=self.event,
+                                 context=self.context)
         result = json.loads(result)
 
         self.assertIsNone(result["error"])
