@@ -1,5 +1,7 @@
 import click
 import json
+import os
+import yaml
 
 
 def load_config(cfg_file):
@@ -49,6 +51,11 @@ def read_json_file(file_name):
         return json.load(f)
 
 
+def read_account_file(file_name):
+    with open(file_name) as f:
+        return yaml.load(f)
+
+
 # aux
 def print_modules(modules):
     trow = (u'{id:36}   {name:30.30}   {user_name:30.30}   '
@@ -73,3 +80,10 @@ def print_result(result, pretty):
         result = json.dumps(result, indent=4)
 
     click.echo(result)
+
+
+def lookup_credentials(keys):
+    if not keys:
+        return {}
+
+    return {key: os.getenv(key.upper()) for key in keys}

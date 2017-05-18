@@ -253,9 +253,7 @@ def execute(ctx, module_id, handler, event, async, pretty):
 def build(ctx, d, zip):
     """Build an nFlex module from the content of a directory."""
     click.echo("Building module from %s ..." % d)
-    click.echo("Installing dependencies...")
     flexer.commands.install_deps(d)
-    click.echo("Archiving everything under %s as %s" % (d, zip))
     flexer.commands.build_zip(d, zip)
 
 
@@ -268,3 +266,14 @@ def build(ctx, d, zip):
 def test(ctx, verbose):
     """Run the flexer base tests against a module"""
     flexer.commands.test(verbose=verbose)
+
+
+@cli.command()
+@pass_context
+@click.option('--account_id',
+              required=True,
+              help="The CMP account_id to run the connector for")
+@click.argument('module_id')
+def integration_test(ctx, module_id, account_id):
+    """Build, upload and remotely execute an nFlex module"""
+    flexer.commands.integration_test(ctx.nflex, module_id, account_id)

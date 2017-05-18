@@ -2,6 +2,7 @@ import os
 
 CONFIG_FILE = os.path.expanduser('~/.flexer.json')
 DEFAULT_CMP_URL = 'https://portal.ntt.eu/cmp/basic/api'
+DEFAULT_ACCOUNT_YAML = os.path.join(os.getcwd(), "account.yaml")
 
 
 class Config(object):

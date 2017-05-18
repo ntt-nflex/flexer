@@ -1,16 +1,16 @@
 import json
 import os
 import unittest
-import yaml
 
 from flexer import CmpClient
-from flexer.config import CONFIG_FILE
+from flexer.config import CONFIG_FILE, DEFAULT_ACCOUNT_YAML
 from flexer.context import FlexerContext
 from flexer.runner import Flexer
-from flexer.utils import load_config
-
-
-DEFAULT_ACCOUNT_YAML = os.path.join(os.getcwd(), "account.yaml")
+from flexer.utils import (
+    load_config,
+    lookup_credentials,
+    read_account_file,
+)
 
 
 class BaseConnectorTest(unittest.TestCase):
@@ -18,13 +18,10 @@ class BaseConnectorTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         path = os.getenv("TEST_ACCOUNT_YAML", DEFAULT_ACCOUNT_YAML)
-        with open(path) as f:
-            cls.account = yaml.load(f)
-            if "credentials" not in cls.account:
-                cls.account["credentials"] = {}
-
-            for key in cls.account.get("credentials_keys", []):
-                cls.account["credentials"][key] = os.getenv(key.upper())
+        cls.account = read_account_file(path)
+        cls.account["credentials"] = (
+            lookup_credentials(cls.account.get("credentials_keys"))
+        )
 
         cls.runner = Flexer()
         cfg = load_config(cfg_file=CONFIG_FILE)

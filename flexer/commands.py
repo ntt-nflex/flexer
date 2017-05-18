@@ -6,9 +6,18 @@ import os
 import pip
 import zipfile
 
-from flexer.config import CONFIG_FILE, DEFAULT_CMP_URL
+from flexer.config import (
+    CONFIG_FILE,
+    DEFAULT_CMP_URL,
+    DEFAULT_ACCOUNT_YAML,
+)
 from flexer.context import FlexerContext
 from flexer.runner import Flexer
+from flexer.utils import (
+    lookup_credentials,
+    print_result,
+    read_account_file,
+)
 
 BUILD_EXCLUDE_DIRS = [
     ".git",
@@ -46,6 +55,7 @@ def run(handler, event, config, cmp_client):
 
 
 def install_deps(source):
+    click.echo("Installing dependencies...")
     lib_dir = os.path.join(source, "lib")
     for f in glob.glob(os.path.join(source, "requirements*.txt")):
         click.echo('Found "%s". Installing...' % f)
@@ -53,6 +63,7 @@ def install_deps(source):
 
 
 def build_zip(source, target, exclude=BUILD_EXCLUDE_DIRS):
+    click.echo("Archiving everything under %s as %s" % (source, target))
     with zipfile.ZipFile(target, "w") as zf:
         for dirname, subdirs, files in os.walk(source, topdown=True):
             subdirs[:] = [d for d in subdirs if d not in exclude]
@@ -97,3 +108,35 @@ def test(verbose=False):
     from flexer.connector_tests.test_base import BaseConnectorTest
     runner = unittest.TextTestRunner(verbosity=2 if verbose else 1)
     runner.run(unittest.makeSuite(BaseConnectorTest))
+
+
+def integration_test(nflex, module_id, account_id):
+    cwd = os.getcwd()
+    zf = os.path.join(cwd, "connector.zip")
+    install_deps(cwd)
+    build_zip(cwd, zf)
+    click.echo("Updating module %s ..." % module_id)
+    nflex.update(module_id, zf)
+
+    click.echo("Building event ...")
+    path = os.getenv("TEST_ACCOUNT_YAML", DEFAULT_ACCOUNT_YAML)
+    event = json.dumps({
+        "credentials": lookup_credentials(
+            read_account_file(path).get("credentials_keys")
+        ),
+        "account_id": account_id,
+    })
+
+    click.echo("Executing module %s ..." % module_id)
+    handler = "get_resources"
+    result = nflex.execute(module_id=module_id,
+                           handler=handler,
+                           async=True,
+                           event=event)
+    print_result(result, pretty=True)
+    click.echo("Cleaning up %s" % zf)
+    try:
+        os.remove(zf)
+
+    except OSError:
+        pass
