@@ -3,7 +3,7 @@ import os
 import unittest
 
 from flexer import CmpClient
-from flexer.config import CONFIG_FILE, DEFAULT_ACCOUNT_YAML
+from flexer.config import CONFIG_FILE, DEFAULT_CONFIG_YAML
 from flexer.context import FlexerContext
 from flexer.runner import Flexer
 from flexer.utils import (
@@ -17,7 +17,7 @@ class BaseConnectorTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        path = os.getenv("TEST_ACCOUNT_YAML", DEFAULT_ACCOUNT_YAML)
+        path = os.getenv("CONFIG_YAML", DEFAULT_CONFIG_YAML)
         cls.account = read_account_file(path)
         cls.account["credentials"] = (
             lookup_credentials(cls.account.get("credentials_keys"))

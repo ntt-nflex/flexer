@@ -9,7 +9,7 @@ import zipfile
 from flexer.config import (
     CONFIG_FILE,
     DEFAULT_CMP_URL,
-    DEFAULT_ACCOUNT_YAML,
+    DEFAULT_CONFIG_YAML,
 )
 from flexer.context import FlexerContext
 from flexer.runner import Flexer
@@ -119,7 +119,7 @@ def integration_test(nflex, module_id, account_id):
     nflex.update(module_id, zf)
 
     click.echo("Building event ...")
-    path = os.getenv("TEST_ACCOUNT_YAML", DEFAULT_ACCOUNT_YAML)
+    path = os.getenv("CONFIG_YAML", DEFAULT_CONFIG_YAML)
     event = json.dumps({
         "credentials": lookup_credentials(
             read_account_file(path).get("credentials_keys")
