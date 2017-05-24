@@ -138,11 +138,14 @@ def download(ctx, module_id):
               type=click.Path(exists=True, resolve_path=True),
               help="Upload a zip file")
 @click.argument('module_id')
+@click.option('--description',
+              required=False,
+              help="A short description of the module")
 @pass_context
-def update(ctx, module_id, zip):
+def update(ctx, module_id, zip, description):
     """Update the source code of an existing nFlex module."""
     try:
-        ctx.nflex.update(module_id, zip)
+        ctx.nflex.update(module_id, zip, description=description)
         click.echo("Module %s successfuly updated" % module_id)
 
     except requests.exceptions.RequestException as err:

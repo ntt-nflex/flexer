@@ -47,9 +47,11 @@ class NflexClient(object):
 
             return module
 
-    def update(self, module_id, zip_file):
+    def update(self, module_id, zip_file, description=None):
         file_type = 'zip' if zip_file else 'inline'
         data = {'file_type': file_type}
+        if description is not None:
+            data['description'] = description
         if file_type == 'inline':
             data['source_code'] = read_module("main.py")
             return self._patch('/modules/%s' % module_id, data=data)
