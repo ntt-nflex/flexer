@@ -24,6 +24,7 @@ The main dependencies are:
 * [click]: for creating beautiful command line interfaces
 * [jsonschema]: an implementation of JSON Schema for Python
 * [jinja2]: modern and designer-friendly templating language for Python
+* [pyyaml]: YAML parser and emitter for Python
 
 The testing dependencies are:
 * [pytest]: helps you write better programs
@@ -59,12 +60,6 @@ and add this line to your `.bashrc` file:
 source ~/flexer-complete.sh
 ```
 
-Todos
------
-
- - Write more tests
- - Add support for remote module execution
-
 License
 -------
 
@@ -75,6 +70,7 @@ License
    [click]: <http://click.pocoo.org>
    [jsonschema]: <https://python-jsonschema.readthedocs.io/en/latest/>
    [jinja2]: <http://jinja.pocoo.org>
+   [pyyaml]: <http://pyyaml.org/wiki/PyYAML>
    [mock]: <https://pypi.python.org/pypi/mock>
    [pytest]: <http://doc.pytest.org>
    [tox]: <https://tox.readthedocs.io/>
