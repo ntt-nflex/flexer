@@ -12,6 +12,8 @@ from flexer.utils import (
     read_account_file,
 )
 
+import main
+
 
 class BaseConnectorTest(unittest.TestCase):
 
@@ -76,6 +78,8 @@ class BaseConnectorTest(unittest.TestCase):
         self.assertIsNotNone(value)
         self.assertFalse(value["ok"])
 
+    @unittest.skipIf(not hasattr(main, "get_metrics"),
+                     "get_metrics not defined")
     def test_get_metrics(self):
         result = self.runner.run(handler="main.get_metrics",
                                  event=self.event,

@@ -3,6 +3,7 @@ import json
 import os
 import tempfile
 import zipfile
+from datetime import datetime, timedelta
 
 from flexer.utils import read_module
 
@@ -10,6 +11,9 @@ from flexer.utils import read_module
 class NflexClient(object):
     def __init__(self, cmp_client):
         self.cmp_client = cmp_client
+
+    def get(self, module_id):
+        return self._get('/modules/%s' % module_id).json()
 
     def execute(self, module_id, handler, async, event):
         data = {
@@ -76,6 +80,21 @@ class NflexClient(object):
 
         return modules
 
+    def delete(self, module_id):
+        self._delete('/modules/%s' % module_id)
+
+    def logs(self, module_id):
+        end = datetime.utcnow()
+        start = end - timedelta(hours=24)
+
+        params = {
+            "resource_id": "nflex-module-{}".format(module_id),
+            "start": start.strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
+            "end": end.strftime("%Y-%m-%dT%H:%M:%S.%fZ"),
+            "order": "asc",
+        }
+        return self._get('/logs', params=params).json()
+
     def download(self, module_id):
         module = self._get('/modules/%s' % module_id).json()
         file_type = module['file_type']
@@ -134,3 +153,7 @@ class NflexClient(object):
         response = self.cmp_client.patch(path, data=data)
         response.raise_for_status()
         return response.json()
+
+    def _delete(self, path):
+        response = self.cmp_client.delete(path)
+        response.raise_for_status()

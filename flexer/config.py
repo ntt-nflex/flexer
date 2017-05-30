@@ -1,7 +1,7 @@
 import os
 
 CONFIG_FILE = os.path.expanduser('~/.flexer.json')
-DEFAULT_CMP_URL = 'https://portal.ntt.eu/cmp/basic/api'
+DEFAULT_CMP_URL = 'https://sandbox.cmp.nflex.io/cmp/basic/api'
 DEFAULT_CONFIG_YAML = os.path.join(os.getcwd(), "config.yaml")
 
 

@@ -76,7 +76,12 @@ class Flexer(object):
     def __init__(self):
         self.modules = {}
 
-    def run(self, event, context=None, handler=None, event_source=None):
+    def run(self,
+            event,
+            context=None,
+            handler=None,
+            event_source=None,
+            debug=False):
         if context is None:
             context = FlexerContext()
         if context.state is None:
@@ -97,7 +102,8 @@ class Flexer(object):
 
         value, error, stdout = None, None, ''
         headers = {}
-        f = StringIO.StringIO()
+        f = sys.stderr if debug else StringIO.StringIO()
+
         try:
             with RedirectStdStreams(stdout=f, stderr=f):
                 try:
@@ -114,28 +120,31 @@ class Flexer(object):
                     del func
                     error = self._format_exception_info(sys.exc_info())
 
-            stdout = f.getvalue()
+            if not debug:
+                stdout = f.getvalue()
 
         finally:
-            f.close()
+            if not debug:
+                f.close()
+
             logger.info('Handler completed "%s"', handler)
 
         if error:
             stdout += error['stack_trace']
         else:
-                schema = self._get_validation_schema(event_source, handler)
-                if schema:
-                    validator = Draft4Validator(schema)
-                    errors = []
-                    for e in sorted(validator.iter_errors(value), key=str):
-                        errors.append(e.message + ' in ' + str(list(e.path)))
+            schema = self._get_validation_schema(event_source, handler)
+            if schema:
+                validator = Draft4Validator(schema)
+                errors = []
+                for e in sorted(validator.iter_errors(value), key=str):
+                    errors.append(e.message + ' in ' + str(list(e.path)))
 
-                    if errors:
-                        error = {
-                            'exc_message': json.dumps(errors),
-                            'exc_type': 'ValidationError'
-                        }
-                        stdout += json.dumps(errors)
+                if errors:
+                    error = {
+                        'exc_message': json.dumps(errors),
+                        'exc_type': 'ValidationError'
+                    }
+                    stdout += json.dumps(errors)
 
         return FlexerResult(value=value,
                             logs=stdout,

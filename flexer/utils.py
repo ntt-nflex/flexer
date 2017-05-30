@@ -1,3 +1,4 @@
+from datetime import datetime
 import click
 import json
 import os
@@ -57,29 +58,69 @@ def read_account_file(file_name):
 
 
 # aux
+def print_module(module):
+    click.echo(json.dumps(module, indent=4, sort_keys=True))
+
+
 def print_modules(modules):
-    trow = (u'{id:36}   {name:30.30}   {user_name:30.30}   '
-            '{event_source:35}   {file_type:9}   {language:10}')
+    trow = (u'{id:36}   {name:30.30}   {description:30.30}    '
+            '{user_name:30.30}    {event_source:35}   {file_type:9}   '
+            '{language:10}')
     click.echo(trow.format(**{
         'id': 'ID',
         'name': 'NAME',
+        'description': 'DESCRIPTION',
         'user_name': 'OWNER',
         'event_source': 'EVENT_SOURCE',
         'file_type': 'FILE_TYPE',
         'language': 'LANGUAGE',
-    }))
+    }), err=True)
     for module in modules:
-        click.echo(trow.format(**module))
+        click.echo(trow.format(**module), err=True)
 
 
-def print_result(result, pretty):
-    if pretty:
-        if isinstance(result, basestring):
-            result = json.loads(result)
+def print_result(result):
+    if isinstance(result, basestring):
+        result = json.loads(result)
 
-        result = json.dumps(result, indent=4)
+    logs = result.get("logs")
+    if logs:
+        click.echo(logs, err=True)
 
-    click.echo(result)
+    value = result.get("value")
+    error = result.get("error")
+    if value:
+        click.echo(json.dumps(value, indent=4, sort_keys=True))
+
+    elif error:
+        click.echo(json.dumps(error, indent=4, sort_keys=True))
+
+
+def print_cmp_logs(logs):
+    for log in logs:
+        timestamp = (datetime
+                     .strptime(log["timestamp"], "%Y-%m-%dT%H:%M:%S.%fZ")
+                     .replace(microsecond=0)
+                     .isoformat() + "Z")
+        stats = ""
+        if len(log["extra"]):
+            mem = log["extra"].get("memory-usage")
+            if mem:
+                mem = "{}MB".format(int(mem[:-1]) / (1024 * 1024))
+            else:
+                mem = "N/A"
+
+            stats = " [{} {} {}]".format(
+                "cpu-time={}".format(log["extra"].get("cpu-time", "N/A")),
+                "duration={}".format(log["extra"].get("duration", "N/A")),
+                "memory-usage={}".format(mem)
+            )
+
+        line = "{} [{:5}] {}{}".format(timestamp,
+                                       log["severity"],
+                                       log["message"],
+                                       stats)
+        click.echo(line, err=True)
 
 
 def lookup_credentials(keys):

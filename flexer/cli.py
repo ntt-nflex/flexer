@@ -6,7 +6,13 @@ import os
 from flexer import CmpClient, NflexClient
 from flexer.config import CONFIG_FILE
 from flexer.module_template import ModuleTemplate
-from flexer.utils import load_config, print_modules, print_result
+from flexer.utils import (
+    load_config,
+    print_cmp_logs,
+    print_module,
+    print_modules,
+    print_result,
+)
 import flexer.commands
 
 sys.path.append(os.getcwd())
@@ -86,14 +92,11 @@ def list(ctx):
               help="The event source for the module")
 @pass_context
 def new_module(ctx, name, event_source):
-    """
-    Create a new nFlex module.
-    """
+    """Create a new nFlex module."""
 
     module_type = ModuleTemplate.get_module_type(event_source)
-    click.echo(
-        'Creating a new {} module...'.format(module_type)
-    )
+    click.echo('Creating a new {} module...'.format(module_type),
+               err=True)
 
     template_dir = os.path.join(
         os.path.dirname(__file__),
@@ -104,8 +107,8 @@ def new_module(ctx, name, event_source):
         os.stat(template_dir)
     except OSError as error:
         if error.errno == 2:  # No such file or directory
-            click.echo('Cannot find template directory "%s".' % template_dir)
-
+            click.echo('Cannot find template directory "%s".' % template_dir,
+                       err=True)
             return
 
         raise
@@ -121,11 +124,30 @@ def new_module(ctx, name, event_source):
 @cli.command()
 @click.argument('module_id')
 @pass_context
+def get(ctx, module_id):
+    """Get an nFlex module."""
+    try:
+        result = ctx.nflex.get(module_id)
+        if len(result["source_code"]) > 50:
+            result["source_code"] = "*** REDACTED ***"
+
+        print_module(result)
+
+    except requests.exceptions.RequestException as err:
+        raise click.ClickException(
+            "Failed to delete nFlex module: %s" % err
+        )
+
+
+@cli.command()
+@click.argument('module_id')
+@pass_context
 def download(ctx, module_id):
-    """Download a nFlex module."""
+    """Download an nFlex module."""
     try:
         ctx.nflex.download(module_id)
-        click.echo('Module %s downloaded in the current directory' % module_id)
+        click.echo('Module %s downloaded in the current directory' % module_id,
+                   err=True)
 
     except requests.exceptions.RequestException as err:
         raise click.ClickException(
@@ -143,10 +165,11 @@ def download(ctx, module_id):
               help="A short description of the module")
 @pass_context
 def update(ctx, module_id, zip, description):
-    """Update the source code of an existing nFlex module."""
+    """Update an existing module."""
     try:
         ctx.nflex.update(module_id, zip, description=description)
-        click.echo("Module %s successfuly updated" % module_id)
+        click.echo("Module %s successfuly updated" % module_id,
+                   err=True)
 
     except requests.exceptions.RequestException as err:
         raise click.ClickException(
@@ -186,7 +209,8 @@ def upload(ctx,
                                   event_source,
                                   sync,
                                   zip)
-        click.echo("Module created with ID %s" % module['id'])
+        click.echo("Module created with ID %s" % module['id'],
+                   err=True)
 
     except requests.exceptions.RequestException as err:
         raise click.ClickException(
@@ -195,10 +219,37 @@ def upload(ctx,
 
 
 @cli.command()
-@click.option('--pretty',
-              default=False,
-              is_flag=True,
-              help='Pretty print the execution result')
+@click.argument('module_id')
+@pass_context
+def delete(ctx, module_id):
+    """Delete an nFlex module."""
+    try:
+        ctx.nflex.delete(module_id)
+        click.echo("Module %s successfully deleted" % module_id)
+
+    except requests.exceptions.RequestException as err:
+        raise click.ClickException(
+            "Failed to delete nFlex module: %s" % err
+        )
+
+
+@cli.command()
+@click.argument('module_id')
+@pass_context
+def logs(ctx, module_id):
+    """Get logs for an nFlex module."""
+    try:
+        logs = ctx.nflex.logs(module_id)
+        print_cmp_logs(logs.get("hits", []))
+
+    except requests.exceptions.RequestException as err:
+        raise click.ClickException(
+            "Failed to fetch nFlex logs: %s" % err
+        )
+
+
+@cli.command()
+@click.option('--pretty', is_flag=True, help="DEPRECATED")
 @click.option('--config',
               required=False,
               help="The config to run the module with")
@@ -209,15 +260,15 @@ def upload(ctx,
 @pass_context
 def run(ctx, handler, event, config, pretty):
     """Run an nFlex module locally."""
+    if pretty:
+        click.echo("warn: --pretty is deprecated", err=True)
+
     result = flexer.commands.run(handler, event, config, ctx.cmp)
-    print_result(result, pretty)
+    print_result(result)
 
 
 @cli.command()
-@click.option('--pretty',
-              default=False,
-              is_flag=True,
-              help='Pretty print the execution result')
+@click.option('--pretty', is_flag=True, help="DEPRECATED")
 @click.option('--async',
               default=False,
               is_flag=True,
@@ -232,6 +283,9 @@ def run(ctx, handler, event, config, pretty):
 @pass_context
 def execute(ctx, module_id, handler, event, async, pretty):
     """Run an nFlex module remotely."""
+    if pretty:
+        click.echo("warn: --pretty is deprecated", err=True)
+
     try:
         result = ctx.nflex.execute(module_id, handler, async, event)
     except requests.exceptions.RequestException as err:
@@ -239,12 +293,16 @@ def execute(ctx, module_id, handler, event, async, pretty):
             "Failed to execute nFlex module: %s" % err
         )
 
-    print_result(result, pretty)
+    print_result(result)
 
 
 @cli.command()
+@click.option('-e', '--exclude',
+              multiple=True,
+              type=click.Path(resolve_path=False),
+              help="Exclude directory from the build")
 @click.option('-z', '--zip',
-              default="connector.zip",
+              default="/tmp/module.zip",
               type=click.Path(resolve_path=True),
               help="Output zip file name")
 @click.argument(
@@ -253,11 +311,12 @@ def execute(ctx, module_id, handler, event, async, pretty):
     type=click.Path(exists=True, resolve_path=True, file_okay=False)
 )
 @pass_context
-def build(ctx, d, zip):
-    """Build an nFlex module from the content of a directory."""
-    click.echo("Building module from %s ..." % d)
+def build(ctx, d, zip, exclude):
+    """Build an nFlex module from a directory."""
+    click.echo("Building module from %s ..." % d,
+               err=True)
     flexer.commands.install_deps(d)
-    flexer.commands.build_zip(d, zip)
+    flexer.commands.build_zip(d, zip, [i for i in exclude])
 
 
 @cli.command()
@@ -267,16 +326,5 @@ def build(ctx, d, zip):
               help='Display verbose output from the test execution')
 @pass_context
 def test(ctx, verbose):
-    """Run the flexer base tests against a module"""
+    """Run the flexer base tests against a module."""
     flexer.commands.test(verbose=verbose)
-
-
-@cli.command()
-@pass_context
-@click.option('--account_id',
-              required=True,
-              help="The CMP account_id to run the connector for")
-@click.argument('module_id')
-def integration_test(ctx, module_id, account_id):
-    """Build, upload and remotely execute an nFlex module"""
-    flexer.commands.integration_test(ctx.nflex, module_id, account_id)
