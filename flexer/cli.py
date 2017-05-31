@@ -43,14 +43,29 @@ EVENT_SOURCES = [
 
 
 def list_regions():
-    return load_config(CONFIG_FILE)["regions"].keys()
+    try:
+        return load_config(CONFIG_FILE)["regions"].keys()
+    except IOError:
+        return ["default"]
 
 
 class Context(object):
     """The context holds the nflex client"""
 
     def __init__(self):
-        self.config = load_config(CONFIG_FILE)
+        try:
+            self.config = load_config(CONFIG_FILE)
+
+        except IOError:
+            click.echo(
+                "The flexer config file is not found. Running config...",
+                err=True,
+            )
+            self.config = flexer.commands.config()
+            sys.exit(0)
+
+    def list_regions(self):
+        return self.config["regions"].keys()
 
 
 pass_context = click.make_pass_decorator(Context, ensure=True)

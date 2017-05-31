@@ -45,6 +45,8 @@ def config():
         }
     }
     write_yaml_file(CONFIG_FILE, config)
+    return config
+
 
 def run(handler, event, config, cmp_client):
     event = json.loads(event)

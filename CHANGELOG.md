@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.2.1](https://github.com/ntt-nflex/flexer/tree/v1.2.0) (May 31, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.0...v1.2.1)
+
+### Fixes:
+- Run `flexer config` if a config file is not found
+
 ## [v1.2.0](https://github.com/ntt-nflex/flexer/tree/v1.2.0) (May 31, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.7...v1.2.0)
 

@@ -6,14 +6,7 @@ import yaml
 
 
 def load_config(cfg_file):
-    try:
-        cfg = read_yaml_file(cfg_file)
-
-    except IOError as err:
-        raise click.ClickException(
-            "The flexer config file is not found: "
-            "make sure `flexer config` is run"
-        )
+    cfg = read_yaml_file(cfg_file)
 
     # Validate the config file
     try:
