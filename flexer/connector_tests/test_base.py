@@ -26,7 +26,7 @@ class BaseConnectorTest(unittest.TestCase):
         )
 
         cls.runner = Flexer()
-        cfg = load_config(cfg_file=CONFIG_FILE)
+        cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
         client = CmpClient(url=cfg["cmp_url"],
                            auth=(cfg['cmp_api_key'], cfg['cmp_api_secret']))
         cls.context = FlexerContext(cmp_client=client)

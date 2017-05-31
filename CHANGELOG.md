@@ -1,6 +1,12 @@
 # Change Log
 
-## [v1.2.1](https://github.com/ntt-nflex/flexer/tree/v1.2.0) (May 31, 2017)
+## [v1.2.2](https://github.com/ntt-nflex/flexer/tree/v1.2.2) (May 31, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.1...v1.2.2)
+
+### Fixes:
+- Update the config cmp credentials keys in the base connector tests
+
+## [v1.2.1](https://github.com/ntt-nflex/flexer/tree/v1.2.1) (May 31, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.0...v1.2.1)
 
 ### Fixes:
