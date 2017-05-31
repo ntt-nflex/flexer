@@ -396,7 +396,42 @@ def build(ctx, directory, zip, exclude):
 def test(ctx, verbose):
     """Run the flexer base tests against a module.
 
-    To run the tests successfully, "main.py" must be present in the current
-    working directory.
+    Run a very basic set of tests for a CMP connector. The tests are available
+    under connector_tests/ directory in the flexer repo. Upon execution,
+    the command will try to find a "main.py" file in the current working
+    directory and execute the "get_resources", "get_credentials" and
+    "get_metrics" handlers in that file. The "get_metrics" tests are optional
+    and will be skipped if the "get_metrics" handler is not defined in the
+    "main.py" file.
+
+    The event passed to the handlers contains only provider credentials
+    and those are picked up from the environment. Which environment variables
+    are looked up is defined in a "config.yaml" file. The file should be either
+    in the current working directory or its path should be passed as a
+    CONFIG_YAML environment variable. In that config.yaml file, there must be
+    a "credentials_keys" list which defines which environment variables should
+    be looked up when building the credentials dictionary
+
+    \b
+    Example:
+        With a config.yaml file that looks like this:
+        ```
+        name: Provider Name
+        type: provider_name
+        credentials_keys:
+            - provider_usename
+            - provider_password
+        expected_resources:
+            - server
+        ```
+        an event like this will be passed to the hanlders when executing tests
+        {
+            "credentials": {
+                "provider_username": <PROVIDER_USERNAME>,
+                "provider_password" <PROVIDER_PASSWORD>,
+            }
+        }
+        Then the tests will assert that at least one resource of type server
+        is in the return value of the get_resources handler
     """
     flexer.commands.test(verbose=verbose)
