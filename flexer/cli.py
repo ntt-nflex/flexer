@@ -373,7 +373,7 @@ def execute(ctx, module_id, handler, event, async, pretty):
     type=click.Path(exists=True, resolve_path=True, file_okay=False)
 )
 @pass_context
-def build(ctx, d, zip, exclude):
+def build(ctx, directory, zip, exclude):
     """Build an nFlex module from a directory.
 
     This command will look up DIRECTORY for any requirements-*.txt files
@@ -382,8 +382,8 @@ def build(ctx, d, zip, exclude):
     use the --exclude option to skip directories when building the zip file.
     The zip file can be then used to create/update an nFlex module.
     """
-    click.echo("Building module from %s ..." % d, err=True)
-    flexer.commands.install_deps(d)
+    click.echo("Building module from %s ..." % directory, err=True)
+    flexer.commands.install_deps(directory)
     flexer.commands.build_zip(directory, zip, [i for i in exclude])
 
 
