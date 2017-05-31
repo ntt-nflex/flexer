@@ -9,7 +9,7 @@ from flexer.runner import Flexer
 from flexer.utils import (
     load_config,
     lookup_credentials,
-    read_account_file,
+    read_yaml_file,
 )
 
 import main
@@ -20,7 +20,7 @@ class BaseConnectorTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         path = os.getenv("CONFIG_YAML", DEFAULT_CONFIG_YAML)
-        cls.account = read_account_file(path)
+        cls.account = read_yaml_file(path)
         cls.account["credentials"] = (
             lookup_credentials(cls.account.get("credentials_keys"))
         )

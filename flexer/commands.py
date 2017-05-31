@@ -12,6 +12,7 @@ from flexer.config import (
 )
 from flexer.context import FlexerContext
 from flexer.runner import Flexer
+from flexer.utils import write_yaml_file
 
 BUILD_EXCLUDE_DIRS = [
     ".git",
@@ -25,17 +26,25 @@ def config():
     user_prompt = 'CMP API Key: '
     pass_prompt = 'CMP API Secret: '
 
-    url = raw_input(url_prompt)
-    key = raw_input(user_prompt)
-    secret = getpass.getpass(pass_prompt)
-    config = {
-        'cmp_url': url or DEFAULT_CMP_URL,
-        'cmp_api_key': key,
-        'cmp_api_secret': secret,
-    }
-    with open(CONFIG_FILE, 'w') as f:
-        json.dump(config, f, indent=4)
+    url = ""
+    key = "KEY"
+    secret = "SECRET"
+    if os.sys.stdin.isatty():
+        url = raw_input(url_prompt)
+        key = raw_input(user_prompt)
+        secret = getpass.getpass(pass_prompt)
 
+    config = {
+        'verify_ssl': True,
+        'regions': {
+            'default': {
+                'cmp_url': url or DEFAULT_CMP_URL,
+                'cmp_api_key': key,
+                'cmp_api_secret': secret,
+            }
+        }
+    }
+    write_yaml_file(CONFIG_FILE, config)
 
 def run(handler, event, config, cmp_client):
     event = json.loads(event)
@@ -44,11 +53,11 @@ def run(handler, event, config, cmp_client):
     if config is not None:
         context.config = json.loads(config)
 
-    runner = Flexer()
-    return runner.run(event=event,
-                      context=context,
-                      handler=handler,
-                      debug=True)
+    result = Flexer().run(event=event,
+                          context=context,
+                          handler=handler,
+                          debug=True)
+    return json.loads(result)
 
 
 def install_deps(source):

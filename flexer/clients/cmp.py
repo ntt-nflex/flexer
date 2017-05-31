@@ -5,7 +5,7 @@ requests.packages.urllib3.disable_warnings()
 
 
 class CmpClient(object):
-    def __init__(self, url, auth=None, access_token=None):
+    def __init__(self, url, auth=None, access_token=None, verify_ssl=None):
         self._session = requests.Session()
         self._url = url
         self._auth = auth
@@ -14,6 +14,7 @@ class CmpClient(object):
             'User-Agent': 'nflex-client',
             'Content-Type': 'application/json',
         }
+        self._session.verify = verify_ssl
         if auth and len(auth) == 2 and auth[0] and auth[1]:
             self._session.auth = auth
 

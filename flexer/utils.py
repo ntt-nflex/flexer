@@ -7,29 +7,33 @@ import yaml
 
 def load_config(cfg_file):
     try:
-        cfg = read_json_file(cfg_file)
-        cfg["cmp_url"]
-        cfg["cmp_api_key"]
-        cfg["cmp_api_secret"]
-        return cfg
-
-    except KeyError as err:
-        raise click.ClickException(
-            "Failed to parse the flexer config file: "
-            "the %s key is missing!" % str(err)
-        )
-
-    except ValueError as err:
-        raise click.ClickException(
-            "Failed to parse the flexer config file: "
-            "make sure it's a valid JSON object"
-        )
+        cfg = read_yaml_file(cfg_file)
 
     except IOError as err:
         raise click.ClickException(
             "The flexer config file is not found: "
             "make sure `flexer config` is run"
         )
+
+    # Validate the config file
+    try:
+        where = ""
+        cfg["regions"]
+        where = " from regions"
+        cfg["regions"]["default"]
+        for r, c in cfg["regions"].items():
+            where = " from regions.{}".format(r)
+            c["cmp_url"]
+            c["cmp_api_key"]
+            c["cmp_api_secret"]
+
+    except KeyError as err:
+        raise click.ClickException(
+            "Failed to parse the flexer config file: "
+            "the {} key is missing{}!".format(str(err), where)
+        )
+
+    return cfg
 
 
 # I/O
@@ -39,27 +43,24 @@ def read_module(module):
             return f.read()
 
     except IOError as err:
-        raise click.ClickException("cannot read file %s: %s" % module, err)
+        raise click.ClickException(
+            "cannot read file {}: {}".format(module, err)
+        )
 
 
-def write_json_file(file_name, data):
-    with open(file_name) as f:
-        return json.dump(data, f, indent=4)
-
-
-def read_json_file(file_name):
-    with open(file_name) as f:
-        return json.load(f)
-
-
-def read_account_file(file_name):
+def read_yaml_file(file_name):
     with open(file_name) as f:
         return yaml.load(f)
 
 
+def write_yaml_file(file_name, data):
+    with open(file_name, "w") as f:
+        return yaml.dump(data, f, default_flow_style=False)
+
+
 # aux
 def print_module(module):
-    click.echo(json.dumps(module, indent=4, sort_keys=True))
+    click.echo(json.dumps(module, indent=4, sort_keys=True), err=True)
 
 
 def print_modules(modules):
@@ -80,9 +81,6 @@ def print_modules(modules):
 
 
 def print_result(result):
-    if isinstance(result, basestring):
-        result = json.loads(result)
-
     logs = result.get("logs")
     if logs:
         click.echo(logs, err=True)
@@ -90,10 +88,10 @@ def print_result(result):
     value = result.get("value")
     error = result.get("error")
     if value:
-        click.echo(json.dumps(value, indent=4, sort_keys=True))
+        click.echo(json.dumps(value, indent=4, sort_keys=True), err=True)
 
     elif error:
-        click.echo(json.dumps(error, indent=4, sort_keys=True))
+        click.echo(json.dumps(error, indent=4, sort_keys=True), err=True)
 
 
 def print_cmp_logs(logs):

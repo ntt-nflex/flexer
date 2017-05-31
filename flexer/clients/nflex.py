@@ -81,7 +81,7 @@ class NflexClient(object):
         return modules
 
     def delete(self, module_id):
-        self._delete('/modules/%s' % module_id)
+        return self._delete('/modules/%s' % module_id)
 
     def logs(self, module_id):
         end = datetime.utcnow()
@@ -157,3 +157,4 @@ class NflexClient(object):
     def _delete(self, path):
         response = self.cmp_client.delete(path)
         response.raise_for_status()
+        return response
