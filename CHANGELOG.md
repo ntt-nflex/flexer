@@ -1,5 +1,27 @@
 # Change Log
 
+## [v1.2.0](https://github.com/ntt-nflex/flexer/tree/v1.2.0) (May 31, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.7...v1.2.0)
+
+### Changes:
+- **BREAKING**: Add support for multiple CMP regions to the config file and change the format to YAML. This requires running `flexer config` again
+- Add a `flexer delete` command for deleting modules from nFlex
+- Add a `flexer show` command for showing nFlex module details
+- Add a `flexer logs` command for showing nFlex module execution logs
+- Add a `flexer build` command for building module zip files from requirements.txt files
+- Add a `flexer execute` command for running nFlex modules remotely on a CMP region
+- Add a `flexer test` command to run base connector tests against a connector in development
+- Update the list of allowed event sources
+- Allow updating module descriptions with the `flexer update` command
+- Redirect any output from the tool or the local module execution to stderr
+- Redirect the return value of a module execution to stdout, useful for piping to curl and similar commands
+- Display the module description in the `flexer list` output
+- Update the help messages for all flexer commands
+
+### Fixes:
+- Fix the error handling for failed API requests to CMP
+- Fix the `context.mail` method crashing when an exception is raised
+
 ## [v1.1.7](https://github.com/ntt-nflex/flexer/tree/v1.1.7) (Apr 24, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.1.6...v1.1.7)
 
