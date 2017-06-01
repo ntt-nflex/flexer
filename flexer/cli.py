@@ -234,7 +234,7 @@ def update(ctx, module_id, zip, description):
     """
     try:
         ctx.nflex.update(module_id, zip, description=description)
-        click.echo("Module %s successfuly updated" % module_id, err=True)
+        click.echo("Module %s successfully updated" % module_id, err=True)
 
     except requests.exceptions.RequestException as err:
         raise click.ClickException(
