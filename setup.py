@@ -1,6 +1,8 @@
 from pip.req import parse_requirements
 from setuptools import setup, find_packages
 import uuid
+import os
+import re
 
 requirements = parse_requirements('requirements.txt', session=uuid.uuid1())
 install_requires = [str(r.req) for r in requirements]
@@ -13,9 +15,17 @@ with open('README.md') as f:
 # http://bugs.python.org/issue8876#msg208792
 # del os.link
 
+with open(
+        os.path.join(
+            os.path.dirname(__file__),
+            'flexer', '__init__.py')) as v_file:
+    VERSION = re.compile(
+        r".*__version__ = '(.*?)'",
+        re.S).match(v_file.read()).group(1)
+
 setup(
     name="flexer",
-    version="1.2.2",
+    version=VERSION,
     description=description,
     long_description=long_description,
     url='http://www.ntt.com',

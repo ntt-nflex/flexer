@@ -3,7 +3,7 @@ import requests.exceptions
 import sys
 import os
 
-from flexer import CmpClient, NflexClient
+from flexer import CmpClient, NflexClient, __version__
 from flexer.config import CONFIG_FILE
 from flexer.module_template import ModuleTemplate
 from flexer.utils import (
@@ -71,11 +71,26 @@ class Context(object):
 pass_context = click.make_pass_decorator(Context, ensure=True)
 
 
+def print_version(ctx, param, value):
+    if not value or ctx.resilient_parsing:
+        return
+    click.echo('Version %s' % __version__)
+    ctx.exit()
+
+
 @click.group(context_settings=CONTEXT_SETTINGS)
 @click.option('--auth',
               default="default",
               type=click.Choice(list_regions()),
               help="Connect to a specific CMP region.")
+@click.option('--version',
+              required=False,
+              is_flag=True,
+              default=False,
+              is_eager=True,
+              callback=print_version,
+              expose_value=False,
+              help="Show the version and exit.")
 @pass_context
 def cli(ctx, auth):
     """flexer manages your nFlex scripts from the terminal."""
