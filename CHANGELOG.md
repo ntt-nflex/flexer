@@ -1,5 +1,17 @@
 # Change Log
 
+## [v1.2.3](https://github.com/ntt-nflex/flexer/tree/v1.2.3) (Jun 01, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.2...v1.3.2)
+
+### Changes:
+- Add a `flexer config add-region` sub-command
+- Add a `--version` parameter
+
+### Fixes:
+- Print the results from executions to stdout instead of stderr
+- Add the six requirement so the tool can be successfully installed in a virtual environment with setuptools>=34.0.0
+- Fix a typo in the module update command output
+
 ## [v1.2.2](https://github.com/ntt-nflex/flexer/tree/v1.2.2) (May 31, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.1...v1.2.2)
 
