@@ -81,10 +81,10 @@ def print_result(result):
     value = result.get("value")
     error = result.get("error")
     if value:
-        click.echo(json.dumps(value, indent=4, sort_keys=True), err=True)
+        click.echo(json.dumps(value, indent=4, sort_keys=True))
 
     elif error:
-        click.echo(json.dumps(error, indent=4, sort_keys=True), err=True)
+        click.echo(json.dumps(error, indent=4, sort_keys=True))
 
 
 def print_cmp_logs(logs):
