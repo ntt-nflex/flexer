@@ -21,6 +21,25 @@ BUILD_EXCLUDE_DIRS = [
 ]
 
 
+def assert_config_exists():
+    if not os.path.isfile(CONFIG_FILE):
+        click.echo(
+            "The flexer config file is not found. Running config...",
+            err=True,
+        )
+        config = {
+            'verify_ssl': True,
+            'regions': {
+                'default': {
+                    'cmp_url': DEFAULT_CMP_URL,
+                    'cmp_api_key': '',
+                    'cmp_api_secret': '',
+                }
+            }
+        }
+        write_yaml_file(CONFIG_FILE, config)
+
+
 def config():
     url_prompt = 'CMP URL (default is "%s"): ' % DEFAULT_CMP_URL
     user_prompt = 'CMP API Key: '

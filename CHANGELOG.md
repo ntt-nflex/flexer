@@ -1,7 +1,13 @@
 # Change Log
 
+## [v1.2.4](https://github.com/ntt-nflex/flexer/tree/v1.2.4) (Jun 01, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.3...v1.2.4)
+
+### Changes:
+- Automatically generate a config file with no credentials if not present
+
 ## [v1.2.3](https://github.com/ntt-nflex/flexer/tree/v1.2.3) (Jun 01, 2017)
-[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.2...v1.3.2)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.2...v1.2.3)
 
 ### Changes:
 - Add a `flexer config add-region` sub-command

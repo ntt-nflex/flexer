@@ -18,6 +18,8 @@ import flexer.commands
 sys.path.append(os.getcwd())
 sys.path.append(os.path.join(os.getcwd(), "lib"))
 
+flexer.commands.assert_config_exists()
+
 CONTEXT_SETTINGS = {
     "help_option_names": ["-h", "--help"],
 }
@@ -43,26 +45,15 @@ EVENT_SOURCES = [
 
 
 def list_regions():
-    try:
-        return load_config(CONFIG_FILE)["regions"].keys()
-    except IOError:
-        return ["default"]
+    return load_config(CONFIG_FILE)["regions"].keys()
 
 
 class Context(object):
     """The context holds the nflex client"""
 
     def __init__(self):
-        try:
-            self.config = load_config(CONFIG_FILE)
+        self.config = load_config(CONFIG_FILE)
 
-        except IOError:
-            click.echo(
-                "The flexer config file is not found. Running config...",
-                err=True,
-            )
-            self.config = flexer.commands.config()
-            sys.exit(0)
 
     def list_regions(self):
         return self.config["regions"].keys()
