@@ -105,12 +105,13 @@ def cli(ctx, auth):
     ctx.nflex = NflexClient(ctx.cmp)
 
 
-@cli.command()
-def config():
-    """Configure the Flexer tool
+@cli.group(invoke_without_command=True)
+@click.pass_context
+def config(ctx):
+    """Configure the Flexer tool.
 
-    The config file will be stored as ~/.cmp.yaml and you can manually modify
-    it to you liking.
+    The config file will be stored as ~/.flexer.yaml and you can manually
+    modify it to you liking.
 
     \b
     Description of the configuration options:
@@ -120,7 +121,30 @@ def config():
 
     The "verify_ssl" option can be set per region, overriding the global value.
     """
-    flexer.commands.config()
+    if ctx.invoked_subcommand is None:
+        flexer.commands.config()
+
+
+@config.command(name="add-region")
+@click.option('--secret',
+              metavar='SECRET',
+              required=True,
+              help="The CMP API secret of the region.")
+@click.option('--key',
+              metavar='KEY',
+              required=True,
+              help="The CMP API key of the region.")
+@click.option('--url',
+              metavar='URL',
+              required=True,
+              help="The CMP URL of the region.")
+@click.option('--name',
+              metavar='NAME',
+              required=True,
+              help="The name of the region to add.")
+def add_region(name, url, key, secret):
+    """Add a new region to the flexer config."""
+    flexer.commands.add_config_region(name, url, key, secret)
 
 
 @cli.command()

@@ -12,7 +12,7 @@ from flexer.config import (
 )
 from flexer.context import FlexerContext
 from flexer.runner import Flexer
-from flexer.utils import write_yaml_file
+from flexer.utils import write_yaml_file, read_yaml_file
 
 BUILD_EXCLUDE_DIRS = [
     ".git",
@@ -43,6 +43,17 @@ def config():
                 'cmp_api_secret': secret,
             }
         }
+    }
+    write_yaml_file(CONFIG_FILE, config)
+    return config
+
+
+def add_config_region(name, url, key, secret):
+    config = read_yaml_file(CONFIG_FILE)
+    config["regions"][str(name)] = {
+        "cmp_url": str(url),
+        "cmp_api_key": str(key),
+        "cmp_api_secret": str(secret),
     }
     write_yaml_file(CONFIG_FILE, config)
     return config
