@@ -37,6 +37,13 @@ class BaseConnectorTest(unittest.TestCase):
             "credentials": self.account["credentials"],
         }
 
+    def fake_credentials(self):
+        fake_credentials = {}
+        for cred in self.event["credentials"].keys():
+            fake_credentials[cred] = self.event["credentials"][cred] + '_fake'
+
+        self.event["credentials"] = fake_credentials
+
     def test_get_resources(self):
         result = self.runner.run(handler="main.get_resources",
                                  event=self.event,
@@ -65,7 +72,8 @@ class BaseConnectorTest(unittest.TestCase):
         self.assertIsNotNone(value)
         self.assertTrue(value["ok"])
 
-    def test_validate_bad_credentials(self):
+    def test_validate_empty_credentials(self):
+        # empty credentials
         self.event["credentials"] = {}
 
         result = self.runner.run(handler="main.validate_credentials",
@@ -77,6 +85,32 @@ class BaseConnectorTest(unittest.TestCase):
         value = result["value"]
         self.assertIsNotNone(value)
         self.assertFalse(value["ok"])
+
+    def test_validate_bad_credentials(self):
+        self.fake_credentials()
+
+        result = self.runner.run(handler="main.validate_credentials",
+                                 event=self.event,
+                                 context=self.context)
+        result = json.loads(result)
+
+        self.assertIsNone(result["error"])
+        value = result["value"]
+        self.assertIsNotNone(value)
+        self.assertFalse(value["ok"])
+
+    def test_get_resources_when_bad_credentials(self):
+        self.fake_credentials()
+
+        result = self.runner.run(handler="main.get_resources",
+                                 event=self.event,
+                                 context=self.context)
+        result = json.loads(result)
+
+        error = result["error"]
+        self.assertIsNotNone(error)
+        self.assertEqual(error["exc_type"], 'AuthenticationException')
+        self.assertIsNone(result["value"])
 
     @unittest.skipIf(not hasattr(main, "get_metrics"),
                      "get_metrics not defined")
