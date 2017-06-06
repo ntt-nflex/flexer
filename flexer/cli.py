@@ -16,7 +16,7 @@ from flexer.utils import (
 import flexer.commands
 
 sys.path.append(os.getcwd())
-sys.path.append(os.path.join(os.getcwd(), "lib"))
+sys.path = [os.path.join(os.getcwd(), "lib")] + sys.path
 
 flexer.commands.assert_config_exists()
 
