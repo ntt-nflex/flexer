@@ -1,6 +1,6 @@
 # Change Log
 
-## [v1.2.5](https://github.com/ntt-nflex/flexer/tree/v.1.2.5) (Jun 08, 2017)
+## [v1.2.5](https://github.com/ntt-nflex/flexer/tree/v1.2.5) (Jun 08, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v.1.2.4...v1.2.5)
 
 ### Changes:
@@ -8,7 +8,7 @@
 - Moved module lib path before system lib when running the flexer cli
 
 ## [v1.2.4](https://github.com/ntt-nflex/flexer/tree/v.1.2.4) (Jun 01, 2017)
-[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.3...v1.2.4)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.3...v.1.2.4)
 
 ### Changes:
 - Automatically generate a config file with no credentials if not present
