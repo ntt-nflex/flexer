@@ -24,6 +24,7 @@ class BaseConnectorTest(unittest.TestCase):
         cls.account["credentials"] = (
             lookup_values(cls.account.get("credentials_keys"))
         )
+        cls.resource = cls.account.get("resource")
 
         cls.runner = Flexer()
         cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
@@ -37,6 +38,7 @@ class BaseConnectorTest(unittest.TestCase):
         # TODO: See if we need extra parameters in the event
         self.event = {
             "credentials": self.account["credentials"],
+            "resource": self.resource
         }
 
     def fake_credentials(self):
