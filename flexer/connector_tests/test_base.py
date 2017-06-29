@@ -8,7 +8,7 @@ from flexer.context import FlexerContext
 from flexer.runner import Flexer
 from flexer.utils import (
     load_config,
-    lookup_credentials,
+    lookup_values,
     read_yaml_file,
 )
 
@@ -22,21 +22,23 @@ class BaseConnectorTest(unittest.TestCase):
         path = os.getenv("CONFIG_YAML", DEFAULT_CONFIG_YAML)
         cls.account = read_yaml_file(path)
         cls.account["credentials"] = (
-            lookup_credentials(cls.account.get("credentials_keys"))
+            lookup_values(cls.account.get("credentials_keys"))
         )
+        cls.resource = cls.account.get("resource")
 
         cls.runner = Flexer()
         cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
         client = CmpClient(url=cfg["cmp_url"],
                            auth=(cfg['cmp_api_key'], cfg['cmp_api_secret']))
         cls.context = FlexerContext(cmp_client=client)
-        secrets = (lookup_credentials(cls.account.get("secrets_keys")))
+        secrets = (lookup_values(cls.account.get("secrets_keys")))
         cls.context.secrets = secrets
 
     def setUp(self):
         # TODO: See if we need extra parameters in the event
         self.event = {
             "credentials": self.account["credentials"],
+            "resource": self.resource
         }
 
     def fake_credentials(self):
