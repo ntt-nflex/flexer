@@ -17,6 +17,7 @@ class FlexerContext(object):
         """Construct a new FlexerContext object."""
         self.response_headers = {}
         self.config = {}
+        self.secrets = {}
         self.state = None
         self.module_id = Config.MODULE_ID
 

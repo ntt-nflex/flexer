@@ -53,7 +53,6 @@ class Context(object):
     def __init__(self):
         self.config = load_config(CONFIG_FILE)
 
-
     def list_regions(self):
         return self.config["regions"].keys()
 
@@ -336,13 +335,16 @@ def logs(ctx, module_id):
               metavar="CONFIG",
               required=False,
               help="The config to run the module with")
+@click.option('--secrets',
+              required=False,
+              help="The secrets to run the module with")
 @click.option('--event',
               metavar="EVENT",
               required=True,
               help="The event to run the module with")
 @click.argument('handler')
 @pass_context
-def run(ctx, handler, event, config, pretty):
+def run(ctx, handler, event, config, secrets, pretty):
     """Run an nFlex module locally.
 
     The command will try to find a "main.py" file in the current working
@@ -358,7 +360,7 @@ def run(ctx, handler, event, config, pretty):
     if pretty:
         click.echo("warn: --pretty is deprecated", err=True)
 
-    result = flexer.commands.run(handler, event, config, ctx.cmp)
+    result = flexer.commands.run(handler, event, config, secrets, ctx.cmp)
     print_result(result)
 
 
