@@ -35,6 +35,11 @@ class BaseConnectorTest(unittest.TestCase):
         # TODO: See if we need extra parameters in the event
         self.event = {
             "credentials": self.account["credentials"],
+            "resource": {
+                "poll-interval": "900",
+                "account_id": "856b6099-e8d3-45cb-90ce-1b40ace9c4cf",
+                "id": "01dc0663-9699-423b-a5ba-49dca1e958d4"
+            }
         }
 
     def fake_credentials(self):
