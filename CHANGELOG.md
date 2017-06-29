@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.2.7](https://github.com/ntt-nflex/flexer/tree/v1.2.7) (Jun 29, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v.1.2.6...v1.2.7)
+
+### Changes:
+- Added dummy resource information
+
 ## [v1.2.6](https://github.com/ntt-nflex/flexer/tree/v1.2.6) (Jun 29, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v.1.2.5...v1.2.6)
 
