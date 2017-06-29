@@ -114,7 +114,7 @@ def print_cmp_logs(logs):
         click.echo(line, err=True)
 
 
-def lookup_credentials(keys):
+def lookup_values(keys):
     if not keys:
         return {}
 
