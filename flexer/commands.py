@@ -152,4 +152,4 @@ def test(verbose=False):
     import unittest
     from flexer.connector_tests.test_base import BaseConnectorTest
     runner = unittest.TextTestRunner(verbosity=2 if verbose else 1)
-    runner.run(unittest.makeSuite(BaseConnectorTest))
+    return runner.run(unittest.makeSuite(BaseConnectorTest))

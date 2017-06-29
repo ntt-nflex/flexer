@@ -480,4 +480,7 @@ def test(ctx, verbose):
         Then the tests will assert that at least one resource of type server
         is in the return value of the get_resources handler
     """
-    flexer.commands.test(verbose=verbose)
+
+    result = flexer.commands.test(verbose=verbose)
+    if len(result.failures) + len(result.errors) > 0:
+        exit(1)
