@@ -30,6 +30,8 @@ class BaseConnectorTest(unittest.TestCase):
         client = CmpClient(url=cfg["cmp_url"],
                            auth=(cfg['cmp_api_key'], cfg['cmp_api_secret']))
         cls.context = FlexerContext(cmp_client=client)
+        secrets = (lookup_credentials(cls.account.get("secrets_keys")))
+        cls.context.secrets = secrets
 
     def setUp(self):
         # TODO: See if we need extra parameters in the event
