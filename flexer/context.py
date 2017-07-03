@@ -130,11 +130,10 @@ class FlexerRemoteState:
 
     def get_all(self):
         r = self.api.get("/modules/%s/state" % self.module_id)
-        result = r.json()
         if r.status_code == 200:
-            return result
+            return r.json()
         else:
-            raise Exception("Failed to read state: %s" % result["message"])
+            raise Exception("Failed to read state: %s" % r.text)
 
     def set(self, key, value):
         self.set_multi({key: value})
@@ -142,5 +141,4 @@ class FlexerRemoteState:
     def set_multi(self, updates):
         r = self.api.patch("/modules/%s/state" % self.module_id, updates)
         if r.status_code != 200:
-            result = r.json()
-            raise Exception("Failed to update state: %s" % result["message"])
+            raise Exception("Failed to update state: %s" % r.text)

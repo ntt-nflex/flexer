@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.2.8](https://github.com/ntt-nflex/flexer/tree/v1.2.8) (Jul 03, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v.1.2.7...v1.2.8)
+
+### Fixes:
+- Fix the error handling in the FlexerRemoteState object
+
 ## [v1.2.7](https://github.com/ntt-nflex/flexer/tree/v1.2.7) (Jun 29, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v.1.2.6...v1.2.7)
 
