@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.2.9](https://github.com/ntt-nflex/flexer/tree/v1.2.9) (Jul 12, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v.1.2.8...v1.2.9)
+
+### Changes:
+- Add optional attributes to metrics return value [\#30](https://github.com/ntt-nflex/flexer/pull/30) ([@han](https://github.com/han))
+
 ## [v1.2.8](https://github.com/ntt-nflex/flexer/tree/v1.2.8) (Jul 03, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v.1.2.7...v1.2.8)
 
