@@ -225,6 +225,41 @@
                         ],
                         "type":"object"
                     },
+                    "circuit":{
+                        "properties":{
+                            "carrier":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "endpoint_a":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "endpoint_b":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "reference":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "type_id":{
+                                "type":[
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "type":"object"
+                    },
                     "colo_space":{
                         "properties":{
                             "colo_space_location":{
@@ -531,7 +566,8 @@
                     "server",
                     "volume",
                     "service_offering",
-                    "saas_user"
+                    "saas_user",
+                    "circuit"
                 ],
                 "type":"string"
             }
