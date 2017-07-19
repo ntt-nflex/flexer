@@ -50,10 +50,10 @@ class FlexerContext(object):
             r = self.api.post("/logs", [payload])
 
         except Exception as err:
-            print "Error sending logs to CMP: %s" % err
+            print("Error sending logs to CMP: %s" % err)
 
         if r.status_code != 200:
-            print "Error sending logs to CMP: %s" % r.text
+            print("Error sending logs to CMP: %s" % r.text)
 
     def mail(self,
              user=None,
