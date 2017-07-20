@@ -1,7 +1,13 @@
 # Change Log
 
+## [v1.2.10](https://github.com/ntt-nflex/flexer/tree/v1.2.10) (Jul 20, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.9...v1.2.10)
+
+### Changes:
+- Added circuit resource type to flexer [\#31](https://github.com/ntt-nflex/flexer/pull/31) ([@emlynfelix](https://github.com/emlynfelix))
+
 ## [v1.2.9](https://github.com/ntt-nflex/flexer/tree/v1.2.9) (Jul 12, 2017)
-[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v.1.2.8...v1.2.9)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.8...v1.2.9)
 
 ### Changes:
 - Add optional attributes to metrics return value [\#30](https://github.com/ntt-nflex/flexer/pull/30) ([@han](https://github.com/han))
