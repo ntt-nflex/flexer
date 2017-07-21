@@ -41,6 +41,11 @@ EVENT_SOURCES = [
     "timer",
     "workflow",
 ]
+LANGUAGES = [
+    "javascript",
+    "python",
+    "python3",
+]
 
 
 def list_regions():
@@ -235,23 +240,30 @@ def download(ctx, module_id):
 @click.option('--zip',
               type=click.Path(exists=True, resolve_path=True),
               help="Upload a zip file")
+@click.option('--language',
+              type=click.Choice(LANGUAGES),
+              help="The programming language of your choice")
 @click.argument('module_id')
 @click.option('--description',
               required=False,
               help="A short description of the module")
 @pass_context
-def update(ctx, module_id, zip, description):
+def update(ctx, module_id, zip, language, description):
     """Update an existing module.
 
     Update the "source_code" or the "description" of an nFlex module.
     """
     try:
-        ctx.nflex.update(module_id, zip, description=description)
+        ctx.nflex.update(module_id, zip, language, description=description)
         click.echo("Module %s successfully updated" % module_id, err=True)
 
     except requests.exceptions.RequestException as err:
+        msg = str(err)
+        if err.response is not None and err.response.status_code < 500:
+            msg += "\n%s" % err.response.json()["message"]
+
         raise click.ClickException(
-            "Failed to update nFlex module: %s" % err
+            "Failed to update nFlex module: %s" % msg
         )
 
 
@@ -266,6 +278,11 @@ def update(ctx, module_id, zip, description):
               required=True,
               type=click.Choice(EVENT_SOURCES),
               help="The event source for the module")
+@click.option('--language',
+              required=True,
+              type=click.Choice(LANGUAGES),
+              default="python",
+              help="The programming language of your choice")
 @click.option('--sync',
               default=False,
               is_flag=True,
@@ -277,6 +294,7 @@ def update(ctx, module_id, zip, description):
 def upload(ctx,
            zip,
            sync,
+           language,
            event_source,
            description,
            name):
@@ -285,13 +303,18 @@ def upload(ctx,
         module = ctx.nflex.upload(name,
                                   description,
                                   event_source,
+                                  language,
                                   sync,
                                   zip)
         click.echo("Module created with ID %s" % module['id'], err=True)
 
     except requests.exceptions.RequestException as err:
+        msg = str(err)
+        if err.response is not None and err.response.status_code < 500:
+            msg += "\n%s" % err.response.json()["message"]
+
         raise click.ClickException(
-            "Failed to upload nFlex module: %s" % err
+            "Failed to upload nFlex module: %s" % msg
         )
 
 

@@ -7,6 +7,12 @@ from datetime import datetime, timedelta
 
 from flexer.utils import read_module
 
+LANG_EXT = {
+    "javascript": "js",
+    "python": "py",
+    "python3": "py",
+}
+
 
 class NflexClient(object):
     def __init__(self, cmp_client):
@@ -27,6 +33,7 @@ class NflexClient(object):
                name,
                description,
                event_source,
+               language,
                sync,
                zip_file):
         file_type = 'zip' if zip_file else 'inline'
@@ -36,11 +43,12 @@ class NflexClient(object):
             'file_type': file_type,
             'event_source': event_source,
             'source_code': '',
-            'language': 'python',
+            'language': language,
             'sync': sync
         }
         if file_type == 'inline':
-            data['source_code'] = read_module("main.py")
+            mname = "main.{}".format(LANG_EXT.get(language) or "py")
+            data['source_code'] = read_module(mname)
             return self._post('/modules', data=data)
 
         elif file_type == 'zip':
@@ -51,13 +59,18 @@ class NflexClient(object):
 
             return module
 
-    def update(self, module_id, zip_file, description=None):
+    def update(self, module_id, zip_file, language, description=None):
         file_type = 'zip' if zip_file else 'inline'
         data = {'file_type': file_type}
         if description is not None:
             data['description'] = description
+
+        if language is not None:
+            data['language'] = language
+
         if file_type == 'inline':
-            data['source_code'] = read_module("main.py")
+            mname = "main.{}".format(LANG_EXT.get(language) or "py")
+            data['source_code'] = read_module(mname)
             return self._patch('/modules/%s' % module_id, data=data)
 
         elif file_type == 'zip':
