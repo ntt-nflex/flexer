@@ -11,21 +11,21 @@ def get(event, context):
                 'specialisations': ['(%s)']
             }
         },
-        'downsampling-func': 'sum', 
+        'downsampling-func': 'sum',
         'aggregation-func': 'mean',
         'specialisation-func': 'max',
     }
     resp = context.api.post('/metric-definitions', payload)
-    print resp.status_code, resp.text
-    
-    data = {                                                                     
-        'resource_id': 'resource-UUID',                                              
-        'metrics': [{                                                 
-            'metric': 'metric-name',                                          
-            'unit': 'B',                                                     
-            'value': float(42),                                                   
-            'time': datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),                                                   
+    print(resp.status_code, resp.text)
+
+    data = {
+        'resource_id': 'resource-UUID',
+        'metrics': [{
+            'metric': 'metric-name',
+            'unit': 'B',
+            'value': float(42),
+            'time': datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%S.%fZ'),
         }]
-    }  
+    }
     resp = context.api.post('/metrics', data)
-    print resp.status_code, resp.text
+    print(resp.status_code, resp.text)

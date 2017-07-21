@@ -4,6 +4,7 @@ import datetime
 import imp
 import json
 import logging
+import six
 import sys
 import os
 import traceback
@@ -268,7 +269,7 @@ def format_stack_trace(exc_info):
     exc_type, value, tb = exc_info
     tb_details = traceback.extract_tb(tb)
     # remove the runner from the stack trace
-    for i in range(len(tb_details)):
+    for i in six.moves.range(len(tb_details)):
         filename = tb_details[i][0]  # filename of the module
         if "/runner.py" not in filename:
             tb_details = tb_details[i:]
