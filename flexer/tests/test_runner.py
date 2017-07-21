@@ -1,9 +1,67 @@
 import json
-import unittest
 import pytest
 import mock
+import sys
+import unittest
 
 from flexer.runner import Flexer
+
+PYVERSION = "%s.%s" % (sys.version_info.major, sys.version_info.minor)
+
+exc_message = {
+    "nonexisting_module": {
+        "2.7": "No module named not_here",
+        "3.3": "No module named 'not_here'",
+        "3.4": "No module named 'not_here'",
+        "3.5": "No module named 'not_here'",
+        "3.6": "No module named 'not_here'",
+    },
+    "nonexisting_handler": {
+        "2.7": "'module' object has no attribute 'not_found'",
+        "3.3": "'module' object has no attribute 'not_found'",
+        "3.4": "'module' object has no attribute 'not_found'",
+        "3.5": "module 'module_okay' has no attribute 'not_found'",
+        "3.6": "module 'module_okay' has no attribute 'not_found'",
+    },
+    "invalid_handler": {
+        "2.7": "need more than 1 value to unpack",
+        "3.3": "need more than 1 value to unpack",
+        "3.4": "need more than 1 value to unpack",
+        "3.5": "not enough values to unpack (expected 2, got 1)",
+        "3.6": "not enough values to unpack (expected 2, got 1)",
+    },
+    "import_error": {
+        "2.7": 'No module named this_module_does_not_exist',
+        "3.3": "No module named 'this_module_does_not_exist'",
+        "3.4": "No module named 'this_module_does_not_exist'",
+        "3.5": "No module named 'this_module_does_not_exist'",
+        "3.6": "No module named 'this_module_does_not_exist'",
+    },
+    "module_level_exception": {
+        "2.7": "need more than 1 value to unpack",
+        "3.3": "need more than 1 value to unpack",
+        "3.4": "need more than 1 value to unpack",
+        "3.5": "not enough values to unpack (expected 2, got 1)",
+        "3.6": "not enough values to unpack (expected 2, got 1)",
+    },
+    "handler_exception": {
+        "2.7": "need more than 1 value to unpack",
+        "3.3": "need more than 1 value to unpack",
+        "3.4": "need more than 1 value to unpack",
+        "3.5": "not enough values to unpack (expected 2, got 1)",
+        "3.6": "not enough values to unpack (expected 2, got 1)",
+    },
+}
+
+exc_type = {
+    "import_error": {
+        "2.7": 'ImportError',
+        "3.3": 'ImportError',
+        "3.4": 'ImportError',
+        "3.5": 'ImportError',
+        "3.6": 'ModuleNotFoundError',
+    }
+}
 
 
 class TestFlexer(unittest.TestCase):
@@ -34,7 +92,8 @@ class TestFlexer(unittest.TestCase):
         handler = 'not_here.test'
         expected = {
             'exc_message': (
-                'Failed to import module "not_here": No module named not_here'
+                'Failed to import module "not_here": %s'
+                % exc_message["nonexisting_module"][PYVERSION]
             ),
             'exc_type': 'ImportError',
             'stack_trace': '',
@@ -53,8 +112,8 @@ class TestFlexer(unittest.TestCase):
         handler = 'module_okay.not_found'
         expected = {
             'exc_message': (
-                'Handler "not_found" not found in "module_okay": '
-                '\'module\' object has no attribute \'not_found\''
+                'Handler "not_found" not found in "module_okay": %s'
+                % exc_message["nonexisting_handler"][PYVERSION]
             ),
             'exc_type': 'AttributeError',
             'stack_trace': '',
@@ -97,8 +156,8 @@ class TestFlexer(unittest.TestCase):
         handler = 'test'
         expected = {
             'exc_message': (
-                'Invalid format for handler "test": '
-                'need more than 1 value to unpack'
+                'Invalid format for handler "test": %s'
+                % exc_message["invalid_handler"][PYVERSION]
             ),
             'exc_type': 'ValueError',
             'stack_trace': '',
@@ -116,12 +175,14 @@ class TestFlexer(unittest.TestCase):
         stack trace.
         """
         handler = 'module_with_import_error.test'
+        exc_m =exc_message["import_error"][PYVERSION]
+        exc_t = exc_type["import_error"][PYVERSION]
         expected = {
             'exc_message': (
-                'Failed to import module "module_with_import_error": '
-                'No module named this_module_does_not_exist'
+                'Failed to import module "module_with_import_error": %s'
+                % exc_m
             ),
-            'exc_type': 'ImportError',
+            'exc_type': exc_t,
         }
 
         result = self.runner.run(event={}, context=None, handler=handler)
@@ -131,10 +192,7 @@ class TestFlexer(unittest.TestCase):
         error = actual['error']
         self.assertEqual(expected['exc_message'], error['exc_message'])
         self.assertEqual(expected['exc_type'], error['exc_type'])
-        self.assertIn(
-            'ImportError: No module named this_module_does_not_exist\n',
-            error['stack_trace']
-        )
+        self.assertIn('%s: %s' % (exc_t, exc_m), error['stack_trace'])
 
     def test_run_with_syntax_error(self):
         """Make sure SyntaxErrors are handled during module imports.
@@ -165,14 +223,13 @@ class TestFlexer(unittest.TestCase):
         in the exception as well
         """
         handler = 'module_with_exception.test'
+        exc_m = exc_message["module_level_exception"][PYVERSION]
         expected = {
             'exc_message': (
-                'Failed to initialise "module_with_exception": '
-                'need more than 1 value to unpack'
+                'Failed to initialise "module_with_exception": %s' % exc_m
             ),
             'exc_type': 'ValueError',
         }
-
         result = self.runner.run(event={}, context=None, handler=handler)
 
         actual = json.loads(result)
@@ -180,8 +237,7 @@ class TestFlexer(unittest.TestCase):
         error = actual['error']
         self.assertEqual(expected['exc_message'], error['exc_message'])
         self.assertEqual(expected['exc_type'], error['exc_type'])
-        self.assertIn('ValueError: need more than 1 value to unpack',
-                      error['stack_trace'])
+        self.assertIn('ValueError: %s' % exc_m, error['stack_trace'])
 
     def test_run_with_no_stdout_logs(self):
         """Test the simplest possible use-case: run a method with no side
@@ -221,10 +277,9 @@ class TestFlexer(unittest.TestCase):
         still captured. The stack trace is expected to be part of the logs.
         """
         handler = 'module_okay.test_with_exception'
+        exc_m = exc_message["handler_exception"][PYVERSION]
         expected = {
-            'exc_message': (
-                'need more than 1 value to unpack'
-            ),
+            'exc_message': exc_m,
             'exc_type': 'ValueError',
         }
 
@@ -236,8 +291,7 @@ class TestFlexer(unittest.TestCase):
         error = actual['error']
         self.assertEqual(expected['exc_message'], error['exc_message'])
         self.assertEqual(expected['exc_type'], error['exc_type'])
-        self.assertIn('ValueError: need more than 1 value to unpack',
-                      error['stack_trace'])
+        self.assertIn('ValueError: %s' % exc_m, error['stack_trace'])
 
     @pytest.mark.skip(reason="We don't have to worry about memory locally")
     def test_run_with_memory_error(self):

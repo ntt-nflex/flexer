@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import StringIO
 import datetime
 import imp
 import json
@@ -10,6 +9,8 @@ import os
 import traceback
 from jsonschema import Draft4Validator
 from flexer.context import FlexerContext, FlexerLocalState
+
+from six.moves import StringIO
 
 logger = logging.getLogger('flexer.runner')
 
@@ -102,7 +103,7 @@ class Flexer(object):
 
         value, error, stdout = None, None, ''
         headers = {}
-        f = sys.stderr if debug else StringIO.StringIO()
+        f = sys.stderr if debug else StringIO()
 
         try:
             with RedirectStdStreams(stdout=f, stderr=f):

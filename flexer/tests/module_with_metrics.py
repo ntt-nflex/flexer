@@ -1,5 +1,5 @@
 def test_ok(event, context):
-    print "Running test script"
+    print("Running test script")
     return {'metrics': [{
         'metric': 'cpu-usage',
         'value': 99,
@@ -10,7 +10,7 @@ def test_ok(event, context):
 
 
 def test_invalid(event, context):
-    print "Running test script"
+    print("Running test script")
     return {'metrics': [{
         'metric': 'cpu-usage',
         'value': 99}

@@ -1,10 +1,10 @@
 .PHONY : setup
 setup:
-	tox -e devenv -v
+	tox -e devenv,devenv3 -v
 
 .PHONY : clean-tox
 clean-tox:
-	rm -rf devenv .tox
+	rm -rf devenv devenv3 .tox
 
 .PHONY : clean-python
 clean-python:
