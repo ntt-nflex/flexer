@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.1](https://github.com/ntt-nflex/flexer/tree/v1.3.1) (Jul 26, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.0...v1.3.1)
+
+### Changes:
+- Add CLI tool support for go (Go 1.8.3)
+
 ## [v1.3.0](https://github.com/ntt-nflex/flexer/tree/v1.3.0) (Jul 21, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.2.10...v1.3.0)
 

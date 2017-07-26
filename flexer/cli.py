@@ -42,6 +42,7 @@ EVENT_SOURCES = [
     "workflow",
 ]
 LANGUAGES = [
+    "go",
     "javascript",
     "python",
     "python3",
