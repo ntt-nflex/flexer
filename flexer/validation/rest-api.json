@@ -1,0 +1,22 @@
+{
+    "type": "object",
+    "properties": {
+        "body": {},
+        "headers": {
+            "type": "object",
+            "additionalProperties": {
+                "type": "array",
+                "items": {
+                    "type": "string"
+                }
+            }
+        },
+        "status_code": {
+            "type": "integer"
+        }
+    },
+    "required": [
+        "body",
+        "status_code"
+    ]
+}

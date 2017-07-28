@@ -319,12 +319,12 @@ class TestFlexer(unittest.TestCase):
         """
         handler = 'module_with_validation_error.test'
         expected = {
-            'value': {'foo': 10},
+            'value': None,
             'error': {
-                'exc_message': '["10 is not of type \'string\' in [\'foo\']"]',
+                'exc_message': '["10 is not of type \'string\' in result.foo"]',
                 'exc_type': 'ValidationError'
             },
-            'logs': '["10 is not of type \'string\' in [\'foo\']"]',
+            'logs': '["10 is not of type \'string\' in result.foo"]',
         }
         schema = {
             'patternProperties': {
@@ -377,8 +377,7 @@ class TestFlexer(unittest.TestCase):
         actual = json.loads(result)
         self.assertTrue('error' in actual)
         self.assertTrue('value' in actual)
-        self.assertTrue('metrics' in actual['value'])
-        self.assertEqual(1, len(actual['value']['metrics']))
+        self.assertIsNone(actual['value'])
         self.assertTrue('exc_type' in actual['error'])
         self.assertTrue('exc_message' in actual['error'])
         self.assertEqual(u'ValidationError', actual['error']['exc_type'])

@@ -139,9 +139,15 @@ class Flexer(object):
                 validator = Draft4Validator(schema)
                 errors = []
                 for e in sorted(validator.iter_errors(value), key=str):
-                    errors.append(e.message + ' in ' + str(list(e.path)))
+                    location = "result"
+                    if len(e.path):
+                        location += "." + ".".join(map(str, e.path))
+
+                    msg = "%s in %s" % (e.message, location)
+                    errors.append(msg)
 
                 if errors:
+                    value = None
                     error = {
                         'exc_message': json.dumps(errors),
                         'exc_type': 'ValidationError'
@@ -180,6 +186,8 @@ class Flexer(object):
             schema_file = "get_logs.json"
         elif event_source == 'monitor':
             schema_file = "monitors.json"
+        elif event_source == 'rest-api':
+            schema_file = "rest-api.json"
 
         return schema_file
 

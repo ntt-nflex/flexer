@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.3.3](https://github.com/ntt-nflex/flexer/tree/v1.3.3) (Jul 28, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.2...v1.3.3)
+
+### Changes:
+- Add validation for rest-api modules
+- Fix the runner to return a null value if there are validation errors
+
 ## [v1.3.2](https://github.com/ntt-nflex/flexer/tree/v1.3.2) (Jul 28, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.1...v1.3.2)
 
