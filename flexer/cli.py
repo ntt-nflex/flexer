@@ -12,6 +12,7 @@ from flexer.utils import (
     print_module,
     print_modules,
     print_result,
+    prep_err_msg,
 )
 import flexer.commands
 
@@ -150,9 +151,9 @@ def list(ctx):
         modules = ctx.nflex.list()
         print_modules(modules)
 
-    except requests.exceptions.RequestException as err:
+    except requests.exceptions.RequestException as e:
         raise click.ClickException(
-            "Failed to fetch nFlex modules: %s" % err
+            "Failed to fetch nFlex modules: %s" % prep_err_msg(e)
         )
 
 
@@ -210,9 +211,9 @@ def get(ctx, module_id):
 
         print_module(result)
 
-    except requests.exceptions.RequestException as err:
+    except requests.exceptions.RequestException as e:
         raise click.ClickException(
-            "Failed to delete nFlex module: %s" % err
+            "Failed to delete nFlex module: %s" % prep_err_msg(e)
         )
 
 
@@ -231,9 +232,9 @@ def download(ctx, module_id):
         click.echo('Module %s downloaded in the current directory' % module_id,
                    err=True)
 
-    except requests.exceptions.RequestException as err:
+    except requests.exceptions.RequestException as e:
         raise click.ClickException(
-            "Failed to download nFlex module: %s" % err
+            "Failed to download nFlex module: %s" % prep_err_msg(e)
         )
 
 
@@ -258,13 +259,9 @@ def update(ctx, module_id, zip, language, description):
         ctx.nflex.update(module_id, zip, language, description=description)
         click.echo("Module %s successfully updated" % module_id, err=True)
 
-    except requests.exceptions.RequestException as err:
-        msg = str(err)
-        if err.response is not None and err.response.status_code < 500:
-            msg += "\n%s" % err.response.json()["message"]
-
+    except requests.exceptions.RequestException as e:
         raise click.ClickException(
-            "Failed to update nFlex module: %s" % msg
+            "Failed to update nFlex module: %s" % prep_err_msg(e)
         )
 
 
@@ -309,13 +306,9 @@ def upload(ctx,
                                   zip)
         click.echo("Module created with ID %s" % module['id'], err=True)
 
-    except requests.exceptions.RequestException as err:
-        msg = str(err)
-        if err.response is not None and err.response.status_code < 500:
-            msg += "\n%s" % err.response.json()["message"]
-
+    except requests.exceptions.RequestException as e:
         raise click.ClickException(
-            "Failed to upload nFlex module: %s" % msg
+            "Failed to upload nFlex module: %s" % prep_err_msg(e)
         )
 
 
