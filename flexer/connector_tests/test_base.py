@@ -13,12 +13,17 @@ from flexer.utils import (
 )
 
 import main
+import re
 
 
 class BaseConnectorTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
+        # The rule to evaluate number as boolean is inspired by C++11 implementation
+        # All numbers but 0 and True or true will be evaluated as True
+        cls.logging = re.search(r'^-?[1-9][0-9]*$|^[Tt]rue$',
+                                os.getenv("LOG_TO_STDOUT", "False")) != None
         path = os.getenv("CONFIG_YAML", DEFAULT_CONFIG_YAML)
         cls.account = read_yaml_file(path)
         cls.account["credentials"] = (
@@ -51,7 +56,8 @@ class BaseConnectorTest(unittest.TestCase):
     def test_get_resources(self):
         result = self.runner.run(handler="main.get_resources",
                                  event=self.event,
-                                 context=self.context)
+                                 context=self.context,
+                                 debug=self.logging)
         result = json.loads(result)
 
         self.assertIsNone(result["error"])
@@ -68,7 +74,8 @@ class BaseConnectorTest(unittest.TestCase):
     def test_validate_credentials(self):
         result = self.runner.run(handler="main.validate_credentials",
                                  event=self.event,
-                                 context=self.context)
+                                 context=self.context,
+                                 debug=self.logging)
         result = json.loads(result)
 
         self.assertIsNone(result["error"])
@@ -82,7 +89,8 @@ class BaseConnectorTest(unittest.TestCase):
 
         result = self.runner.run(handler="main.validate_credentials",
                                  event=self.event,
-                                 context=self.context)
+                                 context=self.context,
+                                 debug=self.logging)
         result = json.loads(result)
 
         self.assertIsNone(result["error"])
@@ -95,7 +103,8 @@ class BaseConnectorTest(unittest.TestCase):
 
         result = self.runner.run(handler="main.validate_credentials",
                                  event=self.event,
-                                 context=self.context)
+                                 context=self.context,
+                                 debug=self.logging)
         result = json.loads(result)
 
         self.assertIsNone(result["error"])
@@ -108,7 +117,8 @@ class BaseConnectorTest(unittest.TestCase):
 
         result = self.runner.run(handler="main.get_resources",
                                  event=self.event,
-                                 context=self.context)
+                                 context=self.context,
+                                 debug=self.logging)
         result = json.loads(result)
 
         error = result["error"]
@@ -121,7 +131,8 @@ class BaseConnectorTest(unittest.TestCase):
     def test_get_metrics(self):
         result = self.runner.run(handler="main.get_metrics",
                                  event=self.event,
-                                 context=self.context)
+                                 context=self.context,
+                                 debug=self.logging)
         result = json.loads(result)
 
         self.assertIsNone(result["error"])
