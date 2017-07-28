@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.2](https://github.com/ntt-nflex/flexer/tree/v1.3.2) (Jul 28, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.1...v1.3.2)
+
+### Changes:
+- Add environment variable to enable log on stdout [\#32](https://github.com/ntt-nflex/flexer/pull/32) ([@ukinau](https://github.com/ukinau))
+
 ## [v1.3.1](https://github.com/ntt-nflex/flexer/tree/v1.3.1) (Jul 26, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.0...v1.3.1)
 
