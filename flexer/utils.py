@@ -119,3 +119,15 @@ def lookup_values(keys):
         return {}
 
     return {key: os.getenv(key.upper()) for key in keys}
+
+
+def prep_err_msg(exc):
+    msg = str(exc)
+    if exc.response is not None and exc.response.status_code < 500:
+        try:
+            msg += "\n%s" % exc.response.json()["message"]
+        except:
+            pass
+    return msg
+
+
