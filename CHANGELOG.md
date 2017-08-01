@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.3.4](https://github.com/ntt-nflex/flexer/tree/v1.3.4) (Aug 01, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.3...v1.3.4)
+
+### Changes:
+- Unified error messaging [\#33](https://github.com/ntt-nflex/flexer/pull/33) ([@burbon](https://github.com/burbon))
+- Relax the timestamp regex for metrics validation
+
 ## [v1.3.3](https://github.com/ntt-nflex/flexer/tree/v1.3.3) (Jul 28, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.2...v1.3.3)
 
