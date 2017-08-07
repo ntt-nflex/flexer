@@ -109,14 +109,21 @@ class FlexerLocalState:
     def get(self, key):
         return self.state.get(key)
 
-    def set(self, key, value):
-        self.state[key] = value
-
     def get_all(self):
         return copy.copy(self.state)
 
+    def set(self, key, value):
+        self.state[key] = value
+
     def set_multi(self, updates):
         self.state.update(updates)
+
+    def delete(self, key):
+        self.state.pop(key, None)
+
+    def delete_multi(self, keys):
+        for k in keys:
+            self.state.pop(k, None)
 
 
 class FlexerRemoteState:
@@ -142,3 +149,11 @@ class FlexerRemoteState:
         r = self.api.patch("/modules/%s/state" % self.module_id, updates)
         if r.status_code != 200:
             raise Exception("Failed to update state: %s" % r.text)
+
+    def delete(self, key):
+        self.delete_multi([key])
+
+    def delete_multi(self, keys):
+        r = self.api.delete("/modules/%s/state" % self.module_id, keys)
+        if r.status_code != 200:
+            raise Exception("Failed to delete state keys: %s" % r.text)
