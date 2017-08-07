@@ -154,6 +154,6 @@ class FlexerRemoteState:
         self.delete_multi([key])
 
     def delete_multi(self, keys):
-        r = self.api.delete("/modules/%s/state" % self.module_id, keys)
+        r = self.api.post("/modules/%s/state/delete" % self.module_id, keys)
         if r.status_code != 200:
             raise Exception("Failed to delete state keys: %s" % r.text)
