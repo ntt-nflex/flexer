@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.5](https://github.com/ntt-nflex/flexer/tree/v1.3.5) (Aug 07, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.4...v1.3.5)
+
+### Changes:
+- Add `context.state.delete` and `context.state.delete_multi` methods to clean up keys from the module state
+
 ## [v1.3.4](https://github.com/ntt-nflex/flexer/tree/v1.3.4) (Aug 01, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.3...v1.3.4)
 
