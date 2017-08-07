@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.6](https://github.com/ntt-nflex/flexer/tree/v1.3.6) (Aug 07, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.5...v1.3.6)
+
+### Changes:
+- Relax timestamp validation for `get_logs()`
+
 ## [v1.3.5](https://github.com/ntt-nflex/flexer/tree/v1.3.5) (Aug 07, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.4...v1.3.5)
 
