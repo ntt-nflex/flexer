@@ -4,3 +4,4 @@ jinja2>=2.9.4
 jsonschema==2.4.0
 requests
 pyyaml
+pymongo

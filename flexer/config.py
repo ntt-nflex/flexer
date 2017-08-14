@@ -12,6 +12,7 @@ class Config(object):
     CMP_ACCESS_TOKEN = os.getenv('CMP_ACCESS_TOKEN', '')
     NFLEX_CODEDIR = os.getenv('NFLEX_CODEDIR', '/sandbox')
     MODULE_ID = os.getenv('NFLEX_MODULE_ID')
+    DB_KEY_PREFIX = '_nflexdb_'
 
 
 class TestingConfig(Config):
