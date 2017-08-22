@@ -451,12 +451,15 @@ def build(ctx, directory, zip, exclude):
 
 
 @cli.command()
+@click.option('--keywords', '-k',
+              required=False,
+              help="Keywords to pass to pytest")
 @click.option('-v', '--verbose',
               default=False,
               is_flag=True,
               help='Display verbose output from the test execution')
 @pass_context
-def test(ctx, verbose):
+def test(ctx, verbose, keywords):
     """Run the flexer base tests against a module.
 
     Run a very basic set of tests for a CMP connector. The tests are available
@@ -498,6 +501,6 @@ def test(ctx, verbose):
         is in the return value of the get_resources handler
     """
 
-    result = flexer.commands.test(verbose=verbose)
+    result = flexer.commands.test(verbose=verbose, keywords=keywords)
     if len(result.failures) + len(result.errors) > 0:
         exit(1)
