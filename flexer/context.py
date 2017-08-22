@@ -39,7 +39,7 @@ class FlexerContext(object):
         if not conn_string:
             return None
 
-        return pymongo.MongoClient(conn_string)
+        return pymongo.MongoClient(conn_string).get_database()
 
     def log(self, message, severity="info"):
         """Log a message to CMP."""
