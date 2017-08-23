@@ -74,7 +74,7 @@ class NflexClient(object):
             return self._patch('/modules/%s' % module_id, data=data)
 
         elif file_type == 'zip':
-            self._patch('/modules/%s' % module_id, data=data)
+            self._patch('/modules/%s?nosync=true' % module_id, data=data)
             fname = os.path.basename(zip_file)
             with open(zip_file, 'rb') as zf:
                 return self._upload_zipfile(module_id, zf, fname)
