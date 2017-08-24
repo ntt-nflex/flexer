@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.3.7](https://github.com/ntt-nflex/flexer/tree/v1.3.7) (Aug 24, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.6...v1.3.7)
+
+### Changes:
+- Add --keywords option to flexer test command to allow selecting which test cases to run
+- Send a `nosync=true` parameter when patching zip modules as uploading the zip file will trigger a notification anyway
+
 ## [v1.3.6](https://github.com/ntt-nflex/flexer/tree/v1.3.6) (Aug 07, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.5...v1.3.6)
 
