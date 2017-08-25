@@ -29,7 +29,15 @@ class BaseConnectorTest(unittest.TestCase):
         cls.account["credentials"] = (
             lookup_values(cls.account.get("credentials_keys"))
         )
-        cls.resource = cls.account.get("resource")
+        if "resources" in cls.account:
+            cls.resource_data = cls.account.get("resources")
+        else:
+            cls.resource_data = [
+                {
+                    "resource": cls.account.get("resource"),
+                    "expected_metrics": cls.account.get("expected_metrics")
+                }
+            ]
 
         cls.runner = Flexer()
         cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
@@ -43,7 +51,6 @@ class BaseConnectorTest(unittest.TestCase):
         # TODO: See if we need extra parameters in the event
         self.event = {
             "credentials": self.account["credentials"],
-            "resource": self.resource
         }
 
     def fake_credentials(self):
@@ -129,20 +136,22 @@ class BaseConnectorTest(unittest.TestCase):
     @unittest.skipIf(not hasattr(main, "get_metrics"),
                      "get_metrics not defined")
     def test_get_metrics(self):
-        result = self.runner.run(handler="main.get_metrics",
-                                 event=self.event,
-                                 context=self.context,
-                                 debug=self.logging)
-        result = json.loads(result)
+        for res in self.resource_data:
+            self.event['resource'] = res['resource']
+            result = self.runner.run(handler="main.get_metrics",
+                                     event=self.event,
+                                     context=self.context,
+                                     debug=self.logging)
+            result = json.loads(result)
 
-        self.assertIsNone(result["error"])
-        value = result["value"]
-        metrics = value["metrics"]
-        self.assertIsNotNone(metrics)
-        self.assertGreater(len(metrics), 0, 'No metrics found')
+            self.assertIsNone(result["error"])
+            value = result["value"]
+            metrics = value["metrics"]
+            self.assertIsNotNone(metrics)
+            self.assertGreater(len(metrics), 0, 'No metrics found')
 
-        expected_metrics = self.account['expected_metrics']
-        for name in expected_metrics:
-            count = len(filter(lambda r: r["metric"] == name, metrics))
-            self.assertGreater(count, 0,
-                               'No metric points for "%s" found' % name)
+            expected_metrics = res['expected_metrics']
+            for name in expected_metrics:
+                count = len(filter(lambda r: r["metric"] == name, metrics))
+                self.assertGreater(count, 0,
+                                   'No metric points for "%s" found' % name)
