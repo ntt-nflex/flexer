@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.8](https://github.com/ntt-nflex/flexer/tree/v1.3.8) (Aug 25, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.7...v1.3.8)
+
+### Changes:
+- Support multiple resources in config.yaml [\#34](https://github.com/ntt-nflex/flexer/pull/34) ([@SafariMonkey](https://github.com/SafariMonkey))
+
 ## [v1.3.7](https://github.com/ntt-nflex/flexer/tree/v1.3.7) (Aug 24, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.6...v1.3.7)
 
