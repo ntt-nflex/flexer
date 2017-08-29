@@ -1,6 +1,7 @@
 from datetime import datetime
 import logging
 import copy
+import pymongo
 
 from flexer import CmpClient
 from flexer.config import Config
@@ -32,6 +33,13 @@ class FlexerContext(object):
         self.api_url = self.api.api_url
         self.api_auth = self.api.api_auth
         self.api_token = self.api.api_token
+
+    def database(self, name):
+        conn_string = self.secrets.get(Config.DB_KEY_PREFIX + name)
+        if not conn_string:
+            return None
+
+        return pymongo.MongoClient(conn_string).get_database()
 
     def log(self, message, severity="info"):
         """Log a message to CMP."""
