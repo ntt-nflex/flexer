@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.9](https://github.com/ntt-nflex/flexer/tree/v1.3.9) (Aug 29, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.8...v1.3.9)
+
+### Changes:
+- Add support for NflexDB, via context.database method
+
 ## [v1.3.8](https://github.com/ntt-nflex/flexer/tree/v1.3.8) (Aug 25, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.7...v1.3.8)
 
