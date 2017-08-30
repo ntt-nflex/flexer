@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.10](https://github.com/ntt-nflex/flexer/tree/v1.3.10) (Aug 30, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.9...v1.3.10)
+
+### Changes:
+- Add monitoring_system to the metrics result [\#35](https://github.com/ntt-nflex/flexer/pull/35) ([@han](https://github.com/han))
+
 ## [v1.3.9](https://github.com/ntt-nflex/flexer/tree/v1.3.9) (Aug 29, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.8...v1.3.9)
 
