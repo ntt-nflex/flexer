@@ -9,6 +9,9 @@
                     "metric": {
                         "type": "string"
                     },
+                    "original_metric": {
+                        "type": "string"
+                    },
                     "specialisation": {
                         "type": "string"
                     },
@@ -50,7 +53,7 @@
         "monitoring_system": {
           "type": "string"
         }
-        
+
     },
     "required": ["metrics"]
 }
