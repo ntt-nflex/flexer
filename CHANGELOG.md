@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.3.11](https://github.com/ntt-nflex/flexer/tree/v1.3.11) (Sep 05, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.10...v1.3.11)
+
+### Changes:
+- Add SSL and timeout options to the pymongo client (context.database)
+- Fix the context.log error handling [\#36](https://github.com/ntt-nflex/flexer/pull/36) ([@Surbias](https://github.com/Surbias))
+- Add `original_metric` property to the metrics connector results [\#37](https://github.com/ntt-nflex/flexer/pull/37) ([@Surbias](https://github.com/Surbias))
+
 ## [v1.3.10](https://github.com/ntt-nflex/flexer/tree/v1.3.10) (Aug 30, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.9...v1.3.10)
 
