@@ -158,3 +158,21 @@ class BaseConnectorTest(unittest.TestCase):
                 count = len(filter(lambda r: r["metric"] == name, metrics))
                 self.assertGreater(count, 0,
                                    'No metric points for "%s" found' % name)
+
+    @unittest.skipIf(not hasattr(main, "get_logs"),
+                     "get_logs not defined")
+    @unittest.skipIf(not hasattr(logs, "get"),
+                     "get not defined in logs")
+    def test_get_logs(self):
+        self.event['resource'] = self.account_resource
+        result = self.runner.run(handler="main.get_logs",
+                                 event=self.event,
+                                 context=self.context,
+                                 debug=self.logging)
+        result = json.loads(result)
+
+        self.assertIsNone(result["error"])
+        value = result["value"]
+        logs = value["logs"]
+        self.assertIsNotNone(logs)
+        self.assertGreater(len(logs), 0, 'No logs found')
