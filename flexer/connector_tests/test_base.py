@@ -39,6 +39,9 @@ class BaseConnectorTest(unittest.TestCase):
                 }
             ]
 
+        if "account_resource" in cls.account:
+            cls.account_resource = cls.account.get("account_resource")
+
         cls.runner = Flexer()
         cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
         client = CmpClient(url=cfg["cmp_url"],
