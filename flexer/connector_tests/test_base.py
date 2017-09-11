@@ -161,8 +161,6 @@ class BaseConnectorTest(unittest.TestCase):
 
     @unittest.skipIf(not hasattr(main, "get_logs"),
                      "get_logs not defined")
-    @unittest.skipIf(not hasattr(logs, "get"),
-                     "get not defined in logs")
     def test_get_logs(self):
         self.event['resource'] = self.account_resource
         self.event['resource_id'] = self.account_resource['id']
