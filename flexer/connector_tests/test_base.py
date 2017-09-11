@@ -38,7 +38,7 @@ class BaseConnectorTest(unittest.TestCase):
                     "expected_metrics": cls.account.get("expected_metrics")
                 }
             ]
-        cls.account_resource = cls.account.get("account_resource")
+        cls.logs_resource = cls.account.get("logs_resource")
 
         cls.runner = Flexer()
         cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
@@ -162,9 +162,9 @@ class BaseConnectorTest(unittest.TestCase):
     @unittest.skipIf(not hasattr(main, "get_logs"),
                      "get_logs not defined")
     def test_get_logs(self):
-        self.event['resource'] = self.account_resource
-        self.event['resource_id'] = self.account_resource['id']
-        self.event['account_id'] = self.account_resource['account_id']
+        self.event['resource'] = self.logs_resource
+        self.event['resource_id'] = self.logs_resource['id']
+        self.event['account_id'] = self.logs_resource['account_id']
         result = self.runner.run(handler="main.get_logs",
                                  event=self.event,
                                  context=self.context,
