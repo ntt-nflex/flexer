@@ -38,9 +38,7 @@ class BaseConnectorTest(unittest.TestCase):
                     "expected_metrics": cls.account.get("expected_metrics")
                 }
             ]
-
-        if "account_resource" in cls.account:
-            cls.account_resource = cls.account.get("account_resource")
+        cls.account_resource = cls.account.get("account_resource")
 
         cls.runner = Flexer()
         cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
