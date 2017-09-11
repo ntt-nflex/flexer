@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.12](https://github.com/ntt-nflex/flexer/tree/v1.3.12) (Sep 11, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.11...v1.3.12)
+
+### Changes:
+- Add base connector tets for the `get_logs` handler [\#38](https://github.com/ntt-nflex/flexer/pull/38) ([@k-yoshihara](https://github.com/k-yoshihara))
+
 ## [v1.3.11](https://github.com/ntt-nflex/flexer/tree/v1.3.11) (Sep 05, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.10...v1.3.11)
 
