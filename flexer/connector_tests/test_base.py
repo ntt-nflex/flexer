@@ -139,6 +139,8 @@ class BaseConnectorTest(unittest.TestCase):
     def test_get_metrics(self):
         for res in self.resource_data:
             self.event['resource'] = res['resource']
+            self.event['resource_id'] = res['resource']['id']
+            self.event['account_id'] = res['resource']['account_id']
             result = self.runner.run(handler="main.get_metrics",
                                      event=self.event,
                                      context=self.context,
@@ -163,6 +165,8 @@ class BaseConnectorTest(unittest.TestCase):
                      "get not defined in logs")
     def test_get_logs(self):
         self.event['resource'] = self.account_resource
+        self.event['resource_id'] = self.account_resource['id']
+        self.event['account_id'] = self.account_resource['account_id']
         result = self.runner.run(handler="main.get_logs",
                                  event=self.event,
                                  context=self.context,
