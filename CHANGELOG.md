@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.13](https://github.com/ntt-nflex/flexer/tree/v1.3.13) (Sep 13, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.12...v1.3.13)
+
+### Changes:
+- Add validation for the serverity key in the `get_logs` result [\#39](https://github.com/ntt-nflex/flexer/pull/39) ([@k-yoshihara](https://github.com/k-yoshihara))
+
 ## [v1.3.12](https://github.com/ntt-nflex/flexer/tree/v1.3.12) (Sep 11, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.11...v1.3.12)
 
