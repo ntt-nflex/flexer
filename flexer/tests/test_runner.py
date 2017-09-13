@@ -432,12 +432,10 @@ class TestFlexer(unittest.TestCase):
             result = self.runner.run(event={}, context=None, handler=handler)
 
         actual = json.loads(result)
-        print(actual)
         self.assertTrue('error' in actual)
         self.assertTrue('exc_type' in actual['error'])
         self.assertTrue('exc_message' in actual['error'])
         self.assertEqual(u'ValidationError', actual['error']['exc_type'])
-        print(actual['error']['exc_message'])
         self.assertTrue("\'HIGH\' is not one of "
                         "[u\'CRITICAL\', u\'ERROR\', u\'WARNING\', u\'INFO\']"
                         in actual['error']['exc_message'])
