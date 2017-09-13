@@ -18,7 +18,8 @@
                             "ERROR",
                             "WARNING",
                             "INFO",
-                            "DEBUG"
+                            "DEBUG",
+                            "NOTSET"
                         ]
                     },
                     "source_host": {
