@@ -418,3 +418,25 @@ class TestFlexer(unittest.TestCase):
         self.assertEqual(u'ValidationError', actual['error']['exc_type'])
         self.assertTrue("\'time\' is a required property"
                         in actual['error']['exc_message'])
+
+    def test_validate_logs_invalid_severity_error(self):
+        """
+        Run a method that returns log data and check validation is NG
+        with invalid severity
+        """
+        handler = 'module_with_logs.test_invalid_severity_value'
+
+        with mock.patch(
+                'flexer.runner.Flexer._get_validation_schema_file',
+                return_value='get_logs.json'):
+            result = self.runner.run(event={}, context=None, handler=handler)
+
+        actual = json.loads(result)
+        self.assertTrue('error' in actual)
+        self.assertTrue('exc_type' in actual['error'])
+        self.assertTrue('exc_message' in actual['error'])
+        self.assertEqual(u'ValidationError', actual['error']['exc_type'])
+        self.assertTrue("\'HIGH\' is not one of "
+                        "[u\'CRITICAL\', u\'ERROR\', u\'WARNING\', "
+                        "u\'INFO\', u\'DEBUG\']"
+                        in actual['error']['exc_message'])
