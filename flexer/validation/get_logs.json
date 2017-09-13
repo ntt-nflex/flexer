@@ -13,7 +13,12 @@
                         "type": "string"
                     },
                     "severity": {
-                        "type": "string"
+                        "enum":[
+                            "CRITICAL",
+                            "ERROR",
+                            "WARNING",
+                            "INFO"
+                        ]
                     },
                     "source_host": {
                         "type": "string"
