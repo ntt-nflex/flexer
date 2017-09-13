@@ -17,7 +17,8 @@
                             "CRITICAL",
                             "ERROR",
                             "WARNING",
-                            "INFO"
+                            "INFO",
+                            "DEBUG"
                         ]
                     },
                     "source_host": {

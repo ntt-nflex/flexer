@@ -437,5 +437,6 @@ class TestFlexer(unittest.TestCase):
         self.assertTrue('exc_message' in actual['error'])
         self.assertEqual(u'ValidationError', actual['error']['exc_type'])
         self.assertTrue("\'HIGH\' is not one of "
-                        "[u\'CRITICAL\', u\'ERROR\', u\'WARNING\', u\'INFO\']"
+                        "[u\'CRITICAL\', u\'ERROR\', u\'WARNING\', "
+                        "u\'INFO\', u\'DEBUG\']"
                         in actual['error']['exc_message'])
