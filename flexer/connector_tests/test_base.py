@@ -156,7 +156,7 @@ class BaseConnectorTest(unittest.TestCase):
             expected_metrics = res['expected_metrics']
             for name in expected_metrics:
                 self.assertTrue(
-                    (True for r in metrics if r["metric"] == name),
+                    any(True for r in metrics if r["metric"] == name),
                     'No metric points for "%s" found' % name
                 )
 
@@ -184,7 +184,7 @@ class BaseConnectorTest(unittest.TestCase):
 
             for l in expected_logs:
                 self.assertTrue(
-                    (True for r in logs if r["alert"] == l['alert'] and
+                    any(True for r in logs if r["alert"] == l['alert'] and
                         r['source_host'] == l['source_host']),
                     'No log points for log with alert %s and source %s' % (
                         l['alert'], l['source_host']
