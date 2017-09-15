@@ -20,10 +20,11 @@ class BaseConnectorTest(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        # The rule to evaluate number as boolean is inspired by C++11 implementation
-        # All numbers but 0 and True or true will be evaluated as True
+        '''The rule to evaluate number as boolean is inspired by C++11 implementation
+        All numbers but 0 and True or true will be evaluated as True
+        ''' # noqa
         cls.logging = re.search(r'^-?[1-9][0-9]*$|^[Tt]rue$',
-                                os.getenv("LOG_TO_STDOUT", "False")) != None
+                                os.getenv("LOG_TO_STDOUT", "False")) != None # noqa
         path = os.getenv("CONFIG_YAML", DEFAULT_CONFIG_YAML)
         cls.account = read_yaml_file(path)
         cls.account["credentials"] = (
@@ -34,11 +35,11 @@ class BaseConnectorTest(unittest.TestCase):
         else:
             cls.resource_data = [
                 {
-                    "resource": cls.account.get("resource"),
-                    "expected_metrics": cls.account.get("expected_metrics")
+                    "resource": cls.account.get("resource", {}),
+                    "expected_metrics": cls.account.get("expected_metrics"),
+                    "expected_logs": cls.account.get("expected_logs"),
                 }
             ]
-        cls.logs_resource = cls.account.get("logs_resource")
 
         cls.runner = Flexer()
         cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
@@ -49,7 +50,6 @@ class BaseConnectorTest(unittest.TestCase):
         cls.context.secrets = secrets
 
     def setUp(self):
-        # TODO: See if we need extra parameters in the event
         self.event = {
             "credentials": self.account["credentials"],
         }
@@ -155,24 +155,37 @@ class BaseConnectorTest(unittest.TestCase):
 
             expected_metrics = res['expected_metrics']
             for name in expected_metrics:
-                count = len(filter(lambda r: r["metric"] == name, metrics))
-                self.assertGreater(count, 0,
-                                   'No metric points for "%s" found' % name)
+                self.assertTrue(
+                    any(True for r in metrics if r["metric"] == name),
+                    'No metric points for "%s" found' % name
+                )
 
     @unittest.skipIf(not hasattr(main, "get_logs"),
                      "get_logs not defined")
     def test_get_logs(self):
-        self.event['resource'] = self.logs_resource
-        self.event['resource_id'] = self.logs_resource.get('id')
-        self.event['account_id'] = self.logs_resource.get('account_id')
-        result = self.runner.run(handler="main.get_logs",
-                                 event=self.event,
-                                 context=self.context,
-                                 debug=self.logging)
-        result = json.loads(result)
+        for res in self.resource_data:
+            self.event['resource'] = res['resource']
+            self.event['resource_id'] = res['resource'].get('id')
+            self.event['account_id'] = res['resource'].get('account_id')
+            result = self.runner.run(
+                handler="main.get_logs",
+                event=self.event,
+                context=self.context,
+                debug=self.logging,
+            )
+            result = json.loads(result)
 
-        self.assertIsNone(result["error"])
-        value = result["value"]
-        logs = value["logs"]
-        self.assertIsNotNone(logs)
-        self.assertGreater(len(logs), 0, 'No logs found')
+            self.assertIsNone(result["error"])
+            value = result["value"]
+            logs = value["logs"]
+            self.assertIsNotNone(logs)
+
+            expected_logs = res['expected_logs']
+
+            for l in expected_logs:
+                self.assertTrue(
+                    any(True for r in logs if r["severity"] == l['severity']),
+                    'No log points for log with alert %s and source %s' % (
+                        l['alert'], l['source_host']
+                    )
+                )
