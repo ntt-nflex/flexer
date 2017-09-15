@@ -349,8 +349,7 @@ class TestFlexer(unittest.TestCase):
                 u'metric': u'cpu-usage',
                 u'value': 99,
                 u'unit': u'percent',
-                u'time': u'2017-01-12T18:30:42.034751Z',
-                u'resource_id': u'1237ab91-08eb-4164-8e68-67699c29cd4c'}
+                u'time': u'2017-01-12T18:30:42.034751Z'}
                 ]},
             u'error': None,
             u'logs': u'Running test script\n',

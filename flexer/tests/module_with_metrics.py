@@ -4,8 +4,7 @@ def test_ok(event, context):
         'metric': 'cpu-usage',
         'value': 99,
         'unit': 'percent',
-        'time': '2017-01-12T18:30:42.034751Z',
-        'resource_id': '1237ab91-08eb-4164-8e68-67699c29cd4c'}
+        'time': '2017-01-12T18:30:42.034751Z'}
         ]}
 
 
