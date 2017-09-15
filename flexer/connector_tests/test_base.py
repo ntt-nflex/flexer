@@ -182,8 +182,9 @@ class BaseConnectorTest(unittest.TestCase):
 
             expected_logs = res['expected_logs']
 
-            for l in expected_logs:
+            for severity in expected_logs:
                 self.assertTrue(
-                    any(True for r in logs if r["severity"] == l['severity']),
-                    'No log points for log with severity %s' % l['severity']
+                    any(True for log in logs
+                        if log.get("severity", '') == severity),
+                    'No log points for log with severity %s' % severity
                 )
