@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.14](https://github.com/ntt-nflex/flexer/tree/v1.3.14) (Sep 15, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.13...v1.3.14)
+
+### Changes:
+- Add support to test `get_logs` in multiple regions. `resource` and `logs_resource` are now optional [\#41](https://github.com/ntt-nflex/flexer/pull/41) ([@Surbias](https://github.com/Surbias))
+
 ## [v1.3.13](https://github.com/ntt-nflex/flexer/tree/v1.3.13) (Sep 13, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.12...v1.3.13)
 
