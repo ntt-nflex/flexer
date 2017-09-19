@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.15](https://github.com/ntt-nflex/flexer/tree/v1.3.15) (Sep 19, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.14...v1.3.15)
+
+### Changes:
+- Change the format of the expected logs in the base connector tests [\#43](https://github.com/ntt-nflex/flexer/pull/43) ([@Surbias](https://github.com/Surbias))
+
 ## [v1.3.14](https://github.com/ntt-nflex/flexer/tree/v1.3.14) (Sep 15, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.13...v1.3.14)
 
