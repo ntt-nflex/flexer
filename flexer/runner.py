@@ -180,6 +180,8 @@ class Flexer(object):
         schema_file = None
         if handler == 'main.get_resources':
             schema_file = "get_resources.json"
+        elif handler == 'main.get_spend':
+            schema_file = "get_spend.json"
         elif event_source == 'cmp-connector.metrics':
             schema_file = "get_metrics.json"
         elif event_source == 'cmp-connector.logs':
