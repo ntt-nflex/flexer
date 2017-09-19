@@ -175,7 +175,7 @@ class TestFlexer(unittest.TestCase):
         stack trace.
         """
         handler = 'module_with_import_error.test'
-        exc_m =exc_message["import_error"][PYVERSION]
+        exc_m = exc_message["import_error"][PYVERSION]
         exc_t = exc_type["import_error"][PYVERSION]
         expected = {
             'exc_message': (
@@ -436,7 +436,5 @@ class TestFlexer(unittest.TestCase):
         self.assertTrue('exc_type' in actual['error'])
         self.assertTrue('exc_message' in actual['error'])
         self.assertEqual(u'ValidationError', actual['error']['exc_type'])
-        self.assertTrue("\'HIGH\' is not one of "
-                        "[u\'CRITICAL\', u\'ERROR\', u\'WARNING\', "
-                        "u\'INFO\', u\'DEBUG\']"
-                        in actual['error']['exc_message'])
+        self.assertIn('HIGH', actual['error']['exc_message'])
+        self.assertIn('is not one of', actual['error']['exc_message'])
