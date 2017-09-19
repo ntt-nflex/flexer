@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.16](https://github.com/ntt-nflex/flexer/tree/v1.3.16) (Sep 19, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.15...v1.3.16)
+
+### Changes:
+- Add spend JSON schema validator [\#44](https://github.com/ntt-nflex/flexer/pull/44) ([@victorliun](https://github.com/victorliun))
+
 ## [v1.3.15](https://github.com/ntt-nflex/flexer/tree/v1.3.15) (Sep 19, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.14...v1.3.15)
 
