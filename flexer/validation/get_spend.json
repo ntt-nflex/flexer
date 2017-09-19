@@ -1,0 +1,55 @@
+{
+    "type": "object",
+    "properties": {
+        "amount": {
+            "anyOf":[
+                {"type": "number"},
+                {
+                    "type": "array",
+                    "items": {
+                        "type": "object",
+                        "properties": {
+                            "remote_id": {
+                                "type": "string"
+                            },
+                            "amount": {
+                                "type": "number"
+                            }
+                        }
+                    }
+                }
+            ]
+        },
+        "currency": {
+          "type": "string"
+        },
+        "items": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "amount": {
+                        "type": "number"
+                    },
+                    "remote_id": {
+                        "type": "string"
+                    },
+                    "resource_type": {
+                        "type": "string"
+                    }
+                },
+                "required":[
+                    "remote_id",
+                    "amount",
+                    "resource_type"
+                ]
+            }
+        },
+        "spend_date": {
+            "type": "string",
+            "format": "datetime",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+        }
+    },
+    "required": ["amount", "currency", "items", "spend_date"]
+}

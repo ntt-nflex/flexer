@@ -161,7 +161,7 @@ class Flexer(object):
 
     def _get_validation_schema(self, event_source, handler):
         schema = None
-        schema_file = self._get_validation_schema_file(event_source, handler)
+        schema_file = self._get_validation_schema_file(event_source)
         if schema_file is not None:
             path = os.path.join(
                 os.path.dirname(__file__),
@@ -176,20 +176,17 @@ class Flexer(object):
 
         return schema
 
-    def _get_validation_schema_file(self, event_source, handler):
-        schema_file = None
-        if handler == 'main.get_resources':
-            schema_file = "get_resources.json"
-        elif event_source == 'cmp-connector.metrics':
-            schema_file = "get_metrics.json"
-        elif event_source == 'cmp-connector.logs':
-            schema_file = "get_logs.json"
-        elif event_source == 'monitor':
-            schema_file = "monitors.json"
-        elif event_source == 'rest-api':
-            schema_file = "rest-api.json"
+    def _get_validation_schema_file(self, event_source):
+        validator_map = {
+            'cmp-connector.logs': 'get_logs.json',
+            'cmp-connector.metrics': 'get_metrics.json',
+            'cmp-connector.resources': 'get_resources.json',
+            'cmp-connector.spend': 'get_spend.json',
+            'monitor': 'monitors.json',
+            'rest-api': 'rest-api.json',
+        }
 
-        return schema_file
+        return validator_map.get(event_source)
 
     def _format_exception_info(self, exc_info):
         exc_type, value, tb = exc_info
