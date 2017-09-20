@@ -118,7 +118,8 @@ def lookup_values(keys):
     if not keys:
         return {}
 
-    return {key: os.getenv(key.upper()) for key in keys}
+    return {key: os.getenv("AUTH_" + key.upper()) or os.getenv(key.upper())
+            for key in keys}
 
 
 def prep_err_msg(exc):
