@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.17](https://github.com/ntt-nflex/flexer/tree/v1.3.17) (Sep 20, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.16...v1.3.17)
+
+### Changes:
+- Try to get env variables with "AUTH\_" prefix first in the base connector tests [\#45](https://github.com/ntt-nflex/flexer/pull/45) ([@boncheff](https://github.com/boncheff))
+
 ## [v1.3.16](https://github.com/ntt-nflex/flexer/tree/v1.3.16) (Sep 19, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.15...v1.3.16)
 
