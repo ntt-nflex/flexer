@@ -440,3 +440,31 @@ class TestFlexer(unittest.TestCase):
                         "[u\'CRITICAL\', u\'ERROR\', u\'WARNING\', "
                         "u\'INFO\', u\'DEBUG\']"
                         in actual['error']['exc_message'])
+
+    def test_validate_spend_schema(self):
+        """
+        Run a few methods to test spend json schema validation
+        """
+
+        handlers = [
+            'module_spend_validator.good_spend1',
+            'module_spend_validator.good_spend2',
+            'module_spend_validator.good_spend3',
+        ]
+        bad_handlers = [
+            'module_spend_validator.bad_spend1',
+            'module_spend_validator.bad_spend2',
+            'module_spend_validator.bad_spend3',
+        ]
+
+        to_patch = 'flexer.runner.Flexer._get_validation_schema_file'
+        with mock.patch(to_patch, return_value='get_spend.json'):
+            for handler in handlers:
+                result = self.runner.run(event={}, context=None, handler=handler)
+                load = json.loads(result)
+                self.assertFalse(load['error'])
+
+            for handler in bad_handlers:
+                result = self.runner.run(event={}, context=None, handler=handler)
+                load = json.loads(result)
+                self.assertTrue(load['error'])
