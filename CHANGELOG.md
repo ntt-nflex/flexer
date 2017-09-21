@@ -1,5 +1,23 @@
 # Change Log
 
+## [v1.3.17](https://github.com/ntt-nflex/flexer/tree/v1.3.17) (Sep 20, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.16...v1.3.17)
+
+### Changes:
+- Try to get env variables with "AUTH\_" prefix first in the base connector tests [\#45](https://github.com/ntt-nflex/flexer/pull/45) ([@boncheff](https://github.com/boncheff))
+
+## [v1.3.16](https://github.com/ntt-nflex/flexer/tree/v1.3.16) (Sep 19, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.15...v1.3.16)
+
+### Changes:
+- Add spend JSON schema validator [\#44](https://github.com/ntt-nflex/flexer/pull/44) ([@victorliun](https://github.com/victorliun))
+
+## [v1.3.15](https://github.com/ntt-nflex/flexer/tree/v1.3.15) (Sep 19, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.14...v1.3.15)
+
+### Changes:
+- Change the format of the expected logs in the base connector tests [\#43](https://github.com/ntt-nflex/flexer/pull/43) ([@Surbias](https://github.com/Surbias))
+
 ## [v1.3.14](https://github.com/ntt-nflex/flexer/tree/v1.3.14) (Sep 15, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.13...v1.3.14)
 
