@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.18](https://github.com/ntt-nflex/flexer/tree/v1.3.18) (Sep 22, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.17...v1.3.18)
+
+### Changes:
+- Add `amount_accumulative` into the spend schema and test it [\#46](https://github.com/ntt-nflex/flexer/pull/46) ([@victorliun](https://github.com/victorliun))
+
 ## [v1.3.17](https://github.com/ntt-nflex/flexer/tree/v1.3.17) (Sep 20, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.16...v1.3.17)
 
