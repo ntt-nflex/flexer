@@ -137,7 +137,13 @@ class BaseConnectorTest(unittest.TestCase):
     @unittest.skipIf(not hasattr(main, "get_metrics"),
                      "get_metrics not defined")
     def test_get_metrics(self):
+        counter = 0
         for res in self.resource_data:
+            expected_metrics = res['expected_metrics']
+            if expected_metrics is None:
+                continue
+
+            counter += 1
             self.event['resource'] = res['resource']
             self.event['resource_id'] = res['resource'].get('id')
             self.event['account_id'] = res['resource'].get('account_id')
@@ -153,17 +159,23 @@ class BaseConnectorTest(unittest.TestCase):
             self.assertIsNotNone(metrics)
             self.assertGreater(len(metrics), 0, 'No metrics found')
 
-            expected_metrics = res['expected_metrics']
             for name in expected_metrics:
                 self.assertTrue(
                     any(True for r in metrics if r["metric"] == name),
                     'No metric points for "%s" found' % name
                 )
+        self.assertEqual(counter, 0, "No expected_metrics found in config")
 
     @unittest.skipIf(not hasattr(main, "get_logs"),
                      "get_logs not defined")
     def test_get_logs(self):
+        counter = 0
         for res in self.resource_data:
+            expected_logs = res['expected_logs']
+            if expected_logs is None:
+                continue
+
+            counter += 1
             self.event['resource'] = res['resource']
             self.event['resource_id'] = res['resource'].get('id')
             self.event['account_id'] = res['resource'].get('account_id')
@@ -180,11 +192,10 @@ class BaseConnectorTest(unittest.TestCase):
             logs = value["logs"]
             self.assertIsNotNone(logs)
 
-            expected_logs = res['expected_logs']
-
             for severity in expected_logs:
                 self.assertTrue(
                     any(True for log in logs
                         if log.get("severity", '') == severity),
                     'No log points for log with severity %s' % severity
                 )
+        self.assertEqual(counter, 0, "No expected_logs found in config")
