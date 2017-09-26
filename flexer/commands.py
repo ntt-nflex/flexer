@@ -148,10 +148,11 @@ def strip_dir_path(source, dirname):
     return prefix
 
 
-def test(verbose=False, keywords=None):
+def test(verbose=False, keywords=None, client_from_env=False):
     import unittest
     from flexer.connector_tests.test_base import BaseConnectorTest
 
+    BaseConnectorTest.use_configfile = not client_from_env
     if keywords:
         suite = unittest.TestLoader().loadTestsFromName('flexer.connector_tests.test_base.BaseConnectorTest.'+keywords)
     else:
