@@ -139,7 +139,7 @@ class BaseConnectorTest(unittest.TestCase):
     def test_get_metrics(self):
         counter = 0
         for res in self.resource_data:
-            expected_metrics = res['expected_metrics']
+            expected_metrics = res.get('expected_metrics')
             if expected_metrics is None:
                 continue
 
@@ -164,14 +164,14 @@ class BaseConnectorTest(unittest.TestCase):
                     any(True for r in metrics if r["metric"] == name),
                     'No metric points for "%s" found' % name
                 )
-        self.assertEqual(counter, 0, "No expected_metrics found in config")
+        self.assertNotEqual(counter, 0, "No expected_metrics found in config")
 
     @unittest.skipIf(not hasattr(main, "get_logs"),
                      "get_logs not defined")
     def test_get_logs(self):
         counter = 0
         for res in self.resource_data:
-            expected_logs = res['expected_logs']
+            expected_logs = res.get('expected_logs')
             if expected_logs is None:
                 continue
 
@@ -198,4 +198,4 @@ class BaseConnectorTest(unittest.TestCase):
                         if log.get("severity", '') == severity),
                     'No log points for log with severity %s' % severity
                 )
-        self.assertEqual(counter, 0, "No expected_logs found in config")
+        self.assertNotEqual(counter, 0, "No expected_logs found in config")
