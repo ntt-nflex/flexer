@@ -458,8 +458,14 @@ def build(ctx, directory, zip, exclude):
               default=False,
               is_flag=True,
               help='Display verbose output from the test execution')
+@click.option('-e', '--client-from-env',
+              default=False,
+              is_flag=True,
+              help='Use CMP_URL, CMP_USERNAME, CMP_PASSWORD environment'
+              ' vars to create cmp api client to be passed to each test'
+              ' instead of ~/.flexer.yaml')
 @pass_context
-def test(ctx, verbose, keywords):
+def test(ctx, client_from_env, verbose, keywords):
     """Run the flexer base tests against a module.
 
     Run a very basic set of tests for a CMP connector. The tests are available
@@ -501,6 +507,7 @@ def test(ctx, verbose, keywords):
         is in the return value of the get_resources handler
     """
 
-    result = flexer.commands.test(verbose=verbose, keywords=keywords)
+    result = flexer.commands.test(verbose=verbose, keywords=keywords,
+                                  client_from_env=client_from_env)
     if len(result.failures) + len(result.errors) > 0:
         exit(1)

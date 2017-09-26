@@ -17,6 +17,8 @@ import re
 
 
 class BaseConnectorTest(unittest.TestCase):
+    # Use .flexer.yaml to create cmp client
+    use_configfile = True
 
     @classmethod
     def setUpClass(cls):
@@ -42,9 +44,11 @@ class BaseConnectorTest(unittest.TestCase):
             ]
 
         cls.runner = Flexer()
-        cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
-        client = CmpClient(url=cfg["cmp_url"],
-                           auth=(cfg['cmp_api_key'], cfg['cmp_api_secret']))
+        client=None
+        if cls.use_configfile:
+            cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
+            client = CmpClient(url=cfg["cmp_url"],
+                               auth=(cfg['cmp_api_key'], cfg['cmp_api_secret']))
         cls.context = FlexerContext(cmp_client=client)
         secrets = (lookup_values(cls.account.get("secrets_keys")))
         cls.context.secrets = secrets
