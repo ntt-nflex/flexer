@@ -161,7 +161,7 @@ class BaseConnectorTest(unittest.TestCase):
 
             for name in expected_metrics:
                 self.assertTrue(
-                    any(True for r in metrics if r["metric"] == name),
+                    any(r["metric"] == name for r in metrics),
                     'No metric points for "%s" found' % name
                 )
         self.assertNotEqual(counter, 0, "No expected_metrics found in config")
@@ -194,8 +194,7 @@ class BaseConnectorTest(unittest.TestCase):
 
             for severity in expected_logs:
                 self.assertTrue(
-                    any(True for log in logs
-                        if log.get("severity", '') == severity),
+                    any(log.get("severity", '') == severity for log in logs),
                     'No log points for log with severity %s' % severity
                 )
         self.assertNotEqual(counter, 0, "No expected_logs found in config")
