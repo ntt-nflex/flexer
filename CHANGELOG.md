@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.3.19](https://github.com/ntt-nflex/flexer/tree/v1.3.19) (Sep 22, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.18...v1.3.19)
+
+### Changes:
+- Make `expected_metrics` and `expected_logs` config fields optional [\#49](https://github.com/ntt-nflex/flexer/pull/49) ([@k-yoshihara](https://github.com/k-yoshihara))
+- Simplify the assertions in the logs and metrics connector tests [\#50](https://github.com/ntt-nflex/flexer/pull/50) ([@k-yoshihara](https://github.com/k-yoshihara))
+- Support the `--auth` parameter in the `test` command
+
 ## [v1.3.18](https://github.com/ntt-nflex/flexer/tree/v1.3.18) (Sep 22, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.17...v1.3.18)
 
