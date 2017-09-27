@@ -17,6 +17,7 @@ import re
 
 
 class BaseConnectorTest(unittest.TestCase):
+    client = None
 
     @classmethod
     def setUpClass(cls):
@@ -42,10 +43,14 @@ class BaseConnectorTest(unittest.TestCase):
             ]
 
         cls.runner = Flexer()
-        cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
-        client = CmpClient(url=cfg["cmp_url"],
-                           auth=(cfg['cmp_api_key'], cfg['cmp_api_secret']))
-        cls.context = FlexerContext(cmp_client=client)
+        if not cls.client:
+            cfg = load_config(cfg_file=CONFIG_FILE)["regions"]["default"]
+            cls.client = CmpClient(
+                url=cfg["cmp_url"],
+                auth=(cfg['cmp_api_key'], cfg['cmp_api_secret'])
+            )
+
+        cls.context = FlexerContext(cmp_client=cls.client)
         secrets = (lookup_values(cls.account.get("secrets_keys")))
         cls.context.secrets = secrets
 

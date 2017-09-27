@@ -148,12 +148,15 @@ def strip_dir_path(source, dirname):
     return prefix
 
 
-def test(verbose=False, keywords=None):
+def test(verbose=False, keywords=None, cmp_client=None):
     import unittest
     from flexer.connector_tests.test_base import BaseConnectorTest
 
+    BaseConnectorTest.client = cmp_client
     if keywords:
-        suite = unittest.TestLoader().loadTestsFromName('flexer.connector_tests.test_base.BaseConnectorTest.'+keywords)
+        suite = unittest.TestLoader().loadTestsFromName(
+            'flexer.connector_tests.test_base.BaseConnectorTest.'+keywords
+        )
     else:
         suite = unittest.TestLoader().loadTestsFromTestCase(BaseConnectorTest)
     runner = unittest.TextTestRunner(verbosity=2 if verbose else 1)

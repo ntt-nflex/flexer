@@ -501,6 +501,10 @@ def test(ctx, verbose, keywords):
         is in the return value of the get_resources handler
     """
 
-    result = flexer.commands.test(verbose=verbose, keywords=keywords)
+    result = flexer.commands.test(
+        verbose=verbose,
+        keywords=keywords,
+        cmp_client=ctx.cmp,
+    )
     if len(result.failures) + len(result.errors) > 0:
         exit(1)
