@@ -2,7 +2,7 @@
     "type": "object",
     "properties": {
         "amount": {
-            "anyOf":[
+            "anyOf": [
                 {"type": "number"},
                 {
                     "type": "array",
@@ -34,6 +34,9 @@
                     "amount": {
                         "type": "number"
                     },
+                    "amount_accumulative": {
+                        "type": "number"
+                    },
                     "remote_id": {
                         "type": "string"
                     },
@@ -41,10 +44,13 @@
                         "type": "string"
                     }
                 },
-                "required":[
+                "required": [
                     "remote_id",
-                    "amount",
                     "resource_type"
+                ],
+                "oneOf": [
+                    {"required": ["amount"]},
+                    {"required": ["amount_accumulative"]}
                 ]
             }
         },
@@ -54,8 +60,13 @@
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
         }
     },
+    "required": [
+      "currency",
+      "spend_date",
+      "items"
+    ],
     "oneOf": [
-        {"required": ["amount", "currency", "items", "spend_date"]},
-        {"required": ["amount_accumulative", "currency", "items", "spend_date"]}
+        {"required": ["amount"]},
+        {"required": ["amount_accumulative"]}
     ]
 }

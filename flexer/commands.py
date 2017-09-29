@@ -78,7 +78,7 @@ def add_config_region(name, url, key, secret):
     return config
 
 
-def run(handler, event, config, secrets, cmp_client):
+def run(handler, event_source, event, config, secrets, cmp_client):
     event = json.loads(event)
     handler = "main.%s" % handler
     context = FlexerContext(cmp_client=cmp_client)
@@ -90,6 +90,7 @@ def run(handler, event, config, secrets, cmp_client):
     result = Flexer().run(event=event,
                           context=context,
                           handler=handler,
+                          event_source=event_source,
                           debug=True)
     return json.loads(result)
 
