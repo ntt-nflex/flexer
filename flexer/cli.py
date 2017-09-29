@@ -381,7 +381,8 @@ def run(ctx, handler, event_source, event, config, secrets, pretty):
     if pretty:
         click.echo("warn: --pretty is deprecated", err=True)
 
-    result = flexer.commands.run(handler, event_source, event, config, secrets, ctx.cmp)
+    result = flexer.commands.run(handler, event_source, event, config, secrets,
+                                 ctx.cmp)
     print_result(result)
 
 
