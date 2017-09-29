@@ -355,13 +355,17 @@ def logs(ctx, module_id):
 @click.option('--secrets',
               required=False,
               help="The secrets to run the module with")
+@click.option('--event-source',
+              required=False,
+              type=click.Choice(EVENT_SOURCES),
+              help="The event source for the module")
 @click.option('--event',
               metavar="EVENT",
               required=True,
               help="The event to run the module with")
 @click.argument('handler')
 @pass_context
-def run(ctx, handler, event, config, secrets, pretty):
+def run(ctx, handler, event_source, event, config, secrets, pretty):
     """Run an nFlex module locally.
 
     The command will try to find a "main.py" file in the current working
@@ -377,7 +381,7 @@ def run(ctx, handler, event, config, secrets, pretty):
     if pretty:
         click.echo("warn: --pretty is deprecated", err=True)
 
-    result = flexer.commands.run(handler, event, config, secrets, ctx.cmp)
+    result = flexer.commands.run(handler, event_source, event, config, secrets, ctx.cmp)
     print_result(result)
 
 
