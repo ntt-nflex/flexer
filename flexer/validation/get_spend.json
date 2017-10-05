@@ -64,9 +64,5 @@
       "currency",
       "spend_date",
       "items"
-    ],
-    "oneOf": [
-        {"required": ["amount"]},
-        {"required": ["amount_accumulative"]}
     ]
 }
