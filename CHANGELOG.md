@@ -1,10 +1,16 @@
 # Change Log
 
+## [v1.3.21](https://github.com/ntt-nflex/flexer/tree/v1.3.21) (Oct 5, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.20...v1.3.21)
+
+### Changes:
+- Fix spend validation schemas [\#53](https://github.com/ntt-nflex/flexer/pull/53) ([@praveenabraham](https://github.com/praveenabraham))
+
 ## [v1.3.20](https://github.com/ntt-nflex/flexer/tree/v1.3.20) (Sep 29, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.19...v1.3.20)
 
 ### Changes:
-- Add an `--event-source` parameter to `flexer run` and update the spend validation [\#52](https://github.com/ntt-nflex/flexer/pull/52) ([@prav-ab](https://github.com/prav-ab))
+- Add an `--event-source` parameter to `flexer run` and update the spend validation [\#52](https://github.com/ntt-nflex/flexer/pull/52) ([@praveenabraham](https://github.com/praveenabraham))
 
 ## [v1.3.19](https://github.com/ntt-nflex/flexer/tree/v1.3.19) (Sep 22, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.18...v1.3.19)
