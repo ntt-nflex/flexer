@@ -15,8 +15,13 @@
             "type": "integer"
         }
     },
-    "required": [
-        "body",
-        "status_code"
+    "required": ["status_code"],
+    "anyOf": [
+        {
+            "properties": {
+                "status_code": { "enum": [204] }
+            }
+        },
+        { "required": ["body"] }
     ]
 }
