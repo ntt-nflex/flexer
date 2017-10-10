@@ -38,9 +38,17 @@
             }
         },
         "last_update": {
-            "type": "string",
-            "format": "datetime",
-            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z?$"
+            "anyOf": [
+                {
+                    "type": "string",
+                    "format": "datetime",
+                    "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z?$"
+                },
+                {
+                    "type": "string",
+                    "pattern": "^\\d+$"
+                }
+            ]
         }
     },
     "required": ["logs"]
