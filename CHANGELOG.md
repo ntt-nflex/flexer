@@ -1,5 +1,17 @@
 # Change Log
 
+## [v1.3.23](https://github.com/ntt-nflex/flexer/tree/v1.3.23) (Oct 11, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.22...v1.3.23)
+
+### Changes:
+- Don't require the `body` field in the result of `rest-api` modules if the `status_code` is 204
+
+## [v1.3.22](https://github.com/ntt-nflex/flexer/tree/v1.3.22) (Oct 10, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.21...v1.3.22)
+
+### Changes:
+- Change `last_update` field in the logs connector result to be either a timestamp or a number
+
 ## [v1.3.21](https://github.com/ntt-nflex/flexer/tree/v1.3.21) (Oct 5, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.20...v1.3.21)
 
