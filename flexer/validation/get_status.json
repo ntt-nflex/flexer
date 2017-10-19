@@ -1,0 +1,46 @@
+{
+    "type": "object",
+    "properties": {
+        "status": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "level": {
+                      "enum":[
+                          "0",
+                          "1",
+                          "2"
+                      ]
+                    },
+                    "source": {
+                        "type": "string"
+                    },
+                    "reason": {
+                        "type": "string"
+                    },
+                    "time":{
+                        "type": "string",
+                        "format": "datetime",
+                        "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z?$"
+                    },
+                    "resource_id": {
+                        "type": "string",
+                        "format": "uuid",
+                        "pattern": "[0-9a-f]{8}-([0-9a-f]{4}-){3}[0-9a-f]{12}"
+                    }
+                },
+                "required":[
+                    "level",
+                    "time"
+                ]
+            }
+        },
+        "last_update": {
+            "type": "string",
+            "format": "datetime",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(\\.\\d{1,6})?Z?$"
+        }
+    },
+    "required": ["status"]
+}
