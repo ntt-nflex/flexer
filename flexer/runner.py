@@ -184,6 +184,7 @@ class Flexer(object):
             'cmp-connector.spend': 'get_spend.json',
             'monitor': 'monitors.json',
             'rest-api': 'rest-api.json',
+            'cmp-connector.status': 'get_status.json',
         }
 
         return validator_map.get(event_source)

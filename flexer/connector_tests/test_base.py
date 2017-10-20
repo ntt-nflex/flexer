@@ -39,6 +39,7 @@ class BaseConnectorTest(unittest.TestCase):
                     "resource": cls.account.get("resource", {}),
                     "expected_metrics": cls.account.get("expected_metrics"),
                     "expected_logs": cls.account.get("expected_logs"),
+                    "expected_status": cls.account.get("expected_status"),
                 }
             ]
 
@@ -203,3 +204,36 @@ class BaseConnectorTest(unittest.TestCase):
                     'No log points for log with severity %s' % severity
                 )
         self.assertNotEqual(counter, 0, "No expected_logs found in config")
+
+    @unittest.skipIf(not hasattr(main, "get_status"),
+                     "get_status not defined")
+    def test_get_status(self):
+        counter = 0
+        for res in self.resource_data:
+            expected_status = res.get('expected_status')
+            if expected_status is None:
+                continue
+
+            counter += 1
+            self.event['resource'] = res['resource']
+            self.event['resource_id'] = res['resource'].get('id')
+            self.event['account_id'] = res['resource'].get('account_id')
+            result = self.runner.run(
+                handler="main.get_status",
+                event=self.event,
+                context=self.context,
+                debug=self.logging,
+            )
+            result = json.loads(result)
+
+            self.assertIsNone(result["error"])
+            value = result["value"]
+            status = value["status"]
+            self.assertIsNotNone(status)
+
+            for level in expected_status:
+                self.assertTrue(
+                    any(i.get("level", '') == level for i in status),
+                    'No status points with level %s' % level
+                )
+        self.assertNotEqual(counter, 0, "No expected_status found in config")

@@ -439,6 +439,79 @@ class TestFlexer(unittest.TestCase):
         self.assertIn('HIGH', actual['error']['exc_message'])
         self.assertIn('is not one of', actual['error']['exc_message'])
 
+    def test_validate_status_ok(self):
+        """Run a method that returns status data and check validation is ok
+        """
+        handler = 'module_with_status.test_ok'
+
+        with mock.patch(
+                'flexer.runner.Flexer._get_validation_schema_file',
+                return_value='get_status.json'):
+            result = self.runner.run(event={}, context=None, handler=handler)
+
+        actual = json.loads(result)
+        self.assertTrue('error' in actual)
+        self.assertTrue('value' in actual)
+        self.assertTrue('status' in actual['value'])
+        self.assertEqual(3, len(actual['value']['status']))
+        self.assertEqual(None, actual['error'])
+
+    def test_validate_status_missing_level_error(self):
+        """Run a method that returns status data and check validation is NG
+        with missing level
+        """
+        handler = 'module_with_status.test_missing_level'
+
+        with mock.patch(
+                'flexer.runner.Flexer._get_validation_schema_file',
+                return_value='get_status.json'):
+            result = self.runner.run(event={}, context=None, handler=handler)
+
+        actual = json.loads(result)
+        self.assertTrue('error' in actual)
+        self.assertTrue('exc_type' in actual['error'])
+        self.assertTrue('exc_message' in actual['error'])
+        self.assertEqual(u'ValidationError', actual['error']['exc_type'])
+        self.assertTrue("\'level\' is a required property"
+                        in actual['error']['exc_message'])
+
+    def test_validate_status_missing_time_error(self):
+        """Run a method that returns status data and check validation is NG
+        with missing time
+        """
+        handler = 'module_with_status.test_missing_time'
+
+        with mock.patch(
+                'flexer.runner.Flexer._get_validation_schema_file',
+                return_value='get_status.json'):
+            result = self.runner.run(event={}, context=None, handler=handler)
+
+        actual = json.loads(result)
+        self.assertTrue('error' in actual)
+        self.assertTrue('exc_type' in actual['error'])
+        self.assertTrue('exc_message' in actual['error'])
+        self.assertEqual(u'ValidationError', actual['error']['exc_type'])
+        self.assertTrue("\'time\' is a required property"
+                        in actual['error']['exc_message'])
+
+    def test_validate_status_invalid_status_error(self):
+        """Run a method that returns status data and check validation is NG
+        with invalid status
+        """
+        handler = 'module_with_status.test_invalid_level'
+
+        with mock.patch(
+                'flexer.runner.Flexer._get_validation_schema_file',
+                return_value='get_status.json'):
+            result = self.runner.run(event={}, context=None, handler=handler)
+
+        actual = json.loads(result)
+        self.assertTrue('error' in actual)
+        self.assertTrue('exc_type' in actual['error'])
+        self.assertTrue('exc_message' in actual['error'])
+        self.assertEqual(u'ValidationError', actual['error']['exc_type'])
+        self.assertIn("\'3\' is not one of", actual['error']['exc_message'])
+
     def test_validate_spend_schema(self):
         """
         Run a few methods to test spend json schema validation
