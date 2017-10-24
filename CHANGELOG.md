@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.3.24](https://github.com/ntt-nflex/flexer/tree/v1.3.24) (Oct 24, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.23...v1.3.24)
+
+### Changes:
+- Add a new `cmp-connector.status` event source and base connector tests for it
+- Add a new `rest-api` event source
+
 ## [v1.3.23](https://github.com/ntt-nflex/flexer/tree/v1.3.23) (Oct 11, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.22...v1.3.23)
 
