@@ -153,6 +153,7 @@ class BaseConnectorTest(unittest.TestCase):
             self.event['resource'] = res['resource']
             self.event['resource_id'] = res['resource'].get('id')
             self.event['account_id'] = res['resource'].get('account_id')
+            self.event['customer_id'] = res['resource'].get('customer_id')
             result = self.runner.run(handler="main.get_metrics",
                                      event=self.event,
                                      context=self.context,
@@ -185,6 +186,7 @@ class BaseConnectorTest(unittest.TestCase):
             self.event['resource'] = res['resource']
             self.event['resource_id'] = res['resource'].get('id')
             self.event['account_id'] = res['resource'].get('account_id')
+            self.event['customer_id'] = res['resource'].get('customer_id')
             result = self.runner.run(
                 handler="main.get_logs",
                 event=self.event,
@@ -218,6 +220,7 @@ class BaseConnectorTest(unittest.TestCase):
             self.event['resource'] = res['resource']
             self.event['resource_id'] = res['resource'].get('id')
             self.event['account_id'] = res['resource'].get('account_id')
+            self.event['customer_id'] = res['resource'].get('customer_id')
             result = self.runner.run(
                 handler="main.get_status",
                 event=self.event,
