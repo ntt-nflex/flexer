@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.3.26](https://github.com/ntt-nflex/flexer/tree/v1.3.26) (Nov 22, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.25...v1.3.26)
+
+### Changes:
+- Update the expected level values for status connectors
+- Run the validators for connector result payload in the base tests
+
 ## [v1.3.25](https://github.com/ntt-nflex/flexer/tree/v1.3.25) (Nov 22, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.24...v1.3.25)
 
