@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.25](https://github.com/ntt-nflex/flexer/tree/v1.3.25) (Nov 22, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.24...v1.3.25)
+
+### Changes:
+- Update the expected format of the metrics, logs and status connectors event
+
 ## [v1.3.24](https://github.com/ntt-nflex/flexer/tree/v1.3.24) (Oct 24, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.23...v1.3.24)
 
