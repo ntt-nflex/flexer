@@ -45,7 +45,7 @@ class FlexerContext(object):
             ssl_ca_certs='/nflex-root.pem',
             connectTimeoutMS=3000)
 
-        return client.get_database()
+        return client
 
     def log(self, message, severity="info"):
         """Log a message to CMP."""
