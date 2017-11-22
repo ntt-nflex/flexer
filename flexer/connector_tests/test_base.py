@@ -71,6 +71,7 @@ class BaseConnectorTest(unittest.TestCase):
         result = self.runner.run(handler="main.get_resources",
                                  event=self.event,
                                  context=self.context,
+                                 event_source="cmp-connector.resources",
                                  debug=self.logging)
         result = json.loads(result)
 
@@ -89,6 +90,7 @@ class BaseConnectorTest(unittest.TestCase):
         result = self.runner.run(handler="main.validate_credentials",
                                  event=self.event,
                                  context=self.context,
+                                 event_source="cmp-connector.credentials",
                                  debug=self.logging)
         result = json.loads(result)
 
@@ -104,6 +106,7 @@ class BaseConnectorTest(unittest.TestCase):
         result = self.runner.run(handler="main.validate_credentials",
                                  event=self.event,
                                  context=self.context,
+                                 event_source="cmp-connector.credentials",
                                  debug=self.logging)
         result = json.loads(result)
 
@@ -118,6 +121,7 @@ class BaseConnectorTest(unittest.TestCase):
         result = self.runner.run(handler="main.validate_credentials",
                                  event=self.event,
                                  context=self.context,
+                                 event_source="cmp-connector.credentials",
                                  debug=self.logging)
         result = json.loads(result)
 
@@ -132,6 +136,7 @@ class BaseConnectorTest(unittest.TestCase):
         result = self.runner.run(handler="main.get_resources",
                                  event=self.event,
                                  context=self.context,
+                                 event_source="cmp-connector.resources",
                                  debug=self.logging)
         result = json.loads(result)
 
@@ -157,6 +162,7 @@ class BaseConnectorTest(unittest.TestCase):
             result = self.runner.run(handler="main.get_metrics",
                                      event=self.event,
                                      context=self.context,
+                                     event_source="cmp-connector.metrics",
                                      debug=self.logging)
             result = json.loads(result)
 
@@ -191,6 +197,7 @@ class BaseConnectorTest(unittest.TestCase):
                 handler="main.get_logs",
                 event=self.event,
                 context=self.context,
+                event_source="cmp-connector.logs",
                 debug=self.logging,
             )
             result = json.loads(result)
@@ -225,6 +232,7 @@ class BaseConnectorTest(unittest.TestCase):
                 handler="main.get_status",
                 event=self.event,
                 context=self.context,
+                event_source="cmp-connector.status",
                 debug=self.logging,
             )
             result = json.loads(result)
