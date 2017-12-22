@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.27](https://github.com/ntt-nflex/flexer/tree/v1.3.27) (Dec 22, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.26...v1.3.27)
+
+### Changes:
+- Add validation for currencies in the spend connectors [\#58](https://github.com/ntt-nflex/flexer/pull/58) ([@praveenabraham](https://github.com/praveenabraham))
+
 ## [v1.3.26](https://github.com/ntt-nflex/flexer/tree/v1.3.26) (Nov 22, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.25...v1.3.26)
 
