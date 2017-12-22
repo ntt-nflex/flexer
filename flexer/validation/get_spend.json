@@ -24,6 +24,9 @@
           "type": "number"
         },
         "currency": {
+          "enum":[
+              "GBP", "EUR", "USD", "JPY", "SGD", "INR", "AUD"
+          ], 
           "type": "string"
         },
         "items": {
