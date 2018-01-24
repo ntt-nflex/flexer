@@ -31,6 +31,7 @@ class BaseConnectorTest(unittest.TestCase):
         cls.account["credentials"] = (
             lookup_values(cls.account.get("credentials_keys"))
         )
+        cls.skip_logs = cls.account.get('skip_logs', False)
         if "resources" in cls.account:
             cls.resource_data = cls.account.get("resources")
         else:
@@ -182,6 +183,8 @@ class BaseConnectorTest(unittest.TestCase):
     @unittest.skipIf(not hasattr(main, "get_logs"),
                      "get_logs not defined")
     def test_get_logs(self):
+        if self.skip_logs:
+            return
         counter = 0
         for res in self.resource_data:
             expected_logs = res.get('expected_logs')
