@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.29](https://github.com/ntt-nflex/flexer/tree/v1.3.29) (Jan 25, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.28...v1.3.29)
+
+### Changes:
+- Explicitly skip logs tests [\#60](https://github.com/ntt-nflex/flexer/pull/60) ([@Surbias](https://github.com/Surbias))
+
 ## [v1.3.28](https://github.com/ntt-nflex/flexer/tree/v1.3.28) (Jan 25, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.27...v1.3.28)
 
