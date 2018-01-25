@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.28](https://github.com/ntt-nflex/flexer/tree/v1.3.28) (Jan 25, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.27...v1.3.28)
+
+### Changes:
+- Add the ability to explicitly skip logs testing on config.yaml [\#59](https://github.com/ntt-nflex/flexer/pull/59) ([@Surbias](https://github.com/Surbias))
+
 ## [v1.3.27](https://github.com/ntt-nflex/flexer/tree/v1.3.27) (Dec 22, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.26...v1.3.27)
 
