@@ -450,11 +450,12 @@ class TestFlexer(unittest.TestCase):
             result = self.runner.run(event={}, context=None, handler=handler)
 
         actual = json.loads(result)
+        print(actual)
         self.assertTrue('error' in actual)
         self.assertTrue('value' in actual)
+        self.assertEqual(None, actual['error'])
         self.assertTrue('status' in actual['value'])
         self.assertEqual(3, len(actual['value']['status']))
-        self.assertEqual(None, actual['error'])
 
     def test_validate_status_missing_level_error(self):
         """Run a method that returns status data and check validation is NG
@@ -510,7 +511,7 @@ class TestFlexer(unittest.TestCase):
         self.assertTrue('exc_type' in actual['error'])
         self.assertTrue('exc_message' in actual['error'])
         self.assertEqual(u'ValidationError', actual['error']['exc_type'])
-        self.assertIn("\'3\' is not one of", actual['error']['exc_message'])
+        self.assertIn("3 is not one of", actual['error']['exc_message'])
 
     def test_validate_spend_schema(self):
         """
