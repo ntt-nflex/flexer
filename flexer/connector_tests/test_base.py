@@ -184,7 +184,7 @@ class BaseConnectorTest(unittest.TestCase):
                      "get_logs not defined")
     def test_get_logs(self):
         if self.skip_logs:
-            return
+            self.skipTest("skip_logs flag raised")
         counter = 0
         for res in self.resource_data:
             expected_logs = res.get('expected_logs')
