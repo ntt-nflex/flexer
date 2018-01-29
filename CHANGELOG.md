@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.30](https://github.com/ntt-nflex/flexer/tree/v1.3.30) (Jan 29, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.29...v1.3.30)
+
+### Changes:
+- Support account_id in single resource / per account schedule environment [\#61](https://github.com/ntt-nflex/flexer/pull/61) ([@Surbias](https://github.com/Surbias))
+
 ## [v1.3.29](https://github.com/ntt-nflex/flexer/tree/v1.3.29) (Jan 25, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.28...v1.3.29)
 
