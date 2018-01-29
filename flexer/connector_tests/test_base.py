@@ -37,6 +37,7 @@ class BaseConnectorTest(unittest.TestCase):
         else:
             cls.resource_data = [
                 {
+                    "account_id": cls.account.get("account_id"),
                     "resource": cls.account.get("resource", {}),
                     "expected_metrics": cls.account.get("expected_metrics"),
                     "expected_logs": cls.account.get("expected_logs"),
