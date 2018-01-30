@@ -37,7 +37,7 @@ class BaseConnectorTest(unittest.TestCase):
         else:
             cls.resource_data = [
                 {
-                    "account_id": cls.account.get("account_id"),
+                    # config specific data used to set up the tests
                     "resource": cls.account.get("resource", {}),
                     "expected_metrics": cls.account.get("expected_metrics"),
                     "expected_logs": cls.account.get("expected_logs"),
@@ -58,8 +58,17 @@ class BaseConnectorTest(unittest.TestCase):
         cls.context.secrets = secrets
 
     def setUp(self):
+
         self.event = {
+            # nflex scheduler base data
+            "account_id": self.account.get("account_id"),
+            "customer_id": self.account.get("customer_id"),
+            "user_id": self.account.get("user_id"),
+            "provider": self.account.get("provider"),
+            "poll_interval": self.account.get("poll_interval"),
+            "poll_type": self.account.get("poll_type"),
             "credentials": self.account["credentials"],
+            "resource": self.account.get("resource", {})
         }
 
     def fake_credentials(self):
@@ -147,6 +156,18 @@ class BaseConnectorTest(unittest.TestCase):
         self.assertEqual(error["exc_type"], 'AuthenticationException')
         self.assertIsNone(result["value"])
 
+    @staticmethod
+    def _set_event(event, res):
+        event['resource'] = res['resource']
+        try:
+            event['account_id'] = res['resource']['account_id']
+            event['customer_id'] = res['resource']['customer_id']
+            event['resource_id'] = res['resource']['id']
+        except KeyError:
+            # use the account id set at setUp
+            pass
+        return event
+
     @unittest.skipIf(not hasattr(main, "get_metrics"),
                      "get_metrics not defined")
     def test_get_metrics(self):
@@ -157,12 +178,9 @@ class BaseConnectorTest(unittest.TestCase):
                 continue
 
             counter += 1
-            self.event['resource'] = res['resource']
-            self.event['resource_id'] = res['resource'].get('id')
-            self.event['account_id'] = res['resource'].get('account_id')
-            self.event['customer_id'] = res['resource'].get('customer_id')
+            event = BaseConnectorTest._set_event(self.event, res)
             result = self.runner.run(handler="main.get_metrics",
-                                     event=self.event,
+                                     event=event,
                                      context=self.context,
                                      event_source="cmp-connector.metrics",
                                      debug=self.logging)
@@ -193,13 +211,10 @@ class BaseConnectorTest(unittest.TestCase):
                 continue
 
             counter += 1
-            self.event['resource'] = res['resource']
-            self.event['resource_id'] = res['resource'].get('id')
-            self.event['account_id'] = res['resource'].get('account_id')
-            self.event['customer_id'] = res['resource'].get('customer_id')
+            event = BaseConnectorTest._set_event(self.event, res)
             result = self.runner.run(
                 handler="main.get_logs",
-                event=self.event,
+                event=event,
                 context=self.context,
                 event_source="cmp-connector.logs",
                 debug=self.logging,
@@ -228,13 +243,10 @@ class BaseConnectorTest(unittest.TestCase):
                 continue
 
             counter += 1
-            self.event['resource'] = res['resource']
-            self.event['resource_id'] = res['resource'].get('id')
-            self.event['account_id'] = res['resource'].get('account_id')
-            self.event['customer_id'] = res['resource'].get('customer_id')
+            event = BaseConnectorTest._set_event(self.event, res)
             result = self.runner.run(
                 handler="main.get_status",
-                event=self.event,
+                event=event,
                 context=self.context,
                 event_source="cmp-connector.status",
                 debug=self.logging,
