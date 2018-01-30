@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.3.31](https://github.com/ntt-nflex/flexer/tree/v1.3.31) (Jan 30, 2017)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.30...v1.3.31)
+
+### Changes:
+- Add nflex scheduler base data to event on test set up[\#62](https://github.com/ntt-nflex/flexer/pull/62) ([@Surbias](https://github.com/Surbias))
+
 ## [v1.3.30](https://github.com/ntt-nflex/flexer/tree/v1.3.30) (Jan 29, 2017)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.29...v1.3.30)
 
