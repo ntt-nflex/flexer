@@ -2,6 +2,7 @@ from datetime import datetime
 import logging
 import copy
 import pymongo
+import re
 
 from flexer import CmpClient
 from flexer.config import Config
@@ -33,11 +34,17 @@ class FlexerContext(object):
         self.api_url = self.api.api_url
         self.api_auth = self.api.api_auth
         self.api_token = self.api.api_token
+        self._db_regex = re.compile(r'mongodb://[^:]+:[^@]+@[^/]+/[^ ]+')
 
     def database(self, name):
         conn_string = self.secrets.get(Config.DB_KEY_PREFIX + name)
         if not conn_string:
             return None
+
+        if not self._db_regex.match(conn_string):
+            raise Exception(
+                "The %s secret is not a valid MongoDB connection string" % name
+            )
 
         client = pymongo.MongoClient(
             conn_string,

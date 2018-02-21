@@ -5,6 +5,7 @@ import sys
 import unittest
 
 from flexer.runner import Flexer
+from flexer.context import FlexerContext
 
 PYVERSION = "%s.%s" % (sys.version_info.major, sys.version_info.minor)
 
@@ -313,6 +314,53 @@ class TestFlexer(unittest.TestCase):
         self.assertEqual(expected['exc_type'], error['exc_type'])
         self.assertIn('MemoryError', error['stack_trace'])
 
+    def test_run_with_invalid_db_secret(self):
+        """Run a method that tries to use an invalid secret for an Nflex DB
+        """
+        handler = 'module_with_db.test'
+        expected = {
+            'exc_message': 'The mydb secret is not a valid MongoDB connection string',  # noqa
+            'exc_type': 'Exception',
+        }
+        context = FlexerContext()
+        secrets = [
+            "test",
+            "mongodb://",
+            "mongodb://a",
+            "mongodb://a:b",
+            "mongodb://a:b@",
+            "mongodb://a:b@c",
+            "mongodb://a:b@c/",
+        ]
+        for s in secrets:
+            context.secrets = {"_nflexdb_mydb": s}
+            result = self.runner.run(event={}, context=context, handler=handler)
+
+            actual = json.loads(result)
+            self.assertEqual(None, actual['value'])
+            error = actual['error']
+
+            self.assertEqual(expected['exc_message'], error['exc_message'])
+            self.assertEqual(expected['exc_type'], error['exc_type'])
+            self.assertIn('Exception', error['stack_trace'])
+
+    def test_run_with_valid_db_secret(self):
+        """Run a method that tries to use a valid secret for an Nflex DB
+        """
+        handler = 'module_with_db.test'
+        context = FlexerContext()
+        context.secrets = {"_nflexdb_mydb": "mongodb://a:b@c/mydb"}
+        with mock.patch(
+                'pymongo.MongoClient',
+                return_value=mock.MagicMock()):
+            result = self.runner.run(event={}, context=context, handler=handler)
+
+            actual = json.loads(result)
+            self.assertTrue('error' in actual)
+            self.assertTrue('value' in actual)
+            self.assertEqual(None, actual['error'])
+            self.assertTrue('result' in actual['value'])
+
     def test_run_with_validation_error(self):
         """Run a method that returns data with validation errors and make sure
         its being caught and stored in the logs
@@ -450,7 +498,6 @@ class TestFlexer(unittest.TestCase):
             result = self.runner.run(event={}, context=None, handler=handler)
 
         actual = json.loads(result)
-        print(actual)
         self.assertTrue('error' in actual)
         self.assertTrue('value' in actual)
         self.assertEqual(None, actual['error'])
