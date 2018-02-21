@@ -1,24 +1,30 @@
 # Change Log
 
-## [v1.3.31](https://github.com/ntt-nflex/flexer/tree/v1.3.31) (Jan 30, 2017)
+## [v1.4.0](https://github.com/ntt-nflex/flexer/tree/v1.4.0) (Feb 21, 2018)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.31...v1.4.0)
+
+### Changes:
+- Add validation for the MongoDB connection strings in the `context.database` method
+
+## [v1.3.31](https://github.com/ntt-nflex/flexer/tree/v1.3.31) (Jan 30, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.30...v1.3.31)
 
 ### Changes:
 - Add nflex scheduler base data to event on test set up[\#62](https://github.com/ntt-nflex/flexer/pull/62) ([@Surbias](https://github.com/Surbias))
 
-## [v1.3.30](https://github.com/ntt-nflex/flexer/tree/v1.3.30) (Jan 29, 2017)
+## [v1.3.30](https://github.com/ntt-nflex/flexer/tree/v1.3.30) (Jan 29, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.29...v1.3.30)
 
 ### Changes:
 - Support account_id in single resource / per account schedule environment [\#61](https://github.com/ntt-nflex/flexer/pull/61) ([@Surbias](https://github.com/Surbias))
 
-## [v1.3.29](https://github.com/ntt-nflex/flexer/tree/v1.3.29) (Jan 25, 2017)
+## [v1.3.29](https://github.com/ntt-nflex/flexer/tree/v1.3.29) (Jan 25, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.28...v1.3.29)
 
 ### Changes:
 - Explicitly skip logs tests [\#60](https://github.com/ntt-nflex/flexer/pull/60) ([@Surbias](https://github.com/Surbias))
 
-## [v1.3.28](https://github.com/ntt-nflex/flexer/tree/v1.3.28) (Jan 25, 2017)
+## [v1.3.28](https://github.com/ntt-nflex/flexer/tree/v1.3.28) (Jan 25, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.27...v1.3.28)
 
 ### Changes:
