@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.4.1](https://github.com/ntt-nflex/flexer/tree/v1.4.1) (Apr 30, 2018)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.4.0...v1.4.1)
+
+### Changes:
+- Do not use parse_requirements from pip as its no longer exposed after version 10[\#63](https://github.com/ntt-nflex/flexer/pull/63) ([@praveenabraham](https://github.com/praveenabraham))
+
 ## [v1.4.0](https://github.com/ntt-nflex/flexer/tree/v1.4.0) (Feb 21, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.31...v1.4.0)
 
