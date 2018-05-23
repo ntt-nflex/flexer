@@ -4,13 +4,13 @@
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.4.1...v1.4.2)
 
 ### Changes:
-- Allow 1-6 digits in timestamp microseconds[\#64](https://github.com/ntt-nflex/flexer/pull/64) ([@boncheff](https://github.com/boncheff))
+- Allow 1-6 digits in timestamp microseconds [\#64](https://github.com/ntt-nflex/flexer/pull/64) ([@boncheff](https://github.com/boncheff))
 
 ## [v1.4.1](https://github.com/ntt-nflex/flexer/tree/v1.4.1) (Apr 30, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.4.0...v1.4.1)
 
 ### Changes:
-- Do not use parse_requirements from pip as its no longer exposed after version 10[\#63](https://github.com/ntt-nflex/flexer/pull/63) ([@praveenabraham](https://github.com/praveenabraham))
+- Do not use parse_requirements from pip as its no longer exposed after version 10 [\#63](https://github.com/ntt-nflex/flexer/pull/63) ([@praveenabraham](https://github.com/praveenabraham))
 
 ## [v1.4.0](https://github.com/ntt-nflex/flexer/tree/v1.4.0) (Feb 21, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.31...v1.4.0)
@@ -22,7 +22,7 @@
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.30...v1.3.31)
 
 ### Changes:
-- Add nflex scheduler base data to event on test set up[\#62](https://github.com/ntt-nflex/flexer/pull/62) ([@Surbias](https://github.com/Surbias))
+- Add nflex scheduler base data to event on test set up [\#62](https://github.com/ntt-nflex/flexer/pull/62) ([@Surbias](https://github.com/Surbias))
 
 ## [v1.3.30](https://github.com/ntt-nflex/flexer/tree/v1.3.30) (Jan 29, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.3.29...v1.3.30)
