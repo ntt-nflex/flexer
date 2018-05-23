@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.4.2](https://github.com/ntt-nflex/flexer/tree/v1.4.2) (May 23, 2018)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.4.1...v1.4.2)
+
+### Changes:
+- Allow 1-6 digits in timestamp microseconds[\#64](https://github.com/ntt-nflex/flexer/pull/64) ([@boncheff](https://github.com/boncheff))
+
 ## [v1.4.1](https://github.com/ntt-nflex/flexer/tree/v1.4.1) (Apr 30, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.4.0...v1.4.1)
 
