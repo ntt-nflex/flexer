@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.4.3](https://github.com/ntt-nflex/flexer/tree/v1.4.3) (June 18, 2018)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.4.2...v1.4.3)
+
+### Changes:
+- Remove validation of resource_type
+
 ## [v1.4.2](https://github.com/ntt-nflex/flexer/tree/v1.4.2) (May 23, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.4.1...v1.4.2)
 
