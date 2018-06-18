@@ -557,18 +557,6 @@
                 "type":"object"
             },
             "type":{
-                "enum":[
-                    "appliance",
-                    "compute_pool",
-                    "colo_space",
-                    "network",
-                    "resource",
-                    "server",
-                    "volume",
-                    "service_offering",
-                    "saas_user",
-                    "circuit"
-                ],
                 "type":"string"
             }
         },
