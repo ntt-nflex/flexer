@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.5.0](https://github.com/ntt-nflex/flexer/tree/v1.5.0) (June 29, 2018)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.4.3...v1.5.0)
+
+### Changes:
+- Add region, platform and version (flexer version) fields to the Context object
+- Add customer_id and user_id fields to the Context object from the module execution request
+
 ## [v1.4.3](https://github.com/ntt-nflex/flexer/tree/v1.4.3) (June 18, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.4.2...v1.4.3)
 
