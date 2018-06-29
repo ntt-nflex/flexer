@@ -21,6 +21,11 @@ class FlexerContext(object):
         self.config = {}
         self.secrets = {}
         self.state = None
+        self.customer_id = None
+        self.user_id = None
+        self.region = Config.CMP_REGION
+        self.platform = Config.CMP_PLATFORM
+        self.version = Config.FLEXER_VERSION
         self.module_id = Config.MODULE_ID
 
         if cmp_client is None:
