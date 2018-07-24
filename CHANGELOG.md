@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.5.1](https://github.com/ntt-nflex/flexer/tree/v1.5.1) (July 24, 2018)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.5.0...v1.5.1)
+
+### Changes:
+- Unpin jsonschema
+
 ## [v1.5.0](https://github.com/ntt-nflex/flexer/tree/v1.5.0) (June 29, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.4.3...v1.5.0)
 
