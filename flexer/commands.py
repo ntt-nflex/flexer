@@ -5,6 +5,7 @@ import json
 import os
 import pip
 import zipfile
+import subprocess
 
 from flexer.config import (
     CONFIG_FILE,
@@ -67,7 +68,7 @@ def install_deps(source):
     lib_dir = os.path.join(source, "lib")
     for f in glob.glob(os.path.join(source, "requirements*.txt")):
         click.echo('Found "%s". Installing...' % f, err=True)
-        pip.main(["install", "-t", lib_dir, "-U", "-r", f])
+        subprocess.check_call(['pip', 'install', '-t', lib_dir, '-U', '-r', f])
 
 
 def build_zip(source, target, exclude=None):
