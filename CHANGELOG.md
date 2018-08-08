@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.5.2](https://github.com/ntt-nflex/flexer/tree/v1.5.2) (Aug 08, 2018)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.5.1...v1.5.2)
+
+### Changes:
+- Fix pip v10 missing main module issue [\#66](https://github.com/ntt-nflex/flexer/pull/66) ([@s-kashif](https://github.com/s-kashif))
+
 ## [v1.5.1](https://github.com/ntt-nflex/flexer/tree/v1.5.1) (July 24, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.5.0...v1.5.1)
 
