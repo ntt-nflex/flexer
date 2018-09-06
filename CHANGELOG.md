@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.6.0](https://github.com/ntt-nflex/flexer/tree/v1.6.0) (Sep 06, 2018)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.5.2...v1.6.0)
+
+### Changes:
+- Change the rest-api response header values validation from a list of strings to a string
+
 ## [v1.5.2](https://github.com/ntt-nflex/flexer/tree/v1.5.2) (Aug 08, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.5.1...v1.5.2)
 
