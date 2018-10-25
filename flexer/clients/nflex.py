@@ -21,9 +21,9 @@ class NflexClient(object):
     def get(self, module_id):
         return self._get('/modules/%s' % module_id).json()
 
-    def execute(self, module_id, handler, async, event):
+    def execute(self, module_id, handler, is_async, event):
         data = {
-            'async': async,
+            'async': is_async,
             'handler': "main.%s" % handler,
             'event': json.loads(event),
         }
