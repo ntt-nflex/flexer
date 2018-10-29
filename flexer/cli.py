@@ -404,7 +404,7 @@ def run(ctx, handler, event_source, event, config, secrets, pretty):
               help="The handler to execute inside the module")
 @click.argument('module_id')
 @pass_context
-def execute(ctx, module_id, handler, event, async, pretty):
+def execute(ctx, module_id, handler, event, is_async, pretty):
     """Run an nFlex module remotely.
 
     Call the CMP API to trigger a module execution remotely. EVENT must be a
@@ -418,7 +418,7 @@ def execute(ctx, module_id, handler, event, async, pretty):
         click.echo("warn: --pretty is deprecated", err=True)
 
     try:
-        result = ctx.nflex.execute(module_id, handler, async, event)
+        result = ctx.nflex.execute(module_id, handler, is_async, event)
     except requests.exceptions.RequestException as err:
         raise click.ClickException(
             "Failed to execute nFlex module: %s" % err
