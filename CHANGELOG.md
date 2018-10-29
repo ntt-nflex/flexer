@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.6.1](https://github.com/ntt-nflex/flexer/tree/v1.6.1) (Oct 29, 2018)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.0...v1.6.1)
+
+### Changes:
+- Rename async variables to prevent invalid syntax in Python3 [\#67](https://github.com/ntt-nflex/flexer/pull/67) ([@lcayolap](https://github.com/lcayolap))
+- Fixed issue with filter len for Python3 [\#68](https://github.com/ntt-nflex/flexer/pull/68) ([@lcayolap](https://github.com/lcayolap))
+
 ## [v1.6.0](https://github.com/ntt-nflex/flexer/tree/v1.6.0) (Sep 06, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.5.2...v1.6.0)
 
