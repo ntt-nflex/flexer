@@ -93,7 +93,7 @@ class BaseConnectorTest(unittest.TestCase):
 
         expected_resources = self.account['expected_resources']
         for rtype in expected_resources:
-            count = len(filter(lambda r: r["type"] == rtype, resources))
+            count = len(list(filter(lambda r: r["type"] == rtype, resources)))
             self.assertGreater(count, 0,
                                'No resources of type "%s" found' % rtype)
 
