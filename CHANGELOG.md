@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.6.2](https://github.com/ntt-nflex/flexer/tree/v1.6.2) (Dec 04, 2018)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.1...v1.6.2)
+
+### Changes:
+- Send a useful User-Agent header from the CMP client [\#69](https://github.com/ntt-nflex/flexer/pull/69) ([@benpaxton-hf](https://github.com/benpaxton-hf))
+
 ## [v1.6.1](https://github.com/ntt-nflex/flexer/tree/v1.6.1) (Oct 29, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.0...v1.6.1)
 

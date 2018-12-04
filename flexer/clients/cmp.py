@@ -1,17 +1,23 @@
 import requests
 import json
+from flexer.config import Config
 
 requests.packages.urllib3.disable_warnings()
 
 
 class CmpClient(object):
-    def __init__(self, url, auth=None, access_token=None, verify_ssl=None):
+    def __init__(self,
+                 url,
+                 auth=None,
+                 access_token=None,
+                 verify_ssl=None,
+                 user_agent=Config.USER_AGENT):
         self._session = requests.Session()
         self._url = url
         self._auth = auth
         self._access_token = access_token
         self._session.headers = {
-            'User-Agent': 'nflex-client',
+            'User-Agent': user_agent,
             'Content-Type': 'application/json',
         }
         self._session.verify = verify_ssl
