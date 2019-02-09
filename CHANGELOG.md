@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.6.3](https://github.com/ntt-nflex/flexer/tree/v1.6.3) (Feb 09, 2019)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.2...v1.6.3)
+
+### Changes:
+- Add user_name to the Context object
+
 ## [v1.6.2](https://github.com/ntt-nflex/flexer/tree/v1.6.2) (Dec 04, 2018)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.1...v1.6.2)
 
