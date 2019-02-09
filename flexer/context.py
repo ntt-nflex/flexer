@@ -23,6 +23,7 @@ class FlexerContext(object):
         self.state = None
         self.customer_id = None
         self.user_id = None
+        self.user_name = ""
         self.region = Config.CMP_REGION
         self.platform = Config.CMP_PLATFORM
         self.version = Config.FLEXER_VERSION
