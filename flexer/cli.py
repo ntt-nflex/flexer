@@ -37,6 +37,7 @@ EVENT_SOURCES = [
     "cmp-connector.tickets",
     "cmp-resource-notification",
     "monitor",
+    "resource-action",
     "rest-api",
     "service-catalog",
     "storage-notification",
