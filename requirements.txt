@@ -1,7 +1,7 @@
 six
 click
 jinja2>=2.9.4
-jsonschema
+jsonschema==2.6.0
 requests
 pyyaml
 pymongo
