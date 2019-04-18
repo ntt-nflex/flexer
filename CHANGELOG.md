@@ -1,5 +1,12 @@
 # Change Log
 
+## [v1.6.4](https://github.com/ntt-nflex/flexer/tree/v1.6.4) (Apr 18, 2019)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.3...v1.6.4)
+
+### Changes:
+- Add a new `resource-action` event source [\#70](https://github.com/ntt-nflex/flexer/pull/70) ([@ka0riito](https://github.com/ka0riito))
+- Pin jsonschema to the last working version before the major version jump [\#71](https://github.com/ntt-nflex/flexer/pull/71) ([@twosevenska](https://github.com/twosevenska))
+
 ## [v1.6.3](https://github.com/ntt-nflex/flexer/tree/v1.6.3) (Feb 09, 2019)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.2...v1.6.3)
 
