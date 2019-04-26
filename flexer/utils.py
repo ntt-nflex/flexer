@@ -43,7 +43,7 @@ def read_module(module):
 
 def read_yaml_file(file_name):
     with open(file_name) as f:
-        return yaml.load(f)
+        return yaml.safe_load(f)
 
 
 def write_yaml_file(file_name, data):
