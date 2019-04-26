@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.6.5](https://github.com/ntt-nflex/flexer/tree/v1.6.5) (Apr 26, 2019)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.4...v1.6.5)
+
+### Changes:
+- Use new PyYAML 5.1 loader method to remove warning [\#72](https://github.com/ntt-nflex/flexer/pull/72) ([@lukewallis](https://github.com/lukewallis))
+
 ## [v1.6.4](https://github.com/ntt-nflex/flexer/tree/v1.6.4) (Apr 18, 2019)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.3...v1.6.4)
 
