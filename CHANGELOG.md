@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.6.6](https://github.com/ntt-nflex/flexer/tree/v1.6.6) (Aug 9, 2019)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.6...v1.6.5)
+
+### Changes:
+- Add metric name pattern [\#73](https://github.com/ntt-nflex/flexer/pull/73) ([@surbias](https://github.com/surbias))
+
 ## [v1.6.5](https://github.com/ntt-nflex/flexer/tree/v1.6.5) (Apr 26, 2019)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.4...v1.6.5)
 
