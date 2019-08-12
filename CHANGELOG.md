@@ -1,5 +1,10 @@
 # Change Log
 
+## [v1.6.7](https://github.com/ntt-nflex/flexer/tree/v1.6.8) (Aug 12, 2019)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.7...v1.6.8)
+
+- Only import MongoClient from pymongo
+
 ## [v1.6.7](https://github.com/ntt-nflex/flexer/tree/v1.6.7) (Aug 12, 2019)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.6...v1.6.7)
 
