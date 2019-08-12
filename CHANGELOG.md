@@ -1,18 +1,27 @@
 # Change Log
 
+## [v1.6.10](https://github.com/ntt-nflex/flexer/tree/v1.6.10) (Aug 12, 2019)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.9...v1.6.10)
+
+### Changes:
+- Update metric pattern to allow specialisations
+
 ## [v1.6.9](https://github.com/ntt-nflex/flexer/tree/v1.6.9) (Aug 12, 2019)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.8...v1.6.9)
 
+### Changes:
 - Update requirements.txt
 
 ## [v1.6.8](https://github.com/ntt-nflex/flexer/tree/v1.6.8) (Aug 12, 2019)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.7...v1.6.8)
 
+### Changes:
 - Only import MongoClient from pymongo
 
 ## [v1.6.7](https://github.com/ntt-nflex/flexer/tree/v1.6.7) (Aug 12, 2019)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.6...v1.6.7)
 
+### Changes:
 - Pinning pymongo version to 3.6.0 ([@surbias](https://github.com/surbias))
 
 ## [v1.6.6](https://github.com/ntt-nflex/flexer/tree/v1.6.6) (Aug 9, 2019)
