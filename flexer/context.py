@@ -1,7 +1,7 @@
 from datetime import datetime
 import logging
 import copy
-import pymongo
+from pymongo import MongoClient
 import re
 
 from flexer import CmpClient
@@ -52,7 +52,7 @@ class FlexerContext(object):
                 "The %s secret is not a valid MongoDB connection string" % name
             )
 
-        client = pymongo.MongoClient(
+        client = MongoClient(
             conn_string,
             ssl=True,
             ssl_ca_certs='/nflex-root.pem',

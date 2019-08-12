@@ -351,7 +351,7 @@ class TestFlexer(unittest.TestCase):
         context = FlexerContext()
         context.secrets = {"_nflexdb_mydb": "mongodb://a:b@c/mydb"}
         with mock.patch(
-                'pymongo.MongoClient',
+                'MongoClient',
                 return_value=mock.MagicMock()):
             result = self.runner.run(event={}, context=context, handler=handler)
 
