@@ -1,7 +1,12 @@
 # Change Log
 
+## [v1.6.7](https://github.com/ntt-nflex/flexer/tree/v1.6.7) (Aug 12, 2019)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.6...v1.6.7)
+
+- Pinning pymongo version to 3.6.0 ([@surbias](https://github.com/surbias))
+
 ## [v1.6.6](https://github.com/ntt-nflex/flexer/tree/v1.6.6) (Aug 9, 2019)
-[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.6...v1.6.5)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.5...v1.6.6)
 
 ### Changes:
 - Add metric name pattern [\#73](https://github.com/ntt-nflex/flexer/pull/73) ([@surbias](https://github.com/surbias))
