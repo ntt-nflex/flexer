@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.6.11](https://github.com/ntt-nflex/flexer/tree/v1.6.11) (Sep 04, 2019)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.10...v1.6.11)
+
+### Changes:
+- Update `event_sources`, `languages` and `sync` parameters.
+
 ## [v1.6.10](https://github.com/ntt-nflex/flexer/tree/v1.6.10) (Aug 12, 2019)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.9...v1.6.10)
 

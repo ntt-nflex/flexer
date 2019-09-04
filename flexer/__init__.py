@@ -1,4 +1,4 @@
-__version__ = '1.6.10'
+__version__ = '1.6.11'
 
 from flexer.clients.cmp import CmpClient
 from flexer.clients.nflex import NflexClient
