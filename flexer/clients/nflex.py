@@ -34,7 +34,6 @@ class NflexClient(object):
                description,
                event_source,
                language,
-               sync,
                zip_file):
         file_type = 'zip' if zip_file else 'inline'
         data = {
@@ -44,7 +43,6 @@ class NflexClient(object):
             'event_source': event_source,
             'source_code': '',
             'language': language,
-            'sync': sync
         }
         if file_type == 'inline':
             mname = "main.{}".format(LANG_EXT.get(language) or "py")

@@ -23,10 +23,10 @@ flexer.commands.assert_config_exists()
 CONTEXT_SETTINGS = {
     "help_option_names": ["-h", "--help"],
 }
+
 EVENT_SOURCES = [
     "alert-notification",
     "api-hook",
-    "cmp-connector",
     "cmp-connector.alerts",
     "cmp-connector.credentials",
     "cmp-connector.logs",
@@ -36,6 +36,7 @@ EVENT_SOURCES = [
     "cmp-connector.status",
     "cmp-connector.tickets",
     "cmp-resource-notification",
+    "insight",
     "monitor",
     "resource-action",
     "rest-api",
@@ -45,8 +46,8 @@ EVENT_SOURCES = [
     "timer",
     "workflow",
 ]
+
 LANGUAGES = [
-    "go",
     "javascript",
     "python",
     "python3",
@@ -287,6 +288,7 @@ def update(ctx, module_id, zip, language, description):
 @click.option('--sync',
               default=False,
               is_flag=True,
+              hidden=True,
               help='Sync the module globally (only for "cmp-connector")')
 @click.option('--zip',
               type=click.Path(exists=True, resolve_path=True),
@@ -305,7 +307,6 @@ def upload(ctx,
                                   description,
                                   event_source,
                                   language,
-                                  sync,
                                   zip)
         click.echo("Module created with ID %s" % module['id'], err=True)
 
