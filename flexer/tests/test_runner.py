@@ -334,7 +334,11 @@ class TestFlexer(unittest.TestCase):
         ]
         for s in secrets:
             context.secrets = {"_nflexdb_mydb": s}
-            result = self.runner.run(event={}, context=context, handler=handler)
+            result = self.runner.run(
+                event={},
+                context=context,
+                handler=handler,
+            )
 
             actual = json.loads(result)
             self.assertEqual(None, actual['value'])
@@ -351,9 +355,13 @@ class TestFlexer(unittest.TestCase):
         context = FlexerContext()
         context.secrets = {"_nflexdb_mydb": "mongodb://a:b@c/mydb"}
         with mock.patch(
-                'MongoClient',
+                'flexer.context.MongoClient',
                 return_value=mock.MagicMock()):
-            result = self.runner.run(event={}, context=context, handler=handler)
+            result = self.runner.run(
+                event={},
+                context=context,
+                handler=handler,
+            )
 
             actual = json.loads(result)
             self.assertTrue('error' in actual)
@@ -369,7 +377,8 @@ class TestFlexer(unittest.TestCase):
         expected = {
             'value': None,
             'error': {
-                'exc_message': '["10 is not of type \'string\' in result.foo"]',
+                'exc_message':
+                '["10 is not of type \'string\' in result.foo"]',
                 'exc_type': 'ValidationError'
             },
             'logs': '["10 is not of type \'string\' in result.foo"]',
@@ -579,11 +588,19 @@ class TestFlexer(unittest.TestCase):
         to_patch = 'flexer.runner.Flexer._get_validation_schema_file'
         with mock.patch(to_patch, return_value='get_spend.json'):
             for handler in handlers:
-                result = self.runner.run(event={}, context=None, handler=handler)
+                result = self.runner.run(
+                    event={},
+                    context=None,
+                    handler=handler,
+                )
                 load = json.loads(result)
                 self.assertFalse(load['error'])
 
             for handler in bad_handlers:
-                result = self.runner.run(event={}, context=None, handler=handler)
+                result = self.runner.run(
+                    event={},
+                    context=None,
+                    handler=handler,
+                )
                 load = json.loads(result)
                 self.assertTrue(load['error'])
