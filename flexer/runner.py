@@ -6,9 +6,7 @@ import json
 import logging
 import six
 import sys
-import os
 import traceback
-from jsonschema import Draft4Validator
 from flexer.context import FlexerContext, FlexerLocalState
 
 from six.moves import StringIO
@@ -118,7 +116,7 @@ class Flexer(object):
                         headers['x-cmp-response'] = type(value).__name__
                         value = value.cmp_response()
 
-                except:
+                except BaseException:
                     del func
                     error = self._format_exception_info(sys.exc_info())
 
@@ -133,61 +131,11 @@ class Flexer(object):
 
         if error:
             stdout += error['stack_trace']
-        else:
-            schema = self._get_validation_schema(event_source, handler)
-            if schema:
-                validator = Draft4Validator(schema)
-                errors = []
-                for e in sorted(validator.iter_errors(value), key=str):
-                    location = "result"
-                    if len(e.path):
-                        location += "." + ".".join(map(str, e.path))
-
-                    msg = "%s in %s" % (e.message, location)
-                    errors.append(msg)
-
-                if errors:
-                    value = None
-                    error = {
-                        'exc_message': json.dumps(errors),
-                        'exc_type': 'ValidationError'
-                    }
-                    stdout += json.dumps(errors)
 
         return FlexerResult(value=value,
                             logs=stdout,
                             error=error,
                             headers=headers)
-
-    def _get_validation_schema(self, event_source, handler):
-        schema = None
-        schema_file = self._get_validation_schema_file(event_source)
-        if schema_file is not None:
-            path = os.path.join(
-                os.path.dirname(__file__),
-                'validation/',
-                schema_file)
-
-            try:
-                with open(path) as schema_file:
-                    schema = json.load(schema_file)
-            except Exception as e:
-                logger.info('Failed loading validation schema "%s"', str(e))
-
-        return schema
-
-    def _get_validation_schema_file(self, event_source):
-        validator_map = {
-            'cmp-connector.logs': 'get_logs.json',
-            'cmp-connector.metrics': 'get_metrics.json',
-            'cmp-connector.resources': 'get_resources.json',
-            'cmp-connector.spend': 'get_spend.json',
-            'monitor': 'monitors.json',
-            'rest-api': 'rest-api.json',
-            'cmp-connector.status': 'get_status.json',
-        }
-
-        return validator_map.get(event_source)
 
     def _format_exception_info(self, exc_info):
         exc_type, value, tb = exc_info
