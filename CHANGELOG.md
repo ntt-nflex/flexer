@@ -4,7 +4,7 @@
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.11...v1.7.0)
 
 ### Changes:
-- Remove validation
+- Remove result validation
 
 ## [v1.6.11](https://github.com/ntt-nflex/flexer/tree/v1.6.11) (Sep 04, 2019)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.10...v1.6.11)
