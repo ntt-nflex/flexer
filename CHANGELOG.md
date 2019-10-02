@@ -1,5 +1,11 @@
 # Change Log
 
+## [v1.7.1](https://github.com/ntt-nflex/flexer/tree/v1.7.1) (Oct 02, 2019)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.7.0...v1.7.1)
+
+### Changes:
+- Print the payload of API error responses in the CLI tool
+
 ## [v1.7.0](https://github.com/ntt-nflex/flexer/tree/v1.7.0) (Sep 27, 2019)
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.6.11...v1.7.0)
 
