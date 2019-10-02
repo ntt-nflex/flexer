@@ -124,11 +124,9 @@ def lookup_values(keys):
 
 def prep_err_msg(exc):
     msg = str(exc)
-    if exc.response is not None and exc.response.status_code < 500:
+    if exc.response is not None:
         try:
-            msg += "\n%s" % exc.response.json()["message"]
-        except:
+            msg += "\n%s" % exc.response.text
+        except BaseException:
             pass
     return msg
-
-
