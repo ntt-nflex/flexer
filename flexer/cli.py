@@ -250,17 +250,22 @@ def download(ctx, module_id):
               type=click.Choice(LANGUAGES),
               help="The programming language of your choice")
 @click.argument('module_id')
+@click.option('--handlers',
+              type=click.Path(exists=True, resolve_path=True),
+              required=False,
+              help="Add additional handlers to the module")
 @click.option('--description',
               required=False,
               help="A short description of the module")
 @pass_context
-def update(ctx, module_id, zip, language, description):
+def update(ctx, module_id, zip, language, handlers, description):
     """Update an existing module.
 
     Update the "source_code" or the "description" of an nFlex module.
     """
     try:
-        ctx.nflex.update(module_id, zip, language, description=description)
+        ctx.nflex.update(module_id, zip, language,
+                         handlers=handlers, description=description)
         click.echo("Module %s successfully updated" % module_id, err=True)
 
     except requests.exceptions.RequestException as e:

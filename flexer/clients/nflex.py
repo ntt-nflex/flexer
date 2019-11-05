@@ -57,7 +57,8 @@ class NflexClient(object):
 
             return module
 
-    def update(self, module_id, zip_file, language, description=None):
+    def update(self, module_id, zip_file, language,
+               handlers=None, description=None):
         file_type = 'zip' if zip_file else 'inline'
         data = {'file_type': file_type}
         if description is not None:
@@ -65,6 +66,10 @@ class NflexClient(object):
 
         if language is not None:
             data['language'] = language
+
+        if handlers:
+            with open(handlers, 'r') as hf:
+                data['handlers'] = json.load(hf)
 
         if file_type == 'inline':
             mname = "main.{}".format(LANG_EXT.get(language) or "py")
