@@ -121,10 +121,13 @@ class BaseConnectorTest(unittest.TestCase):
                                  debug=self.logging)
         result = json.loads(result)
 
-        self.assertIsNone(result["error"])
-        value = result["value"]
-        self.assertIsNotNone(value)
-        self.assertFalse(value["ok"])
+        # could be exception or value has ok: false
+        exception = result.get("error", None)
+        ok = None
+        value = result.get("value", None)
+        if value != None:
+            ok = value.get("ok", None)
+        self.assertTrue(exception or (ok == False))
 
     def test_validate_bad_credentials(self):
         self.fake_credentials()
@@ -136,10 +139,13 @@ class BaseConnectorTest(unittest.TestCase):
                                  debug=self.logging)
         result = json.loads(result)
 
-        self.assertIsNone(result["error"])
-        value = result["value"]
-        self.assertIsNotNone(value)
-        self.assertFalse(value["ok"])
+        # could be exception or value has ok: false
+        exception = result.get("error", None)
+        ok = None
+        value = result.get("value", None)
+        if value != None:
+            ok = value.get("ok", None)
+        self.assertTrue(exception or (ok == False))
 
     def test_get_resources_when_bad_credentials(self):
         self.fake_credentials()
@@ -153,7 +159,8 @@ class BaseConnectorTest(unittest.TestCase):
 
         error = result["error"]
         self.assertIsNotNone(error)
-        self.assertEqual(error["exc_type"], 'AuthenticationException')
+        # not assuming which exception, just there is one
+        self.assertIsNotNone(error["exc_type"])
         self.assertIsNone(result["value"])
 
     @staticmethod
