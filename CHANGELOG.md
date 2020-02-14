@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.7.3](https://github.com/ntt-nflex/flexer/tree/v1.7.3) (Feb 14, 2020)
+
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.7.2...v1.7.3)
+
+### Changes:
+
+- Testing credential validation now allows exception to be returned
+
 ## [v1.7.2](https://github.com/ntt-nflex/flexer/tree/v1.7.2) (Nov 05, 2019)
 
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.7.1...v1.7.2)
