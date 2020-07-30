@@ -1,5 +1,13 @@
 # Change Log
 
+## [v1.7.4](https://github.com/ntt-nflex/flexer/tree/v1.7.4) (July 30, 2020)
+
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.7.3...v1.7.4)
+
+### Changes:
+
+- Fixed bug causing the message `execute() got an unexpected keyword argument 'async'`
+
 ## [v1.7.3](https://github.com/ntt-nflex/flexer/tree/v1.7.3) (Feb 14, 2020)
 
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.7.2...v1.7.3)
