@@ -397,7 +397,7 @@ def run(ctx, handler, event_source, event, config, secrets, pretty):
 
 @cli.command()
 @click.option('--pretty', is_flag=True, help="DEPRECATED")
-@click.option('--async',
+@click.option('--async', 'is_async',
               default=False,
               is_flag=True,
               help="Whether to run the module asynchronously or not")
