@@ -68,13 +68,18 @@ def config():
     return config
 
 
-def add_config_region(name, url, key, secret):
-    config = read_yaml_file(CONFIG_FILE)
-    config["regions"][str(name)] = {
+def add_config_region(name, url, key, secret, extra_headers):
+    new_region = {
         "cmp_url": str(url),
         "cmp_api_key": str(key),
         "cmp_api_secret": str(secret),
     }
+    if extra_headers:
+        new_region["extra_headers"] = \
+            {str(k): str(v) for k, v in extra_headers}
+
+    config = read_yaml_file(CONFIG_FILE)
+    config["regions"][str(name)] = new_region
     write_yaml_file(CONFIG_FILE, config)
     return config
 
