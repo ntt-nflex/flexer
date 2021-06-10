@@ -1,5 +1,14 @@
 # Change Log
 
+## [v1.7.5](https://github.com/ntt-nflex/flexer/tree/v1.7.5) (June 10, 2021)
+
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.7.4...v1.7.5)
+
+### Changes:
+
+- Add the property `extra-headers` in `.flexer.yaml` to specify additional headers.
+- Add `--extra-header` param to `flexer config add-region` to specify the above.
+
 ## [v1.7.4](https://github.com/ntt-nflex/flexer/tree/v1.7.4) (July 30, 2020)
 
 [Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.7.3...v1.7.4)

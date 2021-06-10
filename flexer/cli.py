@@ -101,6 +101,7 @@ def cli(ctx, auth):
 
     ctx.cmp = CmpClient(url=cfg['cmp_url'],
                         auth=(cfg['cmp_api_key'], cfg['cmp_api_secret']),
+                        extra_headers=cfg.get('extra_headers'),
                         verify_ssl=verify_ssl)
     ctx.nflex = NflexClient(ctx.cmp)
 
@@ -142,9 +143,15 @@ def config(ctx):
               metavar='NAME',
               required=True,
               help="The name of the region to add.")
-def add_region(name, url, key, secret):
+@click.option('--extra-header',
+              metavar='NAME VALUE',
+              nargs=2,
+              multiple=True,
+              help="Additional headers to include in the request. "
+              "(May be passed multiple times.)")
+def add_region(name, url, key, secret, extra_header):
     """Add a new region to the flexer config."""
-    flexer.commands.add_config_region(name, url, key, secret)
+    flexer.commands.add_config_region(name, url, key, secret, extra_header)
 
 
 @cli.command()

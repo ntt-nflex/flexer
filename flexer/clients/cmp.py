@@ -9,6 +9,7 @@ class CmpClient(object):
     def __init__(self,
                  url,
                  auth=None,
+                 extra_headers=None,
                  access_token=None,
                  verify_ssl=None,
                  user_agent=Config.USER_AGENT):
@@ -16,10 +17,10 @@ class CmpClient(object):
         self._url = url
         self._auth = auth
         self._access_token = access_token
-        self._session.headers = {
+        self._session.headers = dict({
             'User-Agent': user_agent,
             'Content-Type': 'application/json',
-        }
+        }, **(extra_headers if extra_headers else {}))
         self._session.verify = verify_ssl
         if auth and len(auth) == 2 and auth[0] and auth[1]:
             self._session.auth = auth
