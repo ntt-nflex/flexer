@@ -26,7 +26,7 @@ class CmpClient(object):
             self._session.auth = auth
 
         elif access_token:
-            self._session.headers['Cookie'] = access_token
+            self._session.headers['Authorization'] = 'Bearer ' + access_token
 
     @property
     def api_url(self):
@@ -43,7 +43,7 @@ class CmpClient(object):
     @api_token.setter
     def api_token(self, value):
         self._access_token = value
-        self._session.headers['Cookie'] = value
+        self._session.headers['Authorization'] = 'Bearer ' + value
 
     @property
     def headers(self):
