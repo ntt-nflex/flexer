@@ -49,6 +49,7 @@ EVENT_SOURCES = [
 
 LANGUAGES = [
     "javascript",
+    "javascript-node14",
     "python",
     "python3",
 ]

@@ -9,6 +9,7 @@ from flexer.utils import read_module
 
 LANG_EXT = {
     "javascript": "js",
+    "javascript-node14": "js",
     "python": "py",
     "python3": "py",
 }
