@@ -1,12 +1,13 @@
 # Change Log
 
-## [v1.7.6](https://github.com/ntt-nflex/flexer/tree/v1.7.6) (August 18, 2021)
+## [v1.8.0](https://github.com/ntt-nflex/flexer/tree/v1.8.0) (August 23, 2021)
 
-[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.7.5...v1.7.6)
+[Full Changelog](https://github.com/ntt-nflex/flexer/compare/v1.7.5...v1.8.0)
 
 ### Changes:
 
 - Support the language `javascript-node14`
+- Update access token handling
 
 ## [v1.7.5](https://github.com/ntt-nflex/flexer/tree/v1.7.5) (June 10, 2021)
 
